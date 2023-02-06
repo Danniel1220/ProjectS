@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DistanceVisibility : MonoBehaviour
 {
+    public float visibilityRange;
+
     //getting camera object to calculate distance from particle to camera to disable the particle if we are too close
     private new ParticleSystem particleSystem;
     // Start is called before the first frame update
@@ -17,7 +19,7 @@ public class DistanceVisibility : MonoBehaviour
     {
         float distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         // if the camera is too close to the star
-        if (distance < 400)
+        if (distance < visibilityRange)
         {
             particleSystem.Stop();
             particleSystem.Clear(true); // true means we also clear the children of the particle fx

@@ -31,6 +31,8 @@ public class StarCharacteristics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        diameter = 1.4f; // 1 unit = 1 million km
+
         starSphere = this.transform.GetChild(2).gameObject.GetComponent<Transform>();
 
         // fetching the gameobjects for all the particle systems
@@ -72,6 +74,8 @@ public class StarCharacteristics : MonoBehaviour
         surfaceColorOverLifeTimeGradient.color = surfaceGradient;
         coronaColorOverLifeTimeGradient.color = coronaGradient;
         coronalMassEjectionColorOverLifeTimeGradient.color = coronalMassEjectionGradient;
+
+
     }
 
     // Update is called once per frame
