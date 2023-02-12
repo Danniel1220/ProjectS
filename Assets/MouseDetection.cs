@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class MouseDetection : MonoBehaviour
 {
-    WorldPositionPlanetUI worldPositionPlanetUIScript;
+    PlanetSelectionTooltipManager planetSelectionToolTipManager;
+    Transform planetTransform;
+    ShipPosition shipPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        worldPositionPlanetUIScript = GetComponent<WorldPositionPlanetUI>();
+        planetSelectionToolTipManager = GameObject.Find("Canvas").transform.Find("SelectionMark").GetComponent<PlanetSelectionTooltipManager>();
+        planetTransform = GetComponent<Transform>();
+        shipPosition = GameObject.Find("Starship").transform.Find("Body").GetComponent<ShipPosition>();
     }
 
     // Update is called once per frame
@@ -20,18 +25,19 @@ public class MouseDetection : MonoBehaviour
     void OnMouseEnter()
     {
         Debug.Log("mouse is over gameobject " + this.gameObject.name);
-        worldPositionPlanetUIScript.SetTargetTransform(transform);
-        worldPositionPlanetUIScript.ShowTarget();
+        planetSelectionToolTipManager.SetTargetTransform(planetTransform);
+        planetSelectionToolTipManager.ShowTarget();
     }
 
     void OnMouseExit()
     {
         Debug.Log("mouse is no longer over gameobject " + this.gameObject.name);
-        worldPositionPlanetUIScript.HideTarget();
+        planetSelectionToolTipManager.HideTarget();
     }
 
     void OnMouseDown()
     {
         Debug.Log("clicked gameobject " + this.gameObject.name);
+        shipPosition.SetTargetTransform(planetTransform);
     }
 }
