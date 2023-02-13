@@ -22,6 +22,7 @@ public class ShipPosition : MonoBehaviour
         {
             Vector3 heightLockedTargetPosition = new Vector3(targetTransform.position.x, shipTranform.position.y, targetTransform.position.z);
             shipTranform.position = Vector3.MoveTowards(shipTranform.position, heightLockedTargetPosition, shipSpeed * Time.deltaTime);
+
         }
     }
     public void SetTargetTransform(Transform targetTransform)
