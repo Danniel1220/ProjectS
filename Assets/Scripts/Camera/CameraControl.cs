@@ -10,7 +10,6 @@ public class CameraControl : MonoBehaviour
     float zoomMultiplier = 100f;
     float zoomSmoothingFactor = 5f;
     float zoomDelta;
-    float currentZoom = 800f;
     float targetZoom = 800f;
 
     Vector3 lastMousePosition;
@@ -21,11 +20,9 @@ public class CameraControl : MonoBehaviour
     Transform cameraAnchor;
     Transform cameraAnchorLookPoint;
 
-    float maxYSpan = 100f; // 45 degrees
-    float minYSpawn = 200f;
-
-
-
+    float cameraAnchorLookPointYPos;
+    float cameraMaxYClamp = 200f;
+    float cameraMinYClamp = -200f;
 
     // Start is called before the first frame update
     void Start()
@@ -50,15 +47,12 @@ public class CameraControl : MonoBehaviour
             Vector3 delta = Input.mousePosition - lastMousePosition;
             lastMousePosition = Input.mousePosition;
 
-            float cameraAnchorLookPointYPos = cameraAnchorLookPoint.position.y + delta.y;
-            cameraAnchorLookPointYPos = Mathf.Clamp(cameraAnchorLookPointYPos, minYSpawn, maxYSpan);
-
             // if the mouse moved on y axis on screen move the anchor look point up or down
             if (delta.y != 0)
             {
                 cameraAnchorLookPoint.position = new Vector3(
                     cameraAnchorLookPoint.position.x, 
-                    cameraAnchorLookPoint.position.y + delta.y, 
+                    Mathf.Clamp(cameraAnchorLookPoint.position.y + delta.y, cameraAnchor.position.y + cameraMinYClamp, cameraAnchor.position.y + cameraMaxYClamp), // camera is clamped on the Y angle to prevent weird interactions with the anchor
                     cameraAnchorLookPoint.position.z);
 
             }
