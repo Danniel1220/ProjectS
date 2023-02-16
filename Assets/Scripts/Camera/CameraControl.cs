@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class CameraControl : MonoBehaviour
 {
-    float zoomMinDistance = 200f;
+    float zoomMinDistance = 5f;
     float zoomMaxDistance = 2000f;
     float zoomMultiplier = 100f;
     float zoomSmoothingFactor = 5f;
     float zoomDelta;
-    float targetZoom = 800f;
+    float targetZoom = 20f;
 
     Vector3 lastMousePosition;
 

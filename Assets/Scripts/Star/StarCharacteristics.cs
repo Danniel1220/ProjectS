@@ -5,15 +5,15 @@ using static UnityEngine.ParticleSystem;
 
 public class StarCharacteristics : MonoBehaviour
 {
-    public float diameter;
+    public float diameter; // 1 unit = 1 million km
 
     private Transform starSphere;
 
-    private ParticleSystem surfacePS;
-    private ParticleSystem coronaPS;
-    private ParticleSystem coronalMassEjectionPS;
-    private ParticleSystem farFlaresPS;
-    private ParticleSystem lensFlarePS;
+    private ParticleSystem surfaceParticleSystem;
+    private ParticleSystem coronaParticleSystem;
+    private ParticleSystem coronalMassEjectionParticleSystem;
+    private ParticleSystem flaresParticleSystem;
+    private ParticleSystem lensFlareParticleSystem;
 
     private Gradient surfaceGradient = new Gradient();
     private Gradient coronaGradient = new Gradient();
@@ -21,61 +21,59 @@ public class StarCharacteristics : MonoBehaviour
     private Gradient farFlaresGradient = new Gradient();
     private Gradient lensFlareGradient = new Gradient();
 
-    public Color starSphereColor;
     public Color surfaceColor;
     public Color coronaColor;
     public Color coronalMassEjectionColor;
-    public Color farFlaresColor;
+    public Color flaresColor;
     public Color lensFlareColor;
 
     // Start is called before the first frame update
     void Start()
-    {
-        diameter = 1.4f; // 1 unit = 1 million km
-
-        starSphere = this.transform.GetChild(2).gameObject.GetComponent<Transform>();
+    { 
+        starSphere = this.transform.Find("StarSphere").gameObject.GetComponent<Transform>();
 
         // fetching the gameobjects for all the particle systems
-        surfacePS = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
-        coronaPS = surfacePS.gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
-        coronalMassEjectionPS = surfacePS.gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
-        farFlaresPS = this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
-        lensFlarePS = farFlaresPS.gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
+        surfaceParticleSystem = this.transform.Find("SurfacePS").gameObject.GetComponent<ParticleSystem>();
+        coronaParticleSystem = surfaceParticleSystem.gameObject.transform.Find("CoronaPS").gameObject.GetComponent<ParticleSystem>();
+        coronalMassEjectionParticleSystem = surfaceParticleSystem.gameObject.transform.Find("CoronalMassEjectionPS").gameObject.GetComponent<ParticleSystem>();
+        flaresParticleSystem = this.transform.Find("FlaresPS").gameObject.GetComponent<ParticleSystem>();
+        lensFlareParticleSystem = flaresParticleSystem.gameObject.transform.Find("LensFlarePS").gameObject.GetComponent<ParticleSystem>();
 
         // fetching refferences for all color gradients inside the particle systems
-        ColorOverLifetimeModule surfaceColorOverLifeTimeGradient = surfacePS.colorOverLifetime;
-        ColorOverLifetimeModule coronaColorOverLifeTimeGradient = coronaPS.colorOverLifetime;
-        ColorOverLifetimeModule coronalMassEjectionColorOverLifeTimeGradient = coronalMassEjectionPS.colorOverLifetime;
-        ColorOverLifetimeModule farFlaresColorOverLifeTimeGradient = farFlaresPS.colorOverLifetime;
-        ColorOverLifetimeModule lensFlareLifeTimeGradient = lensFlarePS.colorOverLifetime;
+        ColorOverLifetimeModule surfaceColorOverLifeTimeGradient = surfaceParticleSystem.colorOverLifetime;
+        ColorOverLifetimeModule coronaColorOverLifeTimeGradient = coronaParticleSystem.colorOverLifetime;
+        ColorOverLifetimeModule coronalMassEjectionColorOverLifeTimeGradient = coronalMassEjectionParticleSystem.colorOverLifetime;
+        ColorOverLifetimeModule farFlaresColorOverLifeTimeGradient = flaresParticleSystem.colorOverLifetime;
+        ColorOverLifetimeModule lensFlareLifeTimeGradient = lensFlareParticleSystem.colorOverLifetime;
         // the reason why i first grab a refference to the value i want to change is because unity cannot directly change the property inside a struct
         // this is actually not really a grab by refference, it is still by value but the struct seems to hold a refference regardless, so it works!
         // see here: https://stackoverflow.com/questions/74245785/why-cant-i-change-value-without-first-assigning-a-variable
-
-        starSphereColor = Color.red;
-
-        surfaceColor = Color.red;
-        coronaColor = Color.yellow;
-        coronalMassEjectionColor = Color.yellow;
-        farFlaresColor = Color.yellow;
-        lensFlareColor = Color.yellow;
 
         // parsing the colors of each particle system to the gradient it requires to operate
         ParseColorIntoColorGradient(surfaceGradient, surfaceColor);
         ParseColorIntoColorGradient(coronaGradient, coronaColor);
         ParseColorIntoColorGradient(coronalMassEjectionGradient, coronalMassEjectionColor);
-        ParseColorIntoColorGradient(farFlaresGradient, farFlaresColor);
+        ParseColorIntoColorGradient(farFlaresGradient, flaresColor);
         ParseColorIntoColorGradient(lensFlareGradient, lensFlareColor);
 
-        
-
-        starSphere.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
-
+        // assigning colors to particle systems
         surfaceColorOverLifeTimeGradient.color = surfaceGradient;
         coronaColorOverLifeTimeGradient.color = coronaGradient;
         coronalMassEjectionColorOverLifeTimeGradient.color = coronalMassEjectionGradient;
 
+        starSphere.localScale = new Vector3(diameter, diameter, diameter);
 
+        ParticleSystem.ShapeModule shapeModuleSurfaceParticleSystem = surfaceParticleSystem.shape;
+        shapeModuleSurfaceParticleSystem.radius = diameter * 0.5f;
+
+        ParticleSystem.ShapeModule shapeModuleCoronaParticleSystem = coronaParticleSystem.shape;
+        shapeModuleCoronaParticleSystem.radius = diameter * 0.45f;
+
+        ParticleSystem.ShapeModule shapeModuleCoronalMassEjectionParticleSystem = coronalMassEjectionParticleSystem.shape;
+        shapeModuleCoronalMassEjectionParticleSystem.radius = diameter * 0.4f;
+
+        ParticleSystem.ShapeModule shapeModuleLensFlareParticleSystem = lensFlareParticleSystem.shape;
+        shapeModuleLensFlareParticleSystem.radius = diameter * 0.4f;
     }
 
     // Update is called once per frame
