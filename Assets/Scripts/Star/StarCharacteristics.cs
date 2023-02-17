@@ -67,13 +67,13 @@ public class StarCharacteristics : MonoBehaviour
         shapeModuleSurfaceParticleSystem.radius = diameter * 0.5f;
 
         ParticleSystem.ShapeModule shapeModuleCoronaParticleSystem = coronaParticleSystem.shape;
-        shapeModuleCoronaParticleSystem.radius = diameter * 0.45f;
+        shapeModuleCoronaParticleSystem.radius = diameter * 0.5f - 5f;
 
         ParticleSystem.ShapeModule shapeModuleCoronalMassEjectionParticleSystem = coronalMassEjectionParticleSystem.shape;
-        shapeModuleCoronalMassEjectionParticleSystem.radius = diameter * 0.4f;
+        shapeModuleCoronalMassEjectionParticleSystem.radius = diameter * 0.5f - 10f;
 
         ParticleSystem.ShapeModule shapeModuleLensFlareParticleSystem = lensFlareParticleSystem.shape;
-        shapeModuleLensFlareParticleSystem.radius = diameter * 0.4f;
+        shapeModuleLensFlareParticleSystem.radius = diameter * 0.5f - 10f;
     }
 
     // Update is called once per frame

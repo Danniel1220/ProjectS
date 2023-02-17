@@ -1,16 +1,16 @@
 using Cinemachine;
-using UnityEditor.Experimental.GraphView;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CameraControl : MonoBehaviour
+public class CameraControlGalaxyView : MonoBehaviour
 {
-    float zoomMinDistance = 5f;
-    float zoomMaxDistance = 2000f;
+    float zoomMinDistance = 500f;
+    float zoomMaxDistance = 4000f;
     float zoomMultiplier = 100f;
     float zoomSmoothingFactor = 5f;
     float zoomDelta;
-    float targetZoom = 20f;
+    float targetZoom = 1000f;
 
     Vector3 lastMousePosition;
 
@@ -29,7 +29,7 @@ public class CameraControl : MonoBehaviour
     {
         cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
         cinemachine3RdPersonFollow = GetComponentInChildren<Cinemachine3rdPersonFollow>();
-        
+
         cameraAnchor = GameObject.Find("Starship").transform.Find("CameraAnchor").GetComponent<Transform>();
         cameraAnchorLookPoint = GameObject.Find("Starship").transform.Find("CameraAnchorLookPoint").GetComponent<Transform>();
     }
@@ -51,7 +51,7 @@ public class CameraControl : MonoBehaviour
             if (delta.y != 0)
             {
                 cameraAnchorLookPoint.position = new Vector3(
-                    cameraAnchorLookPoint.position.x, 
+                    cameraAnchorLookPoint.position.x,
                     Mathf.Clamp(cameraAnchorLookPoint.position.y + delta.y, cameraAnchor.position.y + cameraMinYClamp, cameraAnchor.position.y + cameraMaxYClamp), // camera is clamped on the Y angle to prevent weird interactions with the anchor
                     cameraAnchorLookPoint.position.z);
 
