@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControlGalaxyView : MonoBehaviour
+public class GalaxyViewCameraControl : MonoBehaviour
 {
     float zoomMinDistance = 500f;
     float zoomMaxDistance = 4000f;
