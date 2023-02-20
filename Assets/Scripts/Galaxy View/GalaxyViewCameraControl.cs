@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class GalaxyViewCameraControl : MonoBehaviour
 {
-    float zoomMinDistance = 500f;
-    float zoomMaxDistance = 4000f;
-    float zoomMultiplier = 100f;
-    float zoomSmoothingFactor = 5f;
-    float zoomDelta;
-    float targetZoom = 1000f;
+    [SerializeField] private float zoomMinDistance = 500f;
+    [SerializeField] private float zoomMaxDistance = 4000f;
+    [SerializeField] private float zoomMultiplier = 100f;
+    [SerializeField] private float zoomSmoothingFactor = 5f;
+    [SerializeField] private float zoomDelta;
+    [SerializeField] private float targetZoom = 1000f;
 
-    Vector3 lastMousePosition;
+    private Vector3 lastMousePosition;
 
-    CinemachineVirtualCamera cinemachineVirtualCamera;
-    Cinemachine3rdPersonFollow cinemachine3RdPersonFollow;
+    private CinemachineVirtualCamera cinemachineVirtualCamera;
+    private Cinemachine3rdPersonFollow cinemachine3RdPersonFollow;
 
-    Transform cameraAnchor;
-    Transform cameraAnchorLookPoint;
+    private Transform cameraAnchor;
+    private Transform cameraAnchorLookPoint;
 
-    float cameraAnchorLookPointYPos;
-    float cameraMaxYClamp = 200f;
-    float cameraMinYClamp = -200f;
+    [SerializeField] private float cameraAnchorLookPointYPos;
+    [SerializeField] private float cameraMaxYClamp = 200f;
+    [SerializeField] private float cameraMinYClamp = -200f;
 
     // Start is called before the first frame update
     void Start()

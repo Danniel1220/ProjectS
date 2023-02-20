@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 1518546042757392186}
   m_Layer: 0
   m_Name: M Class Star
-  m_TagString: Untagged
+  m_TagString: Galaxy View Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1518546042757392185
 Transform:
@@ -61,7 +61,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1518546042808738619
 Transform:
@@ -4864,10 +4864,10 @@ GameObject:
   - component: {fileID: 1518546043352361814}
   m_Layer: 6
   m_Name: StarSphere
-  m_TagString: Untagged
+  m_TagString: Class M Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1518546043352361815
 Transform:
@@ -4974,8 +4974,8 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
 --- !u!4 &1518546043773673489
 Transform:
   m_ObjectHideFlags: 0

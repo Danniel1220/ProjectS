@@ -23,11 +23,6 @@ public class GalaxyStarGenerator : MonoBehaviour
 
     [SerializeField] private float minDistanceBetweenPoints;
 
-    [SerializeField] private bool increment = false;
-    [SerializeField] private bool calculate = false;
-    [SerializeField] private bool isGenerating = false;
-    [SerializeField] private float incrementValue;
-
     [SerializeField] private GameObject classMStarPrefab;
     [SerializeField] private GameObject classKStarPrefab;
     [SerializeField] private GameObject classGStarPrefab;
@@ -40,14 +35,7 @@ public class GalaxyStarGenerator : MonoBehaviour
     [SerializeField] private GameObject testCubePrefabRed;
     [SerializeField] private GameObject testCubePrefabGreen;
 
-    List<GameObject> pointList = new List<GameObject>();
-
     private GalaxyChunkSystem galaxyChunkSystem;
-
-    // 3 dimensional array that will store all the stars in a chunk based system
-    // the first 2 dimensions are used for the chunk grid
-    // the last dimension is used to store all the points in one specific chunk
-    List<List<List<GameObject>>> chunkGrid = new List<List<List<GameObject>>>();
 
     public Text UIText;
 
@@ -59,17 +47,15 @@ public class GalaxyStarGenerator : MonoBehaviour
         primaryTurnFraction = 0.750016f;
         primaryDistanceFactor = 100000;
         primaryLocationNoiseXZ = 25000;
-        primaryLocationNoiseY = 10000f;
+        primaryLocationNoiseY = 1000f;
 
         secondaryNumberOfPoints = 10000;
         secondaryTurnFraction = 1.618034f;
         secondaryDistanceFactor = 130000;
         secondaryLocationNoiseXZ = 10000f;
-        secondaryLocationNoiseY = 8000f;
+        secondaryLocationNoiseY = 500f;
 
         minDistanceBetweenPoints = 1000f;
-
-        //clearAllTestCubes();
 
         // primary formation
         createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY,
@@ -78,57 +64,23 @@ public class GalaxyStarGenerator : MonoBehaviour
         createPointsOnDisk(secondaryNumberOfPoints, secondaryTurnFraction, secondaryDistanceFactor, secondaryLocationNoiseXZ, secondaryLocationNoiseY,
             false, true, false, testCubePrefabGreen, testCubePrefabGreen);
 
-        //removeOverlappedPoints(pointList, 1000);
+        // remove overlapped points caused by location noise rng
         removeOverlappedPointsV2(minDistanceBetweenPoints);
 
-        /*for (int i = 0; i < starAmountToGenerate; i++)
-        {
-            int starClassRNG = Random.Range(0, 100);
-            if (starClassRNG < 40) // M class 40%
-            {
-                Instantiate(classMStarPrefab, new Vector3(starLocations[i].x, 0 , starLocations[i].y), Quaternion.identity);
-            }
-            else if (starClassRNG >= 40 && starClassRNG < 60) // K class 20%
-            {
-                Instantiate(classKStarPrefab, new Vector3(starLocations[i].x, 0, starLocations[i].y), Quaternion.identity);
-            }
-            else if (starClassRNG >= 60 && starClassRNG < 75) // G class 15%
-            {
-                Instantiate(classGStarPrefab, new Vector3(starLocations[i].x, 0, starLocations[i].y), Quaternion.identity);
-            }
-            else if (starClassRNG <= 75 && starClassRNG < 87) // F class 12%
-            {
-                Instantiate(classFStarPrefab, new Vector3(starLocations[i].x, 0, starLocations[i].y), Quaternion.identity);
-            }
-            else if (starClassRNG >= 87 && starClassRNG < 97) // A class 10%
-            {
-                Instantiate(classAStarPrefab, new Vector3(starLocations[i].x, 0, starLocations[i].y), Quaternion.identity);
+        List<GalaxyChunk> chunkList = galaxyChunkSystem.getAllChunks();
 
-            }   
-            else if (starClassRNG >= 97 && starClassRNG < 99) // B class 2%
+        foreach (GalaxyChunk chunk in chunkList)
+        {
+            foreach (GameObject point in chunk.chunkGameObjectList)
             {
-                Instantiate(classBStarPrefab, new Vector3(starLocations[i].x, 0, starLocations[i].y), Quaternion.identity);
+                createStar(point);
             }
-            else if (starClassRNG == 99) // O class 1%
-            {
-                Instantiate(classOStarPrefab, new Vector3(starLocations[i].x, 0, starLocations[i].y), Quaternion.identity);
-            }
-            StarClass starClass = (StarClass)Random.Range(0, 6);
-        }*/
+        }
     }
 
     void Update()
     {
-        if (calculate)
-        {
-            clearAllTestCubes();
-            createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY, 
-                true, true, true, testCubePrefabBlue, testCubePrefabRed);
-            createPointsOnDisk(secondaryNumberOfPoints, secondaryTurnFraction, secondaryDistanceFactor, secondaryLocationNoiseXZ, secondaryLocationNoiseY, 
-                false, false, true, testCubePrefabGreen, testCubePrefabGreen);
 
-            calculate = false;
-        }
     }
 
     private void clearAllTestCubes()
@@ -179,28 +131,13 @@ public class GalaxyStarGenerator : MonoBehaviour
             float pointYAfterNoise = pointY + noiseY;
             float pointZAfterNoise = pointZ + noiseZ;
 
-            // creating the star
-            GameObject point;
-            if (i % 2 == 0)
-            {
-                point = Instantiate(prefabToUse1, new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise), Quaternion.identity);
-
-            }
-            else
-            {
-                point = Instantiate(prefabToUse2, new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise), Quaternion.identity);
-            }
+            // creating the point in space
+            GameObject point = new GameObject();
+            point.transform.position = new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise);
+            point.transform.rotation = Quaternion.identity;
+            point.name = "Star";
+            point.tag = "Galaxy View Star";
             galaxyChunkSystem.addItemToChunk(point);
-
-            /*if ((Vector3.Distance(point.transform.position, Vector3.zero) > galaxyMaxDiameter))
-            {
-                Destroy(point);
-            }
-            else
-            {
-                starList.Add(point);
-            }*/
-
         }
     }
 
@@ -231,22 +168,6 @@ public class GalaxyStarGenerator : MonoBehaviour
         // for each chunk
         foreach (GalaxyChunk chunk in galaxyChunkSystem.chunkList)
         {
-            /*// for each point in each chunk
-            foreach (GameObject pointA in chunk.chunkGameObjectList)
-            {
-                *//*List<GalaxyChunk> chunksToCheck = new List<GalaxyChunk>();
-                chunksToCheck.Add(chunk); // adding the point's chunk
-                chunksToCheck.AddRange(galaxyChunkSystem.getAdjacentChunks(chunk)); // adding all adjacent chunks (that exist)*//*
-
-                foreach (GameObject pointB in chunk.chunkGameObjectList)
-                {
-                    if (pointA != pointB && Vector3.Distance(pointA.transform.position, pointB.transform.position) < minDistance)
-                    {
-                        galaxyChunkSystem.deleteGameObjectFromChunk(pointA, chunk);
-                    }
-                }
-            }*/
-
             // iterate through every object in a given chunk
             for (int i = 0; i < chunk.chunkGameObjectList.Count;)
             {
@@ -257,8 +178,10 @@ public class GalaxyStarGenerator : MonoBehaviour
                 for (int j = 0; j < chunk.chunkGameObjectList.Count; j++)
                 {
                     // if the objects are not one and the same and the distance between them is smaller than the minDistance
+                    // and if both object have Galaxy View Star tags
                     if (chunk.chunkGameObjectList[i] != chunk.chunkGameObjectList[j] && 
-                        Vector3.Distance(chunk.chunkGameObjectList[i].transform.position, chunk.chunkGameObjectList[j].transform.position) < minDistance)
+                        Vector3.Distance(chunk.chunkGameObjectList[i].transform.position, chunk.chunkGameObjectList[j].transform.position) < minDistance &&
+                        chunk.chunkGameObjectList[i].tag == "Galaxy View Star" && chunk.chunkGameObjectList[j].tag == "Galaxy View Star")
                     {
                         // flag the object that it should be deleted
                         shouldDelete = true;
@@ -280,5 +203,40 @@ public class GalaxyStarGenerator : MonoBehaviour
             }
         }
 
+    }
+
+    public void createStar(GameObject parent)
+    {
+        GameObject star;
+        int starClassRNG = Random.Range(0, 100);
+        if (starClassRNG < 40) // M class 40%
+        {
+            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+        }
+        else if (starClassRNG >= 40 && starClassRNG < 60) // K class 20%
+        {
+            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+        }
+        else if (starClassRNG >= 60 && starClassRNG < 75) // G class 15%
+        {
+            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+        }
+        else if (starClassRNG <= 75 && starClassRNG < 87) // F class 12%
+        {
+            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+        }
+        else if (starClassRNG >= 87 && starClassRNG < 97) // A class 10%
+        {
+            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+        }
+        else if (starClassRNG >= 97 && starClassRNG < 99) // B class 2%
+        {
+            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+        }
+        else // O class 1%
+        {
+            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+        }
+        star.transform.parent = parent.transform;
     }
 }

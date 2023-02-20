@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GalaxyViewShipPosition : MonoBehaviour
 {
-    Transform shipTranform;
+    Transform starShipGameObjectTransform;
+    Transform shipTransform;
     Transform targetTransform;
 
     float shipSpeed = 2f;
@@ -12,7 +13,8 @@ public class GalaxyViewShipPosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shipTranform = this.transform.parent.gameObject.GetComponent<Transform>();
+        starShipGameObjectTransform = GetComponent<Transform>();
+        shipTransform = this.transform.Find("Body").transform;
     }
 
     // Update is called once per frame
@@ -20,8 +22,8 @@ public class GalaxyViewShipPosition : MonoBehaviour
     {
         if (targetTransform != null)
         {
-            Vector3 heightLockedTargetPosition = new Vector3(targetTransform.position.x, shipTranform.position.y, targetTransform.position.z);
-            shipTranform.position = Vector3.Lerp(shipTranform.position, heightLockedTargetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
+            Vector3 heightLockedTargetPosition = new Vector3(targetTransform.position.x, shipTransform.position.y, targetTransform.position.z);
+            shipTransform.position = Vector3.Lerp(shipTransform.position, heightLockedTargetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
 
         }
     }

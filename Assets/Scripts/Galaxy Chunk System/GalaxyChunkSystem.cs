@@ -28,7 +28,7 @@ public class GalaxyChunkSystem : MonoBehaviour
 
     public void addItemToChunk(GameObject item)
     {
-        Vector2 chunkPosition = parseGameObjectPositionToChunkPosition(item.transform);
+        Vector2 chunkPosition = parseGameObjectPositionToChunkPosition(item);
 
         if (chunkDictionary.ContainsKey(chunkPosition) == false)
         {
@@ -41,10 +41,10 @@ public class GalaxyChunkSystem : MonoBehaviour
         chunkDictionary[chunkPosition].chunkGameObjectList.Add(item);
     }
 
-    private Vector2 parseGameObjectPositionToChunkPosition(Transform transform)
+    private Vector2 parseGameObjectPositionToChunkPosition(GameObject gameObject)
     {
-        float positionX = transform.position.x;
-        float positionZ = transform.position.z;
+        float positionX = gameObject.transform.position.x;
+        float positionZ = gameObject.transform.position.z;
 
         positionX = positionX / chunkSize;
         positionZ = positionZ / chunkSize;
@@ -120,5 +120,21 @@ public class GalaxyChunkSystem : MonoBehaviour
             total = total + chunk.chunkGameObjectList.Count;
         }
         return total;
+    }
+
+    public List<GalaxyChunk> getAllChunks()
+    {
+        return chunkList;
+    }
+
+    public GalaxyChunk getChunkOfGameObject(GameObject gameObject)
+    {
+        Vector2 gameObjectChunkPosition = parseGameObjectPositionToChunkPosition(gameObject);
+
+        if (chunkDictionary.ContainsKey(gameObjectChunkPosition))
+        {
+            return chunkDictionary[gameObjectChunkPosition];
+        }
+        return null;
     }
 }

@@ -397,6 +397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4611607844212138047, guid: 14e215519d469ad4bb7460ef7da14f54, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4611607845091029410, guid: 14e215519d469ad4bb7460ef7da14f54, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -547,6 +551,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7b3fc49b69cca419fbd93f1d02c824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoomMinDistance: 500
+  zoomMaxDistance: 4000
+  zoomMultiplier: 100
+  zoomSmoothingFactor: 5
+  zoomDelta: 0
+  targetZoom: 1000
+  cameraAnchorLookPointYPos: 0
+  cameraMaxYClamp: 200
+  cameraMinYClamp: -200
 --- !u!1001 &1402207588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -625,6 +638,7 @@ GameObject:
   - component: {fileID: 1534188313}
   - component: {fileID: 1534188312}
   - component: {fileID: 1534188314}
+  - component: {fileID: 1534188315}
   m_Layer: 0
   m_Name: Galaxy
   m_TagString: Untagged
@@ -656,10 +670,6 @@ MonoBehaviour:
   secondaryLocationNoiseY: 12000
   galaxyMaxDiameter: 150000
   minDistanceBetweenPoints: 0
-  increment: 0
-  calculate: 0
-  isGenerating: 0
-  incrementValue: 0
   classMStarPrefab: {fileID: 1518546042757392187, guid: 52f8c8a8a569ecf4c86b488bfc4d5075, type: 3}
   classKStarPrefab: {fileID: 4835239247682124009, guid: ce5ad00ce4386654293e3075b222463f, type: 3}
   classGStarPrefab: {fileID: 1785997038535751018, guid: 259a80eeef63aff41aca6b50b4d0ed88, type: 3}
@@ -692,38 +702,53 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534188311}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a64fb800d3c68a43a762c872676b48c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f3baa55ff0c6134793afc30539e3c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 30000
-  primaryTurnFraction: 0.750016
-  primaryDistanceFactor: 100000
-  primaryLocationNoiseXZ: 25000
-  primaryLocationNoiseY: 0
-  secondaryNumberOfPoints: 0
-  secondaryTurnFraction: 0
-  secondaryDistanceFactor: 0
-  secondaryLocationNoiseXZ: 0
-  secondaryLocationNoiseY: 0
-  galaxyMaxDiameter: 0
-  minDistanceBetweenPoints: 0
-  increment: 0
-  calculate: 0
-  isGenerating: 0
-  incrementValue: 0
-  classMStarPrefab: {fileID: 0}
-  classKStarPrefab: {fileID: 0}
-  classGStarPrefab: {fileID: 0}
-  classFStarPrefab: {fileID: 0}
-  classAStarPrefab: {fileID: 0}
-  classBStarPrefab: {fileID: 0}
-  classOStarPrefab: {fileID: 0}
-  testCubePrefabBlue: {fileID: 6859995120686295600, guid: 92cd971fa96401a498363df1b3c0877c, type: 3}
-  testCubePrefabRed: {fileID: 7639165620773984066, guid: 6e0d5c3dc17077745ad504fd994c47d7, type: 3}
-  testCubePrefabGreen: {fileID: 1572639170334780810, guid: 412f574913cfe0d449e107202656ed25, type: 3}
-  UIText: {fileID: 0}
+--- !u!114 &1534188315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534188311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d24e44a2a00ce4b84dad717ebefbac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  save: 0
+--- !u!1 &1824667467 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4512592108504982333, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
+  m_PrefabInstance: {fileID: 1402207588}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1824667468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824667467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9940d8174dbfd5842987f9cba3407692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1824667469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824667467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4e8858ea127fd4c89931f4a36028cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1946892850
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,20 +842,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1953503607 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4512592108965774005, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
-  m_PrefabInstance: {fileID: 1402207588}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1953503613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953503607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9940d8174dbfd5842987f9cba3407692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
