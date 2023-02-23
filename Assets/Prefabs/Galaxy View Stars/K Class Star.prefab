@@ -4831,7 +4831,7 @@ GameObject:
   - component: {fileID: 4835239247682124008}
   m_Layer: 0
   m_Name: K Class Star
-  m_TagString: Galaxy View Star
+  m_TagString: Class K Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9683,7 +9683,7 @@ GameObject:
   - component: {fileID: 4835239248697767044}
   m_Layer: 6
   m_Name: StarSphere
-  m_TagString: Class K Star
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

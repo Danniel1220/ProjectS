@@ -1,20 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class GalaxyViewStarJsonIntermediary
 {
-    public float transformX;
-    public float transformY;
-    public float transformZ;
+    public float[] transform;
+    public int starClass;
 
-    public StarClass starClass;
-
-    public GalaxyViewStarJsonIntermediary(float transformX, float transformY, float transformZ, StarClass starClass)
+    public GalaxyViewStarJsonIntermediary(float[] transform, int starClass)
     {
-        this.transformX = transformX;
-        this.transformY = transformY;
-        this.transformZ = transformZ;
+        this.transform = transform;
         this.starClass = starClass;
     }
 }

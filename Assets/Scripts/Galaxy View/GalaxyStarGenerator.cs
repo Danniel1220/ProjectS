@@ -11,12 +11,14 @@ public class GalaxyStarGenerator : MonoBehaviour
     [SerializeField] private float primaryTurnFraction;
     [SerializeField] private float primaryDistanceFactor;
     [SerializeField] private float primaryLocationNoiseXZ;
+    [SerializeField] private float primaryMinLocationNoiseXZ;
     [SerializeField] private float primaryLocationNoiseY;
 
     [SerializeField] private int secondaryNumberOfPoints;
     [SerializeField] private float secondaryTurnFraction;
     [SerializeField] private float secondaryDistanceFactor;
     [SerializeField] private float secondaryLocationNoiseXZ;
+    [SerializeField] private float secondaryMinLocationNoiseXZ;
     [SerializeField] private float secondaryLocationNoiseY;
 
     [SerializeField] private float galaxyMaxDiameter;
@@ -43,7 +45,7 @@ public class GalaxyStarGenerator : MonoBehaviour
     {
         galaxyChunkSystem = GameObject.Find("GalaxyChunkGrid").GetComponent<GalaxyChunkSystem>();
 
-        primaryNumberOfPoints = 30000;
+        /*primaryNumberOfPoints = 30000;
         primaryTurnFraction = 0.750016f;
         primaryDistanceFactor = 100000;
         primaryLocationNoiseXZ = 25000;
@@ -53,16 +55,30 @@ public class GalaxyStarGenerator : MonoBehaviour
         secondaryTurnFraction = 1.618034f;
         secondaryDistanceFactor = 130000;
         secondaryLocationNoiseXZ = 10000f;
-        secondaryLocationNoiseY = 500f;
+        secondaryLocationNoiseY = 500f;*/
+
+        primaryNumberOfPoints = 7000;
+        primaryTurnFraction = 0.7501f;
+        primaryDistanceFactor = 100000;
+        primaryLocationNoiseXZ = 25000;
+        primaryMinLocationNoiseXZ = 4000f;
+        primaryLocationNoiseY = 5000f;
+
+        secondaryNumberOfPoints = 3000;
+        secondaryTurnFraction = 1.618034f;
+        secondaryDistanceFactor = 110000;
+        secondaryLocationNoiseXZ = 10000f;
+        secondaryMinLocationNoiseXZ = 2500f;
+        secondaryLocationNoiseY = 2500f;
 
         minDistanceBetweenPoints = 1000f;
 
         // primary formation
-        createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY,
-                true, true, true, testCubePrefabBlue, testCubePrefabRed);
+        createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY, primaryMinLocationNoiseXZ,
+            true, true, true);
         // secondary formation
-        createPointsOnDisk(secondaryNumberOfPoints, secondaryTurnFraction, secondaryDistanceFactor, secondaryLocationNoiseXZ, secondaryLocationNoiseY,
-            false, true, false, testCubePrefabGreen, testCubePrefabGreen);
+        createPointsOnDisk(secondaryNumberOfPoints, secondaryTurnFraction, secondaryDistanceFactor, secondaryLocationNoiseXZ, secondaryLocationNoiseY, secondaryMinLocationNoiseXZ,
+            false, true, false);
 
         // remove overlapped points caused by location noise rng
         removeOverlappedPointsV2(minDistanceBetweenPoints);
@@ -92,8 +108,8 @@ public class GalaxyStarGenerator : MonoBehaviour
         }
     }
 
-    private void createPointsOnDisk(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, 
-        bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance, GameObject prefabToUse1, GameObject prefabToUse2)
+    private void createPointsOnDisk(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ,
+        bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance)
     {
         for (int i = 0; i < numberOfPoints; i++)
         {
@@ -117,6 +133,9 @@ public class GalaxyStarGenerator : MonoBehaviour
             float mapInput = Mathf.InverseLerp(distanceFactor, 0, distanceToCenter);
             float mapOutputXZ = Mathf.Lerp(0, locationNoiseXZ, mapInput);
             float mapOutputY = Mathf.Lerp(0, locationNoiseY, mapInput);
+
+            // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (creates bad looking straight line point formations)
+            if (mapOutputXZ < minLocationNoiseXZ) mapOutputXZ = minLocationNoiseXZ;
 
             if (decreaseXNoiseByDistance) noiseX = Random.Range(-mapOutputXZ, mapOutputXZ);
             else noiseX = Random.Range(-locationNoiseXZ, locationNoiseXZ);
@@ -209,34 +228,49 @@ public class GalaxyStarGenerator : MonoBehaviour
     {
         GameObject star;
         int starClassRNG = Random.Range(0, 100);
+        Debug.Log("Creating star...\nRNG: " + starClassRNG);
         if (starClassRNG < 40) // M class 40%
         {
             star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+            Debug.Log("Created Class M Star");
         }
         else if (starClassRNG >= 40 && starClassRNG < 60) // K class 20%
         {
-            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+            star = Instantiate(classKStarPrefab, parent.transform.position, Quaternion.identity);
+            Debug.Log("Created Class K Star");
         }
         else if (starClassRNG >= 60 && starClassRNG < 75) // G class 15%
         {
-            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+            star = Instantiate(classGStarPrefab, parent.transform.position, Quaternion.identity);
+            Debug.Log("Created Class G Star");
         }
         else if (starClassRNG <= 75 && starClassRNG < 87) // F class 12%
         {
-            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+            star = Instantiate(classFStarPrefab, parent.transform.position, Quaternion.identity);
+            Debug.Log("Created Class F Star");
         }
         else if (starClassRNG >= 87 && starClassRNG < 97) // A class 10%
         {
-            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+            star = Instantiate(classAStarPrefab, parent.transform.position, Quaternion.identity);
+            Debug.Log("Created Class A Star");
         }
         else if (starClassRNG >= 97 && starClassRNG < 99) // B class 2%
         {
-            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+            star = Instantiate(classBStarPrefab, parent.transform.position, Quaternion.identity);
+            Debug.Log("Created Class B Star");
         }
         else // O class 1%
         {
-            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
+            star = Instantiate(classOStarPrefab, parent.transform.position, Quaternion.identity);
+            Debug.Log("Created Class O Star");
         }
         star.transform.parent = parent.transform;
+    }
+
+    public void createTestCube(GameObject parent)
+    {
+        GameObject cube;
+        cube = Instantiate(testCubePrefabBlue, parent.transform.position, Quaternion.identity);
+        cube.transform.parent = parent.transform;
     }
 }

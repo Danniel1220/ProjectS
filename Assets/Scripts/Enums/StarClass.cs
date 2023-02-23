@@ -4,11 +4,12 @@ using UnityEngine;
 
 public enum StarClass
 {
-    O, // huge blue
-    B, // very large blue white-ish
-    A, // large blue-ish white
-    F, // medium-large white
-    G, // medium light orange (our sun)
+    M, // small orange-red
     K, // medium-small yellow orange
-    M  // small orange-red
+    G, // medium light orange (our sun)
+    F, // medium-large white
+    A, // large blue-ish white
+    B, // very large blue white-ish
+    O  // huge blue
 }
+

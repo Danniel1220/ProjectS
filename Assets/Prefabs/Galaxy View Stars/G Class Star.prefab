@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1785997038460523693}
   m_Layer: 6
   m_Name: StarSphere
-  m_TagString: Class G Star
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1785997038535751019}
   m_Layer: 0
   m_Name: G Class Star
-  m_TagString: Galaxy View Star
+  m_TagString: Class G Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

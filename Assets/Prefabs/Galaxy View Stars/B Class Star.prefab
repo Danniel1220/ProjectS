@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8416882139404602104}
   m_Layer: 0
   m_Name: B Class Star
-  m_TagString: Galaxy View Star
+  m_TagString: Class B Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 8416882139597826878}
   m_Layer: 6
   m_Name: StarSphere
-  m_TagString: Class B Star
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
