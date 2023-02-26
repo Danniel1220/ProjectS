@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class GalaxyLoader : MonoBehaviour
@@ -17,18 +18,21 @@ public class GalaxyLoader : MonoBehaviour
     [SerializeField] private GameObject classBStarPrefab;
     [SerializeField] private GameObject classOStarPrefab;
 
+    public float starScale;
+
     // Start is called before the first frame update
     void Start()
     {
         galaxyChunkSystem = GameObject.Find("GalaxyChunkGrid").GetComponent<GalaxyChunkSystem>();
         galaxyStarGenerator = GameObject.Find("Galaxy").GetComponent<GalaxyStarGenerator>();
-        dataWrapper = loadStarDataFromFile(Application.dataPath + "/StarLocations.json");
+        dataWrapper = deserializeJsonFile(Application.dataPath + "/StarLocations.json");
 
         foreach (GalaxyViewStarSerializableData star in dataWrapper.starData)
         {
             // creating the point in space
             GameObject point = new GameObject();
-            point.transform.position = star.position;
+
+            point.transform.position = new Vector3(star.posX, star.posY, star.posZ);
             point.transform.rotation = Quaternion.identity;
             point.name = "Star";
             point.tag = "Galaxy View Star";
@@ -44,11 +48,21 @@ public class GalaxyLoader : MonoBehaviour
         
     }
 
-    public GalaxyViewStarDataWrapper loadStarDataFromFile(string path)
+    public GalaxyViewStarDataWrapper deserializeJsonFile(string path)
     {
         string json = File.ReadAllText(path);
         return JsonUtility.FromJson<GalaxyViewStarDataWrapper>(json);
     }
+
+    public GalaxyViewStarDataWrapper deserializeBinaryFile(string path)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream file = File.Open(path, FileMode.Open);
+        string data = File.ReadAllText(path);
+        return null;
+    }
+
+
 
     public void createStar(GameObject parent, GalaxyViewStarSerializableData starData)
     {
@@ -82,5 +96,7 @@ public class GalaxyLoader : MonoBehaviour
                 break;
         }
         star.transform.parent = parent.transform;
+        if (starScale != 0) star.transform.Find("StarSphere").transform.localScale = new Vector3(starScale, starScale, starScale);
+
     }
 }

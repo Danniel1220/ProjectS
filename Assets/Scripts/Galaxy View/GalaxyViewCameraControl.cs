@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class GalaxyViewCameraControl : MonoBehaviour
 {
-    [SerializeField] private float zoomMinDistance = 500f;
-    [SerializeField] private float zoomMaxDistance = 4000f;
-    [SerializeField] private float zoomMultiplier = 100f;
+    [SerializeField] private float zoomMinDistance = 1000f;
+    [SerializeField] private float zoomMaxDistance = 100000f;
+    [SerializeField] private float zoomMinMultiplier = 100f;
+    [SerializeField] private float zoomMaxMultiplier = 1000f;
+    [SerializeField] private float zoomCurrentMultiplier = 100f;
     [SerializeField] private float zoomSmoothingFactor = 5f;
     [SerializeField] private float zoomDelta;
     [SerializeField] private float targetZoom = 1000f;
@@ -63,12 +65,20 @@ public class GalaxyViewCameraControl : MonoBehaviour
             }
         }
 
-        zoomDelta = Input.GetAxis("Mouse ScrollWheel") * zoomMultiplier;
+        // handling zoom
+        zoomDelta = Input.GetAxis("Mouse ScrollWheel") * zoomCurrentMultiplier;
         targetZoom -= zoomDelta; // subtracting value because mwheel inverse logic for zoom is prefered
         targetZoom = Mathf.Clamp(targetZoom, zoomMinDistance, zoomMaxDistance); // limiting zoom to be between min/max values
         cinemachine3RdPersonFollow.CameraDistance = Mathf.Lerp(cinemachine3RdPersonFollow.CameraDistance, targetZoom, Time.deltaTime * zoomSmoothingFactor); // smoothing zoom
 
-        //place another object that the anchor looks at, move that anchor up/down clamped and around the anchor for y axis
+
+        // mapping the zoom multiplier to the current zoom distance, so we can zoom in/out faster the further out we are
+
+
+
+        float t = Mathf.InverseLerp(zoomMinDistance, zoomMaxDistance, targetZoom);
+        float output = Mathf.Lerp(zoomMinMultiplier, zoomMaxMultiplier, t);
+        zoomCurrentMultiplier = output;
     }
 
     void LateUpdate()

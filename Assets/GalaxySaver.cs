@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public class GalaxySaver : MonoBehaviour
 {
     GalaxyChunkSystem galaxyChunkSystem;
     List<GalaxyChunk> chunkList;
-    public bool save = false;
+    public bool saveJson = false;
+    public bool saveBinary = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +21,23 @@ public class GalaxySaver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (save)
+        if (saveJson)
         {
             GalaxyViewStarDataWrapper dataWrapper = new GalaxyViewStarDataWrapper(getStarData());
             Debug.Log("Stars count:" + dataWrapper.starData.Count);
             saveJsonToFile(Application.dataPath + "/StarLocations.json", JsonUtility.ToJson(dataWrapper));
-            save = false;
+            saveJson = false;
+        }
+        if (saveBinary)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream saveFile = File.Create(Application.dataPath + "/StarLocations.bin", (int)FileMode.Create);
+            GalaxyViewStarDataWrapper dataWrapper = new GalaxyViewStarDataWrapper(getStarData());
+
+            formatter.Serialize(saveFile, dataWrapper);
+            Debug.Log("Stars count:" + dataWrapper.starData.Count);
+            saveFile.Close();
+            saveBinary = false;
         }
     }
 
@@ -44,7 +57,11 @@ public class GalaxySaver : MonoBehaviour
                 if (star.tag == "Galaxy View Star")
                 {
                     StarClass starClass = parseTagToStarClassEnum(star.transform.GetChild(0).tag);
-                    GalaxyViewStarSerializableData starData = new GalaxyViewStarSerializableData(star.transform.position, starClass.ToString());
+                    GalaxyViewStarSerializableData starData = new GalaxyViewStarSerializableData(
+                        star.transform.position.x, 
+                        star.transform.position.y, 
+                        star.transform.position.z, 
+                        starClass.ToString());
                     dataList.Add(starData);
                 }
             }

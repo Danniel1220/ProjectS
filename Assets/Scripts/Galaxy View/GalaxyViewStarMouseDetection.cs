@@ -11,7 +11,7 @@ public class GalaxyViewStarMouseDetection : MonoBehaviour
     void Start()
     {
         starTransform = GetComponent<Transform>();
-        shipPosition = GameObject.Find("Starship").transform.Find("Body").GetComponent<GalaxyViewShipPosition>();
+        shipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
     }
 
     // Update is called once per frame

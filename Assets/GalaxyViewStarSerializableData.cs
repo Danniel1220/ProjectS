@@ -6,12 +6,16 @@ using UnityEngine;
 [Serializable]
 public class GalaxyViewStarSerializableData
 {
-    public Vector3 position;
+    public float posX;
+    public float posY;
+    public float posZ;
     public string starClass;
 
-    public GalaxyViewStarSerializableData(Vector3 position, string starClass)
+    public GalaxyViewStarSerializableData(float posX, float posY, float posZ, string starClass)
     {
-        this.position = position;
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
         this.starClass = starClass;
     }
 }

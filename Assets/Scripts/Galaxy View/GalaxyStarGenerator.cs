@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,12 @@ public class GalaxyStarGenerator : MonoBehaviour
     [SerializeField] private float secondaryMinLocationNoiseXZ;
     [SerializeField] private float secondaryLocationNoiseY;
 
-    [SerializeField] private float galaxyMaxDiameter;
+    [SerializeField] private int nebulaNumberOfPoints;
+    [SerializeField] private float nebulaTurnFraction;
+    [SerializeField] private float nebulaDistanceFactor;
+    [SerializeField] private float nebulaLocationNoiseXZ;
+    [SerializeField] private float nebulaMinLocationNoiseXZ;
+    [SerializeField] private float nebulaLocationNoiseY;
 
     [SerializeField] private float minDistanceBetweenPoints;
 
@@ -41,23 +47,13 @@ public class GalaxyStarGenerator : MonoBehaviour
 
     public Text UIText;
 
+    public float starScale;
+
     void Start()
     {
         galaxyChunkSystem = GameObject.Find("GalaxyChunkGrid").GetComponent<GalaxyChunkSystem>();
 
-        /*primaryNumberOfPoints = 30000;
-        primaryTurnFraction = 0.750016f;
-        primaryDistanceFactor = 100000;
-        primaryLocationNoiseXZ = 25000;
-        primaryLocationNoiseY = 1000f;
-
-        secondaryNumberOfPoints = 10000;
-        secondaryTurnFraction = 1.618034f;
-        secondaryDistanceFactor = 130000;
-        secondaryLocationNoiseXZ = 10000f;
-        secondaryLocationNoiseY = 500f;*/
-
-        primaryNumberOfPoints = 7000;
+/*        primaryNumberOfPoints = 7000;
         primaryTurnFraction = 0.7501f;
         primaryDistanceFactor = 100000;
         primaryLocationNoiseXZ = 25000;
@@ -71,7 +67,7 @@ public class GalaxyStarGenerator : MonoBehaviour
         secondaryMinLocationNoiseXZ = 2500f;
         secondaryLocationNoiseY = 2500f;
 
-        minDistanceBetweenPoints = 1000f;
+        minDistanceBetweenPoints = 1000f;*/
 
         // primary formation
         createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY, primaryMinLocationNoiseXZ,
@@ -104,7 +100,7 @@ public class GalaxyStarGenerator : MonoBehaviour
         GameObject[] allObjects = GameObject.FindGameObjectsWithTag("testCube");
         foreach (GameObject obj in allObjects)
         {
-            Destroy(obj);
+            Destroy(obj.transform.parent);
         }
     }
 
@@ -265,6 +261,7 @@ public class GalaxyStarGenerator : MonoBehaviour
             Debug.Log("Created Class O Star");
         }
         star.transform.parent = parent.transform;
+        star.gameObject.transform.Find("StarSphere").transform.localScale = new Vector3(starScale, starScale, starScale);
     }
 
     public void createTestCube(GameObject parent)

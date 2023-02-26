@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GalaxyChunkSystem : MonoBehaviour
 {
-    private float chunkSize = 1024f;
+    private float chunkSize = 10240f;
     public float ChunkSize { get => chunkSize; }
 
     private Dictionary<Vector2, GalaxyChunk> chunkDictionary = new Dictionary<Vector2, GalaxyChunk>();
@@ -55,7 +55,7 @@ public class GalaxyChunkSystem : MonoBehaviour
         if (positionZ >= 0) positionZ = Mathf.Floor(positionZ);
         else positionZ = Mathf.Ceil(positionZ);
 
-        return new Vector2(positionX, positionZ);
+        return new Vector2(positionX * chunkSize, positionZ * chunkSize);
     }
 
     public GalaxyChunk getGalaxyChunk(Vector2 chunkPosition)
@@ -136,5 +136,10 @@ public class GalaxyChunkSystem : MonoBehaviour
             return chunkDictionary[gameObjectChunkPosition];
         }
         return null;
+    }
+
+    public Vector2 getChunkCenter(GalaxyChunk chunk)
+    {
+        return new Vector2(chunk.chunkPosition.x + chunkSize / 2, chunk.chunkPosition.y + chunkSize / 2);
     }
 }

@@ -23,7 +23,7 @@ public class GalaxyViewShipPosition : MonoBehaviour
         if (targetTransform != null)
         {
             Vector3 heightLockedTargetPosition = new Vector3(targetTransform.position.x, shipTransform.position.y, targetTransform.position.z);
-            shipTransform.position = Vector3.Lerp(shipTransform.position, heightLockedTargetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
+            starShipGameObjectTransform.position = Vector3.Lerp(shipTransform.position, heightLockedTargetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
 
         }
     }
