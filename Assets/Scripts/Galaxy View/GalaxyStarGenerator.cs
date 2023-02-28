@@ -43,7 +43,10 @@ public class GalaxyStarGenerator : MonoBehaviour
     [SerializeField] private GameObject testCubePrefabRed;
     [SerializeField] private GameObject testCubePrefabGreen;
 
+    private List<Vector3> starSystemPointsInSpace;
+
     private GalaxyChunkSystem galaxyChunkSystem;
+    private StarHelper starHelper;
 
     public Text UIText;
 
@@ -51,7 +54,8 @@ public class GalaxyStarGenerator : MonoBehaviour
 
     void Start()
     {
-        galaxyChunkSystem = GameObject.Find("GalaxyChunkGrid").GetComponent<GalaxyChunkSystem>();
+        galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
+        starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
 
 /*        primaryNumberOfPoints = 7000;
         primaryTurnFraction = 0.7501f;
@@ -77,17 +81,7 @@ public class GalaxyStarGenerator : MonoBehaviour
             false, true, false);
 
         // remove overlapped points caused by location noise rng
-        removeOverlappedPointsV2(minDistanceBetweenPoints);
-
-        List<GalaxyChunk> chunkList = galaxyChunkSystem.getAllChunks();
-
-        foreach (GalaxyChunk chunk in chunkList)
-        {
-            foreach (GameObject point in chunk.chunkGameObjectList)
-            {
-                createStar(point);
-            }
-        }
+        removeOverlappedStarSystems(minDistanceBetweenPoints);
     }
 
     void Update()
@@ -146,39 +140,11 @@ public class GalaxyStarGenerator : MonoBehaviour
             float pointYAfterNoise = pointY + noiseY;
             float pointZAfterNoise = pointZ + noiseZ;
 
-            // creating the point in space
-            GameObject point = new GameObject();
-            point.transform.position = new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise);
-            point.transform.rotation = Quaternion.identity;
-            point.name = "Star";
-            point.tag = "Galaxy View Star";
-            galaxyChunkSystem.addItemToChunk(point);
+            starHelper.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
         }
     }
 
-    private void removeOverlappedPoints(List<GameObject> pointList, float minDistance)
-    {
-        List<GameObject> pointsToRemoveFromList = new List<GameObject>();
-
-        foreach (GameObject pointA in pointList)
-        {
-            foreach (GameObject pointB in pointList)
-            {
-                if (pointA != pointB && Vector3.Distance(pointA.transform.position, pointB.transform.position) < minDistance)
-                {
-                    Destroy(pointA);
-                    pointsToRemoveFromList.Add(pointA);
-                }
-            }
-        }
-
-        foreach (GameObject pointToRemove in pointsToRemoveFromList)
-        {
-            pointList.Remove(pointToRemove);
-        }
-    }
-
-    private void removeOverlappedPointsV2(float minDistance)
+    private void removeOverlappedStarSystems(float minDistance)
     {
         // for each chunk
         foreach (GalaxyChunk chunk in galaxyChunkSystem.chunkList)
@@ -189,11 +155,11 @@ public class GalaxyStarGenerator : MonoBehaviour
                 // assume that we dont have to delete the object
                 bool shouldDelete = false;
 
-                // iterate again through every object the given chunk
+                // iterate again through every object in the given chunk
                 for (int j = 0; j < chunk.chunkGameObjectList.Count; j++)
                 {
                     // if the objects are not one and the same and the distance between them is smaller than the minDistance
-                    // and if both object have Galaxy View Star tags
+                    // and if both objects have Galaxy View Star tags
                     if (chunk.chunkGameObjectList[i] != chunk.chunkGameObjectList[j] && 
                         Vector3.Distance(chunk.chunkGameObjectList[i].transform.position, chunk.chunkGameObjectList[j].transform.position) < minDistance &&
                         chunk.chunkGameObjectList[i].tag == "Galaxy View Star" && chunk.chunkGameObjectList[j].tag == "Galaxy View Star")
@@ -218,50 +184,6 @@ public class GalaxyStarGenerator : MonoBehaviour
             }
         }
 
-    }
-
-    public void createStar(GameObject parent)
-    {
-        GameObject star;
-        int starClassRNG = Random.Range(0, 100);
-        Debug.Log("Creating star...\nRNG: " + starClassRNG);
-        if (starClassRNG < 40) // M class 40%
-        {
-            star = Instantiate(classMStarPrefab, parent.transform.position, Quaternion.identity);
-            Debug.Log("Created Class M Star");
-        }
-        else if (starClassRNG >= 40 && starClassRNG < 60) // K class 20%
-        {
-            star = Instantiate(classKStarPrefab, parent.transform.position, Quaternion.identity);
-            Debug.Log("Created Class K Star");
-        }
-        else if (starClassRNG >= 60 && starClassRNG < 75) // G class 15%
-        {
-            star = Instantiate(classGStarPrefab, parent.transform.position, Quaternion.identity);
-            Debug.Log("Created Class G Star");
-        }
-        else if (starClassRNG <= 75 && starClassRNG < 87) // F class 12%
-        {
-            star = Instantiate(classFStarPrefab, parent.transform.position, Quaternion.identity);
-            Debug.Log("Created Class F Star");
-        }
-        else if (starClassRNG >= 87 && starClassRNG < 97) // A class 10%
-        {
-            star = Instantiate(classAStarPrefab, parent.transform.position, Quaternion.identity);
-            Debug.Log("Created Class A Star");
-        }
-        else if (starClassRNG >= 97 && starClassRNG < 99) // B class 2%
-        {
-            star = Instantiate(classBStarPrefab, parent.transform.position, Quaternion.identity);
-            Debug.Log("Created Class B Star");
-        }
-        else // O class 1%
-        {
-            star = Instantiate(classOStarPrefab, parent.transform.position, Quaternion.identity);
-            Debug.Log("Created Class O Star");
-        }
-        star.transform.parent = parent.transform;
-        star.gameObject.transform.Find("StarSphere").transform.localScale = new Vector3(starScale, starScale, starScale);
     }
 
     public void createTestCube(GameObject parent)

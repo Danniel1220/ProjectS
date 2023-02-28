@@ -9,6 +9,7 @@ public class GalaxyViewShipPosition : MonoBehaviour
     Transform targetTransform;
 
     float shipSpeed = 2f;
+    [SerializeField] private float floatDistanceAboveStar = 20f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +23,8 @@ public class GalaxyViewShipPosition : MonoBehaviour
     {
         if (targetTransform != null)
         {
-            Vector3 heightLockedTargetPosition = new Vector3(targetTransform.position.x, shipTransform.position.y, targetTransform.position.z);
-            starShipGameObjectTransform.position = Vector3.Lerp(shipTransform.position, heightLockedTargetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
+            Vector3 targetPosition = new Vector3(targetTransform.position.x, targetTransform.position.y + floatDistanceAboveStar, targetTransform.position.z);
+            starShipGameObjectTransform.position = Vector3.Lerp(shipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
 
         }
     }

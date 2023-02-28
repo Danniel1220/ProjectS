@@ -23,19 +23,17 @@ public class GalaxyLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        galaxyChunkSystem = GameObject.Find("GalaxyChunkGrid").GetComponent<GalaxyChunkSystem>();
-        galaxyStarGenerator = GameObject.Find("Galaxy").GetComponent<GalaxyStarGenerator>();
+        galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
+        galaxyStarGenerator = GameObject.Find("GalaxyManager").GetComponent<GalaxyStarGenerator>();
         dataWrapper = deserializeJsonFile(Application.dataPath + "/StarLocations.json");
 
         foreach (GalaxyViewStarSerializableData star in dataWrapper.starData)
         {
             // creating the point in space
             GameObject point = new GameObject();
-
             point.transform.position = new Vector3(star.posX, star.posY, star.posZ);
             point.transform.rotation = Quaternion.identity;
             point.name = "Star";
-            point.tag = "Galaxy View Star";
             galaxyChunkSystem.addItemToChunk(point);
             createStar(point, star);
 

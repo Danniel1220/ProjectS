@@ -17,7 +17,7 @@ public class GalaxyViewScaleStarByDistanceToCamera : MonoBehaviour
     void Start()
     {
         camera = Camera.main;
-        galaxyChunkSystem = GameObject.Find("GalaxyChunkGrid").GetComponent<GalaxyChunkSystem>();
+        galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
         starShip = GameObject.Find("Starship");
     }
 

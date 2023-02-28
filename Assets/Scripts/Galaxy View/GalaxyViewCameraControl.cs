@@ -14,6 +14,8 @@ public class GalaxyViewCameraControl : MonoBehaviour
     [SerializeField] private float zoomDelta;
     [SerializeField] private float targetZoom = 1000f;
 
+    [SerializeField] private float starViewZoomThreshhold = 250f;
+
     private Vector3 lastMousePosition;
 
     private CinemachineVirtualCamera cinemachineVirtualCamera;
@@ -21,6 +23,8 @@ public class GalaxyViewCameraControl : MonoBehaviour
 
     private Transform cameraAnchor;
     private Transform cameraAnchorLookPoint;
+
+    private bool isInStarViewRange = false;
 
     [SerializeField] private float cameraAnchorLookPointYPos;
     [SerializeField] private float cameraMaxYClamp = 200f;
@@ -79,10 +83,25 @@ public class GalaxyViewCameraControl : MonoBehaviour
         float t = Mathf.InverseLerp(zoomMinDistance, zoomMaxDistance, targetZoom);
         float output = Mathf.Lerp(zoomMinMultiplier, zoomMaxMultiplier, t);
         zoomCurrentMultiplier = output;
+
+        if (cinemachine3RdPersonFollow.CameraDistance < starViewZoomThreshhold && isInStarViewRange == false) enterStarView();
+        if (cinemachine3RdPersonFollow.CameraDistance >= starViewZoomThreshhold && isInStarViewRange == true) exitStarView();
     }
 
     void LateUpdate()
     {
         cameraAnchor.LookAt(cameraAnchorLookPoint.position);
+    }
+
+    public void enterStarView()
+    {
+        isInStarViewRange = true;
+        Debug.Log("Entering star view...");
+    }
+
+    public void exitStarView()
+    {
+        isInStarViewRange = false;
+        Debug.Log("Exiting star view...");
     }
 }
