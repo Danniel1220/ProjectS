@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using Unity.Jobs;
 using UnityEngine;
 
 public class StarHelper : MonoBehaviour
@@ -33,10 +35,13 @@ public class StarHelper : MonoBehaviour
 
     private List<string> starNames;
 
+    List<GalaxyChunk> chunks;
+
     void Start()
     {
         galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
         starContainer = GameObject.Find("StarContainer");
+        chunks = galaxyChunkSystem.getAllChunks();
     }
 
     public void createStarSystem(Vector3 locationInSpace)
@@ -74,13 +79,59 @@ public class StarHelper : MonoBehaviour
                 break;
             default:
                 star = Instantiate(classMStarPrefab, locationInSpace, Quaternion.identity);
-                classMStarAmount++;
+                defaultedStars++;
                 Debug.LogWarning("Star class RNG error in createStar()... defaulting to class M");
                 break;
         }
         star.transform.parent = starContainer.transform;
         star.name = generateRandomStarName();
-        star.tag = "Galaxy View Star";
+        star.tag = "Star";
+        galaxyChunkSystem.addItemToChunk(star);
+
+    }
+
+    public void createStarSystem(Vector3 locationInSpace, StarClass starClass)
+    {
+        GameObject star;
+        switch (starClass)
+        {
+            case StarClass.M:
+                star = Instantiate(classMStarPrefab, locationInSpace, Quaternion.identity);
+                classMStarAmount++;
+                break;
+            case StarClass.K:
+                star = Instantiate(classKStarPrefab, locationInSpace, Quaternion.identity);
+                classKStarAmount++;
+                break;
+            case StarClass.G:
+                star = Instantiate(classGStarPrefab, locationInSpace, Quaternion.identity);
+                classGStarAmount++;
+                break;
+            case StarClass.F:
+                star = Instantiate(classFStarPrefab, locationInSpace, Quaternion.identity);
+                classFStarAmount++;
+                break;
+            case StarClass.A:
+                star = Instantiate(classAStarPrefab, locationInSpace, Quaternion.identity);
+                classAStarAmount++;
+                break;
+            case StarClass.B:
+                star = Instantiate(classBStarPrefab, locationInSpace, Quaternion.identity);
+                classBStarAmount++;
+                break;
+            case StarClass.O:
+                star = Instantiate(classOStarPrefab, locationInSpace, Quaternion.identity);
+                classOStarAmount++;
+                break;
+            default:
+                star = Instantiate(classMStarPrefab, locationInSpace, Quaternion.identity);
+                defaultedStars++;
+                Debug.LogWarning("Star class error in createStar() with class argument... defaulting to class M");
+                break;
+        }
+        star.transform.parent = starContainer.transform;
+        star.name = generateRandomStarName();
+        star.tag = "Star";
         galaxyChunkSystem.addItemToChunk(star);
 
     }
@@ -138,5 +189,70 @@ public class StarHelper : MonoBehaviour
             }
         }
         return name;
+    }
+
+    public void disableAllStarSystemsButOne(Transform starSystemToNotDisable)
+    {
+        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
+
+        foreach (GalaxyChunk chunk in chunks)
+        {
+            foreach (GameObject star in chunk.chunkGameObjectList)
+            {
+                if (star != starSystemToNotDisable.transform.parent.gameObject && star.tag == "Star")
+                {
+                    star.SetActive(false);
+                }
+            }
+        }
+    }
+
+    public void moveStarSystemsOutwardsFromPoint(Transform centerPoint)
+    {
+        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
+
+        foreach (GalaxyChunk chunk in chunks)
+        {
+            foreach (GameObject star in chunk.chunkGameObjectList)
+            {
+                if (star != centerPoint.transform.parent.gameObject && star.tag == "Star")
+                {
+                    StartCoroutine(moveStarOutwards(centerPoint.transform, star.transform));
+                }
+            }
+        }
+    }
+
+    public void enableAllStarsSystems()
+    {
+        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
+
+        foreach (GalaxyChunk chunk in chunks)
+        {
+            foreach (GameObject star in chunk.chunkGameObjectList)
+            {
+                star.SetActive(true);
+            }
+        }
+    }
+
+    IEnumerator moveStarOutwards(Transform centerStar, Transform starToMove)
+    {
+        float movementTime = 1f;
+        Vector3 oppositeDirection = (centerStar.position - starToMove.position).normalized;
+        while (movementTime > 0)
+        {
+            starToMove.Translate(oppositeDirection, Space.World);
+            movementTime -= Time.deltaTime;
+            yield return null;
+        } 
+    }
+
+    public struct moveStarsOutwardsFromCenterPoint : IJob
+    {
+        public void Execute()
+        {
+
+        }
     }
 }

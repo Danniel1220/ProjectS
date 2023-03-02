@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8851718355496241627}
   m_Layer: 6
   m_Name: StarSphere
-  m_TagString: Untagged
+  m_TagString: Class A Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 8851718355572025373}
   m_Layer: 0
   m_Name: A Class Star
-  m_TagString: Class O Star
+  m_TagString: Class A Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

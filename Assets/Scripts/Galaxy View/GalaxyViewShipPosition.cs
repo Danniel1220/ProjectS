@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class GalaxyViewShipPosition : MonoBehaviour
 {
-    Transform starShipGameObjectTransform;
-    Transform shipTransform;
-    Transform targetTransform;
+    private GameObject starShipGameObject;
+    private Transform shipTransform;
+    public Transform targetTransform;
 
     float shipSpeed = 2f;
     [SerializeField] private float floatDistanceAboveStar = 20f;
 
+    StarHelper starHelper;
+
     // Start is called before the first frame update
     void Start()
     {
-        starShipGameObjectTransform = GetComponent<Transform>();
+        starShipGameObject = this.gameObject;
         shipTransform = this.transform.Find("Body").transform;
+        starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
     }
 
     // Update is called once per frame
@@ -23,13 +26,29 @@ public class GalaxyViewShipPosition : MonoBehaviour
     {
         if (targetTransform != null)
         {
-            Vector3 targetPosition = new Vector3(targetTransform.position.x, targetTransform.position.y + floatDistanceAboveStar, targetTransform.position.z);
-            starShipGameObjectTransform.position = Vector3.Lerp(shipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
-
+            Vector3 targetPosition = new Vector3(targetTransform.transform.position.x, targetTransform.transform.position.y + floatDistanceAboveStar, targetTransform.transform.position.z);
+            starShipGameObject.transform.position = Vector3.Lerp(shipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
+            targetPosition.x= 0f;
         }
     }
-    public void SetTargetTransform(Transform targetTransform)
+    public void setTargetPosition(Transform target)
     {
-        this.targetTransform = targetTransform;
+        this.targetTransform = target;
+        Debug.Log("setting target..");
+    }
+
+    public void enterStarView()
+    {
+        starHelper.moveStarSystemsOutwardsFromPoint(targetTransform);
+    }
+
+    public void exitStarView()
+    {
+        starHelper.enableAllStarsSystems();
+    }
+
+    public Transform getTargetPosition()
+    {
+        return targetTransform;
     }
 }

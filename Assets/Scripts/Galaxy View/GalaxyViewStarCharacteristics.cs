@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GalaxyViewStarCharacteristics : MonoBehaviour
 {
-    private string name;
+    private string starName;
     private StarClass starClass;
     // Start is called before the first frame update
     void Start()

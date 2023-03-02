@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - testCube
-  - Galaxy View Star
   - Class M Star
   - Class K Star
   - Class G Star
@@ -13,6 +12,7 @@ TagManager:
   - Class A Star
   - Class B Star
   - Class O Star
+  - Star
   layers:
   - Default
   - TransparentFX

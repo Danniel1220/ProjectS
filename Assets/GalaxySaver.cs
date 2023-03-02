@@ -54,9 +54,9 @@ public class GalaxySaver : MonoBehaviour
             foreach (GameObject star in chunk.chunkGameObjectList)
             {
                 // only grabbing stars
-                if (star.tag == "Galaxy View Star")
+                if (star.tag == "Star")
                 {
-                    StarClass starClass = parseTagToStarClassEnum(star.transform.GetChild(0).tag);
+                    StarClass starClass = parseTagToStarClassEnum(star.transform.Find("StarSphere").tag);
                     GalaxyViewStarSerializableData starData = new GalaxyViewStarSerializableData(
                         star.transform.position.x, 
                         star.transform.position.y, 

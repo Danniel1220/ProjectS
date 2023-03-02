@@ -9683,7 +9683,7 @@ GameObject:
   - component: {fileID: 2999085356519455153}
   m_Layer: 6
   m_Name: StarSphere
-  m_TagString: Untagged
+  m_TagString: Class F Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

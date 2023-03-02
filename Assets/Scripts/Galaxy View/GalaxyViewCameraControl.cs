@@ -30,6 +30,9 @@ public class GalaxyViewCameraControl : MonoBehaviour
     [SerializeField] private float cameraMaxYClamp = 200f;
     [SerializeField] private float cameraMinYClamp = -200f;
 
+    StarHelper starHelper;
+    GalaxyViewShipPosition galaxyViewShipPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,9 @@ public class GalaxyViewCameraControl : MonoBehaviour
 
         cameraAnchor = GameObject.Find("Starship").transform.Find("CameraAnchor").GetComponent<Transform>();
         cameraAnchorLookPoint = GameObject.Find("Starship").transform.Find("CameraAnchorLookPoint").GetComponent<Transform>();
+
+        starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
+        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
     }
 
     // Update is called once per frame
@@ -86,6 +92,8 @@ public class GalaxyViewCameraControl : MonoBehaviour
 
         if (cinemachine3RdPersonFollow.CameraDistance < starViewZoomThreshhold && isInStarViewRange == false) enterStarView();
         if (cinemachine3RdPersonFollow.CameraDistance >= starViewZoomThreshhold && isInStarViewRange == true) exitStarView();
+
+        enterStarView(); 
     }
 
     void LateUpdate()
@@ -97,11 +105,13 @@ public class GalaxyViewCameraControl : MonoBehaviour
     {
         isInStarViewRange = true;
         Debug.Log("Entering star view...");
+        galaxyViewShipPosition.enterStarView();
     }
 
     public void exitStarView()
     {
         isInStarViewRange = false;
         Debug.Log("Exiting star view...");
+        galaxyViewShipPosition.exitStarView();
     }
 }

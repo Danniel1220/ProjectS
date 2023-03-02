@@ -9,6 +9,7 @@ public class GalaxyLoader : MonoBehaviour
     GalaxyViewStarDataWrapper dataWrapper;
     GalaxyChunkSystem galaxyChunkSystem;
     GalaxyStarGenerator galaxyStarGenerator;
+    StarHelper starHelper;
 
     [SerializeField] private GameObject classMStarPrefab;
     [SerializeField] private GameObject classKStarPrefab;
@@ -23,6 +24,7 @@ public class GalaxyLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
         galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
         galaxyStarGenerator = GameObject.Find("GalaxyManager").GetComponent<GalaxyStarGenerator>();
         dataWrapper = deserializeJsonFile(Application.dataPath + "/StarLocations.json");
@@ -34,8 +36,7 @@ public class GalaxyLoader : MonoBehaviour
             point.transform.position = new Vector3(star.posX, star.posY, star.posZ);
             point.transform.rotation = Quaternion.identity;
             point.name = "Star";
-            galaxyChunkSystem.addItemToChunk(point);
-            createStar(point, star);
+            starHelper.createStarSystem(point.transform.position, (StarClass)System.Enum.Parse(typeof(StarClass), star.starClass));
 
         }
     }
@@ -55,9 +56,8 @@ public class GalaxyLoader : MonoBehaviour
     public GalaxyViewStarDataWrapper deserializeBinaryFile(string path)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream file = File.Open(path, FileMode.Open);
-        string data = File.ReadAllText(path);
-        return null;
+        FileStream file = new FileStream(path, FileMode.Open);
+        return formatter.Deserialize(file) as GalaxyViewStarDataWrapper;
     }
 
 

@@ -43,14 +43,10 @@ public class GalaxyStarGenerator : MonoBehaviour
     [SerializeField] private GameObject testCubePrefabRed;
     [SerializeField] private GameObject testCubePrefabGreen;
 
-    private List<Vector3> starSystemPointsInSpace;
-
     private GalaxyChunkSystem galaxyChunkSystem;
     private StarHelper starHelper;
 
     public Text UIText;
-
-    public float starScale;
 
     void Start()
     {
@@ -159,10 +155,10 @@ public class GalaxyStarGenerator : MonoBehaviour
                 for (int j = 0; j < chunk.chunkGameObjectList.Count; j++)
                 {
                     // if the objects are not one and the same and the distance between them is smaller than the minDistance
-                    // and if both objects have Galaxy View Star tags
+                    // and if both objects have Star tags
                     if (chunk.chunkGameObjectList[i] != chunk.chunkGameObjectList[j] && 
                         Vector3.Distance(chunk.chunkGameObjectList[i].transform.position, chunk.chunkGameObjectList[j].transform.position) < minDistance &&
-                        chunk.chunkGameObjectList[i].tag == "Galaxy View Star" && chunk.chunkGameObjectList[j].tag == "Galaxy View Star")
+                        chunk.chunkGameObjectList[i].tag == "Star" && chunk.chunkGameObjectList[j].tag == "Star")
                     {
                         // flag the object that it should be deleted
                         shouldDelete = true;
