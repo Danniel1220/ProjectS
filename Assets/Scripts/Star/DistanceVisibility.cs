@@ -6,7 +6,7 @@ public class DistanceVisibility : MonoBehaviour
 {
     public float visibilityRange;
 
-    private ParticleSystem particleSystem; 
+    private new ParticleSystem particleSystem; 
 
     float distance;
     // Start is called before the first frame update

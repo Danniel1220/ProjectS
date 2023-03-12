@@ -7,14 +7,14 @@ public class Planet : MonoBehaviour
     [Range(2, 256)]
     public int resolution = 10;
     public bool autoUpdate = true;
-    public Material material;
     public enum FaceRenderMask { All, Top, Bottom, Left, Right, Front, Back }
     public FaceRenderMask faceRenderMask;
 
     [HideInInspector] public bool shapeSettingsFoldout;
     [HideInInspector] public bool colorSettingsFoldout;
 
-    PlanetShapeGenerator shapeGenerator;
+    PlanetShapeGenerator shapeGenerator = new PlanetShapeGenerator();
+    PlanetColorGenerator colorGenerator = new PlanetColorGenerator();
 
     public PlanetShapeSettings shapeSettings;
     public PlanetColorSettings colorSettings;
@@ -24,7 +24,8 @@ public class Planet : MonoBehaviour
 
     void initializeMesh()
     {
-        shapeGenerator = new PlanetShapeGenerator(shapeSettings);
+        shapeGenerator.updateSettings(shapeSettings);
+        colorGenerator.updateSettings(colorSettings);
 
         // a cube has 6 faces, so 6 meshes
         if (meshFilters == null || meshFilters.Length == 0)
@@ -42,10 +43,11 @@ public class Planet : MonoBehaviour
                 GameObject meshObj = new GameObject("mesh");
                 meshObj.transform.parent = transform;
 
-                meshObj.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                meshObj.AddComponent<MeshRenderer>();
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
                 meshFilters[i].sharedMesh = new Mesh();
             }
+            meshFilters[i].GetComponent<MeshRenderer>().sharedMaterial = colorSettings.planetMaterial;
 
             terrainFaces[i] = new TerrainFace(shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
             bool renderFace = faceRenderMask == FaceRenderMask.All || (int)faceRenderMask - 1 == i;
@@ -87,13 +89,12 @@ public class Planet : MonoBehaviour
                 terrainFaces[i].constructMesh();
             }
         }
+
+        colorGenerator.updateElevation(shapeGenerator.elevationMinMax);
     }
 
     void generateColors()
     {
-        foreach(MeshFilter mesh in meshFilters)
-        {
-            mesh.GetComponent<MeshRenderer>().sharedMaterial.color = colorSettings.planetColor;
-        }
+        colorGenerator.updateColors();
     }
 }
