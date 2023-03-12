@@ -117,7 +117,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1785997038535751016}
-  - component: {fileID: 1785997038535751019}
   m_Layer: 0
   m_Name: G Class Star
   m_TagString: Class G Star
@@ -141,18 +140,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1785997038535751019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785997038535751018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32f5cf5b0adab1749b7a185cbe41f487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1785997039442612275
 GameObject:
   m_ObjectHideFlags: 0

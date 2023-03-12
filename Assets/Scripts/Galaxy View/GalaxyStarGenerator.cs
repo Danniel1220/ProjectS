@@ -8,6 +8,10 @@ using Random = UnityEngine.Random;
 
 public class GalaxyStarGenerator : MonoBehaviour
 {
+    private GalaxyChunkSystem galaxyChunkSystem;
+    private StarHelper starHelper;
+    private GalaxyViewShipPosition galaxyViewShipPosition;
+
     [SerializeField] private int primaryNumberOfPoints;
     [SerializeField] private float primaryTurnFraction;
     [SerializeField] private float primaryDistanceFactor;
@@ -21,13 +25,6 @@ public class GalaxyStarGenerator : MonoBehaviour
     [SerializeField] private float secondaryLocationNoiseXZ;
     [SerializeField] private float secondaryMinLocationNoiseXZ;
     [SerializeField] private float secondaryLocationNoiseY;
-
-    [SerializeField] private int nebulaNumberOfPoints;
-    [SerializeField] private float nebulaTurnFraction;
-    [SerializeField] private float nebulaDistanceFactor;
-    [SerializeField] private float nebulaLocationNoiseXZ;
-    [SerializeField] private float nebulaMinLocationNoiseXZ;
-    [SerializeField] private float nebulaLocationNoiseY;
 
     [SerializeField] private float minDistanceBetweenPoints;
 
@@ -43,31 +40,14 @@ public class GalaxyStarGenerator : MonoBehaviour
     [SerializeField] private GameObject testCubePrefabRed;
     [SerializeField] private GameObject testCubePrefabGreen;
 
-    private GalaxyChunkSystem galaxyChunkSystem;
-    private StarHelper starHelper;
-
     public Text UIText;
 
     void Start()
     {
         galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
         starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
-
-/*        primaryNumberOfPoints = 7000;
-        primaryTurnFraction = 0.7501f;
-        primaryDistanceFactor = 100000;
-        primaryLocationNoiseXZ = 25000;
-        primaryMinLocationNoiseXZ = 4000f;
-        primaryLocationNoiseY = 5000f;
-
-        secondaryNumberOfPoints = 3000;
-        secondaryTurnFraction = 1.618034f;
-        secondaryDistanceFactor = 110000;
-        secondaryLocationNoiseXZ = 10000f;
-        secondaryMinLocationNoiseXZ = 2500f;
-        secondaryLocationNoiseY = 2500f;
-
-        minDistanceBetweenPoints = 1000f;*/
+        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
+        galaxyViewShipPosition.enabled = true;
 
         // primary formation
         createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY, primaryMinLocationNoiseXZ,
@@ -78,20 +58,6 @@ public class GalaxyStarGenerator : MonoBehaviour
 
         // remove overlapped points caused by location noise rng
         removeOverlappedStarSystems(minDistanceBetweenPoints);
-    }
-
-    void Update()
-    {
-
-    }
-
-    private void clearAllTestCubes()
-    {
-        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("testCube");
-        foreach (GameObject obj in allObjects)
-        {
-            Destroy(obj.transform.parent);
-        }
     }
 
     private void createPointsOnDisk(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ,

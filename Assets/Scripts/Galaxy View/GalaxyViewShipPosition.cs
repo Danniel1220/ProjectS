@@ -6,7 +6,7 @@ public class GalaxyViewShipPosition : MonoBehaviour
 {
     private GameObject starShipGameObject;
     private Transform shipTransform;
-    public Transform targetTransform;
+    private Transform targetTransform;
 
     float shipSpeed = 2f;
     [SerializeField] private float floatDistanceAboveStar = 20f;
@@ -19,6 +19,7 @@ public class GalaxyViewShipPosition : MonoBehaviour
         starShipGameObject = this.gameObject;
         shipTransform = this.transform.Find("Body").transform;
         starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
+        targetTransform = GameObject.Find("StarContainer").transform.GetChild(0);
     }
 
     // Update is called once per frame
@@ -39,12 +40,12 @@ public class GalaxyViewShipPosition : MonoBehaviour
 
     public void enterStarView()
     {
-        starHelper.moveStarSystemsOutwardsFromPoint(targetTransform);
+        starHelper.moveStarSystemsRelativeToPoint(targetTransform, true);
     }
 
     public void exitStarView()
     {
-        starHelper.enableAllStarsSystems();
+        starHelper.moveStarSystemsRelativeToPoint(targetTransform, false);
     }
 
     public Transform getTargetPosition()

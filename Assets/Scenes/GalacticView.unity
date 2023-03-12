@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9eaaee0be7d6cf4d821eb3c778acab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  galaxyChunkSystem: {fileID: 0}
+  starContainer: {fileID: 0}
   classMStarPrefab: {fileID: 1518546042757392187, guid: 52f8c8a8a569ecf4c86b488bfc4d5075, type: 3}
   classKStarPrefab: {fileID: 4835239247682124009, guid: ce5ad00ce4386654293e3075b222463f, type: 3}
   classGStarPrefab: {fileID: 1785997038535751018, guid: 259a80eeef63aff41aca6b50b4d0ed88, type: 3}
@@ -352,18 +354,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7b3fc49b69cca419fbd93f1d02c824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomMinDistance: 200
-  zoomMaxDistance: 200000
-  zoomMinMultiplier: 100
-  zoomMaxMultiplier: 100000
-  zoomCurrentMultiplier: 100
-  zoomSmoothingFactor: 5
-  zoomDelta: 0
-  targetZoom: 20000
-  starViewZoomThreshhold: 250
   cameraAnchorLookPointYPos: 0
   cameraMaxYClamp: 200
   cameraMinYClamp: -200
+  zoomMinDistance: 200
+  zoomMaxDistance: 20000
+  zoomMinMultiplier: 100
+  zoomMaxMultiplier: 20000
+  zoomCurrentMultiplier: 100
+  zoomSmoothingFactor: 5
+  zoomDelta: 0
+  targetZoom: 5000
+  starViewZoomThreshhold: 250
 --- !u!1 &727148430
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1337681930}
-  - component: {fileID: 1337681929}
+  - component: {fileID: 1337681928}
   - component: {fileID: 1337681927}
   - component: {fileID: 1337681926}
   - component: {fileID: 1337681931}
@@ -531,7 +533,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337681925}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f764fdc25412cbb49bc43561f47ded86, type: 3}
   m_Name: 
@@ -558,36 +560,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveJson: 0
   saveBinary: 0
---- !u!114 &1337681929
+--- !u!114 &1337681928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337681925}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a64fb800d3c68a43a762c872676b48c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62f6bebd07ce0dc458a2d9ba53087d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 7000
+  primaryNumberOfPoints: 700
   primaryTurnFraction: 0.7501
   primaryDistanceFactor: 10000
   primaryLocationNoiseXZ: 2500
   primaryMinLocationNoiseXZ: 400
   primaryLocationNoiseY: 500
-  secondaryNumberOfPoints: 3000
+  secondaryNumberOfPoints: 300
   secondaryTurnFraction: 1.618034
   secondaryDistanceFactor: 11000
   secondaryLocationNoiseXZ: 1000
   secondaryMinLocationNoiseXZ: 250
   secondaryLocationNoiseY: 250
-  nebulaNumberOfPoints: 0
-  nebulaTurnFraction: 0
-  nebulaDistanceFactor: 0
-  nebulaLocationNoiseXZ: 0
-  nebulaMinLocationNoiseXZ: 0
-  nebulaLocationNoiseY: 0
   minDistanceBetweenPoints: 100
   classMStarPrefab: {fileID: 1518546042757392187, guid: 52f8c8a8a569ecf4c86b488bfc4d5075, type: 3}
   classKStarPrefab: {fileID: 4835239247682124009, guid: ce5ad00ce4386654293e3075b222463f, type: 3}
@@ -600,7 +596,6 @@ MonoBehaviour:
   testCubePrefabRed: {fileID: 7639165620773984066, guid: 6e0d5c3dc17077745ad504fd994c47d7, type: 3}
   testCubePrefabGreen: {fileID: 1572639170334780810, guid: 412f574913cfe0d449e107202656ed25, type: 3}
   UIText: {fileID: 581460382}
-  starScale: 20
 --- !u!4 &1337681930
 Transform:
   m_ObjectHideFlags: 0
@@ -742,7 +737,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1662816033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb4e8858ea127fd4c89931f4a36028cd, type: 3}
+  m_Script: {fileID: 11500000, guid: a037e7db16d7ff64eaac0bea0094fd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1662816035
@@ -752,13 +747,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662816033}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9940d8174dbfd5842987f9cba3407692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
   floatDistanceAboveStar: 20
+--- !u!114 &1662816037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662816033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab4a16ae5e1f734399b215c758a25c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1895335099
 PrefabInstance:
   m_ObjectHideFlags: 0
