@@ -96,5 +96,13 @@ public class Planet : MonoBehaviour
     void generateColors()
     {
         colorGenerator.updateColors();
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (meshFilters[i].gameObject.activeSelf)
+            {
+                terrainFaces[i].updateUVs(colorGenerator);
+            }
+        }
     }
 }

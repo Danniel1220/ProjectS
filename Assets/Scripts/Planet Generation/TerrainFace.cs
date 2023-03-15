@@ -29,7 +29,7 @@ public class TerrainFace
         // i = 0,1,2 is triangle 1, i = 3,4,5 is triangle 2, and so on 
         int[] triangles = new int[(resolution - 1) * (resolution - 1) * 6];
         int triIndex = 0;
-
+        Vector2[] uv = mesh.uv;
         // i is basically the number of total iterations both loops have gone through in total
 
         for (int y = 0; y < resolution; y++)
@@ -72,5 +72,25 @@ public class TerrainFace
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
+        mesh.uv = uv;
+    }
+
+    public void updateUVs(PlanetColorGenerator planetColorGenerator)
+    {
+        Vector2[] uv = new Vector2[resolution * resolution];
+
+        for (int y = 0; y < resolution; y++)
+        {
+            for (int x = 0; x < resolution; x++)
+            {
+                int i = x + y * resolution;
+                Vector2 percent = new Vector2(x, y) / (resolution - 1);
+                Vector3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisX + (percent.y - 0.5f) * 2 * axisZ;
+                Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+
+                uv[i] = new Vector2(planetColorGenerator.BiomePercentFromPoint(pointOnUnitSphere), 0 );
+            }
+        }
+        mesh.uv = uv;
     }
 }
