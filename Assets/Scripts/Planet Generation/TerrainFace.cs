@@ -29,7 +29,7 @@ public class TerrainFace
         // i = 0,1,2 is triangle 1, i = 3,4,5 is triangle 2, and so on 
         int[] triangles = new int[(resolution - 1) * (resolution - 1) * 6];
         int triIndex = 0;
-        Vector2[] uv = mesh.uv;
+        Vector2[] uv = (mesh.uv.Length == vertices.Length) ? mesh.uv : new Vector2[vertices.Length];
         // i is basically the number of total iterations both loops have gone through in total
 
         for (int y = 0; y < resolution; y++)
@@ -47,7 +47,9 @@ public class TerrainFace
                 Vector3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisX + (percent.y - 0.5f) * 2 * axisZ;
                 // compute where the current vertex should be located on the final sphere
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
-                vertices[i] = shapeGenerator.calculatePointOnPlanet(pointOnUnitSphere);
+                float unscaledElevation = shapeGenerator.calculateUnscaledElevation(pointOnUnitSphere);
+                vertices[i] = pointOnUnitSphere * shapeGenerator.getScaledElevation(unscaledElevation);
+                uv[i].y = unscaledElevation;
 
                 // we only want to calculate tris for the verts that wouldnt generate a tri outside the mesh
                 // so the last column and last row of the verts array are not included in the calculation
@@ -77,7 +79,7 @@ public class TerrainFace
 
     public void updateUVs(PlanetColorGenerator planetColorGenerator)
     {
-        Vector2[] uv = new Vector2[resolution * resolution];
+        Vector2[] uv = mesh.uv;
 
         for (int y = 0; y < resolution; y++)
         {
@@ -88,7 +90,7 @@ public class TerrainFace
                 Vector3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisX + (percent.y - 0.5f) * 2 * axisZ;
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
 
-                uv[i] = new Vector2(planetColorGenerator.BiomePercentFromPoint(pointOnUnitSphere), 0 );
+                uv[i].x = planetColorGenerator.BiomePercentFromPoint(pointOnUnitSphere);
             }
         }
         mesh.uv = uv;

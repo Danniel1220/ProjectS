@@ -27,6 +27,6 @@ public class GalaxyViewStarMouseDetection : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("clicked gameobject " + this.gameObject.name);
-        galaxyViewShipPosition.setTargetPosition(starTransform);
+        galaxyViewShipPosition.setTargetPosition(starTransform.parent.transform);
     }
 }

@@ -22,6 +22,28 @@ public class Planet : MonoBehaviour
     [SerializeField, HideInInspector] MeshFilter[] meshFilters;
     TerrainFace[] terrainFaces;
 
+    public Planet(PlanetShapeSettings shapeSettings, PlanetColorSettings colorSettings)
+    {
+        this.shapeSettings = shapeSettings;
+        this.colorSettings = colorSettings;
+        generatePlanet();
+    }
+
+    public Planet(float radius)
+    {
+        shapeSettings.planetRadius = radius;
+    }
+
+    public Planet()
+    {
+
+    }
+
+    void Start()
+    {
+        generatePlanet();
+    }
+
     void initializeMesh()
     {
         shapeGenerator.updateSettings(shapeSettings);

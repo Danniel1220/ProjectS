@@ -7,6 +7,7 @@ public class PlanetColorSettings : ScriptableObject
 {
     public Material planetMaterial;
     public BiomeColorSettings biomeColorSettings;
+    public Gradient oceanColor;
 
     [System.Serializable]
     public class BiomeColorSettings
@@ -27,7 +28,35 @@ public class PlanetColorSettings : ScriptableObject
             public float startHeight;
             [Range(0, 1)]
             public float tintPercent;
-            
+
+            public Biome() { }
+
+            public Biome(Gradient gradient, Color tint, float startHeight, float tintPercent)
+            {
+                this.gradient = gradient;
+                this.tint = tint;
+                this.startHeight = startHeight;
+                this.tintPercent = tintPercent;
+            }
         }
+
+        public BiomeColorSettings() { }
+
+        public BiomeColorSettings(Biome[] biomes, NoiseSettings noise, float noiseOffset, float noiseStenght, float blendAmount)
+        {
+            this.biomes = biomes;
+            this.noise = noise;
+            this.noiseOffset = noiseOffset;
+            this.noiseStenght = noiseStenght;
+            this.blendAmount = blendAmount;
+        }
+    }
+
+    public PlanetColorSettings() { }
+
+    public PlanetColorSettings(BiomeColorSettings biomeColorSettings, Gradient oceanColor)
+    {
+        this.biomeColorSettings = biomeColorSettings;
+        this.oceanColor = oceanColor;
     }
 }

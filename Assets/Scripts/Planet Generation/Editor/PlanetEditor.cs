@@ -25,6 +25,10 @@ public class PlanetEditor : Editor
         {
             planet.generatePlanet();
         }
+        if (GUILayout.Button("Randomize Planet Shape"))
+        {
+            planet.generatePlanet();
+        }
 
         DrawSettingsEditor(planet.shapeSettings, planet.onShapeSettingsUpdated, ref planet.shapeSettingsFoldout, ref shapeEditor);
         DrawSettingsEditor(planet.colorSettings, planet.onColorSettingsUpdated, ref planet.colorSettingsFoldout, ref colorEditor);

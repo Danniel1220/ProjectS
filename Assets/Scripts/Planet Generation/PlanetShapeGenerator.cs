@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class PlanetShapeGenerator
         elevationMinMax= new PlanetMinMaxHeight();
     }
 
-    public Vector3 calculatePointOnPlanet (Vector3 pointOnUnitSphere)
+    public float calculateUnscaledElevation (Vector3 pointOnUnitSphere)
     {
         float firstLayerValue = 0;
         float elevation = 0;
@@ -41,8 +42,14 @@ public class PlanetShapeGenerator
                 elevation += noiseFilters[i].evaluateNoise(pointOnUnitSphere) * mask;
             }
         }
-        elevation = settings.planetRadius * (1 + elevation);
         elevationMinMax.addValue(elevation);
-        return pointOnUnitSphere * elevation;
+        return elevation;
+    }
+
+    public float getScaledElevation(float unscaledElevation)
+    {
+        float elevation = Mathf.Max(0, unscaledElevation);
+        elevation = settings.planetRadius * (1 + elevation);
+        return elevation;
     }
 }

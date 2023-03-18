@@ -6,10 +6,11 @@ public class GalaxyViewShipPosition : MonoBehaviour
 {
     private GameObject starShipGameObject;
     private Transform shipTransform;
-    private Transform targetTransform;
+
+    [SerializeField ]private Transform targetTransform;
 
     float shipSpeed = 2f;
-    [SerializeField] private float floatDistanceAboveStar = 20f;
+    [SerializeField] private float floatDistanceAboveTarget = 20f;
 
     StarHelper starHelper;
 
@@ -27,7 +28,7 @@ public class GalaxyViewShipPosition : MonoBehaviour
     {
         if (targetTransform != null)
         {
-            Vector3 targetPosition = new Vector3(targetTransform.transform.position.x, targetTransform.transform.position.y + floatDistanceAboveStar, targetTransform.transform.position.z);
+            Vector3 targetPosition = new Vector3(targetTransform.transform.position.x, targetTransform.transform.position.y + floatDistanceAboveTarget, targetTransform.transform.position.z);
             starShipGameObject.transform.position = Vector3.Lerp(shipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
             targetPosition.x= 0f;
         }

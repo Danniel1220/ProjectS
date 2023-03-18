@@ -14,5 +14,17 @@ public class PlanetShapeSettings : ScriptableObject
         public bool enabled = true;
         public bool useFirstLayerAsMask; 
         public NoiseSettings noiseSettings;
+
+        public NoiseLayer(bool useFirstLayerAsMask, NoiseSettings noiseSettings)
+        {
+            this.useFirstLayerAsMask = useFirstLayerAsMask;
+            this.noiseSettings = noiseSettings;
+        }
+    }
+
+    public PlanetShapeSettings(float planetRadius, NoiseLayer[] noiseLayers)
+    {
+        this.planetRadius = planetRadius;
+        this.noiseLayers = noiseLayers;
     }
 }

@@ -499,12 +499,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starship
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4512592109494747250, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4512592108965773960, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
 --- !u!1 &1337681925
 GameObject:
@@ -572,13 +575,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f6bebd07ce0dc458a2d9ba53087d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 700
+  primaryNumberOfPoints: 70
   primaryTurnFraction: 0.7501
   primaryDistanceFactor: 10000
   primaryLocationNoiseXZ: 2500
   primaryMinLocationNoiseXZ: 400
   primaryLocationNoiseY: 500
-  secondaryNumberOfPoints: 300
+  secondaryNumberOfPoints: 30
   secondaryTurnFraction: 1.618034
   secondaryDistanceFactor: 11000
   secondaryLocationNoiseXZ: 1000
@@ -747,12 +750,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662816033}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9940d8174dbfd5842987f9cba3407692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatDistanceAboveStar: 20
+  targetTransform: {fileID: 0}
+  floatDistanceAboveTarget: 20
 --- !u!114 &1662816037
 MonoBehaviour:
   m_ObjectHideFlags: 0
