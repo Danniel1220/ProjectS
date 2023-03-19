@@ -39,8 +39,26 @@ public class PlanetGenerator : MonoBehaviour
                     )));
         PlanetShapeSettings planetShapeSettings = new PlanetShapeSettings(planetRadius, noiseLayers);
 
+        Gradient polesGradient = new Gradient();
 
         PlanetColorSettings.BiomeColorSettings.Biome[] biomes = new PlanetColorSettings.BiomeColorSettings.Biome[3];
+        biomes[0] = new PlanetColorSettings.BiomeColorSettings.Biome(
+            new Gradient(),
+            new Color(),
+            0,
+            0.15f);
+
+        biomes[1] = new PlanetColorSettings.BiomeColorSettings.Biome(
+            new Gradient(),
+            new Color(),
+            0.1f,
+            0f);
+
+        biomes[2] = new PlanetColorSettings.BiomeColorSettings.Biome(
+            new Gradient(),
+            new Color(),
+            0.9f,
+            0.15f);
 
         PlanetColorSettings planetColorSettings = new PlanetColorSettings(
             new PlanetColorSettings.BiomeColorSettings(

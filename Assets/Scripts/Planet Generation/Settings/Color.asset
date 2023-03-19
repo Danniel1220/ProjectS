@@ -115,7 +115,7 @@ MonoBehaviour:
       filterType: 0
       simpleNoiseSettings:
         strenght: 1
-        numberOfLayers: 3
+        numberOfLayers: 1
         baseRoughness: 1
         roughness: 2
         persistence: 0.53
