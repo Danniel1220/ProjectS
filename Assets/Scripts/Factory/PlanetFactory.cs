@@ -60,11 +60,11 @@ public static class PlanetFactory
 
     // color noise settings
     private const NoiseSettings.FilterType COLOR_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Simple;
-    private const float COLOR_NOISE_STRENGHT = 1f;
-    private const int COLOR_NOISE_NUMBER_OF_LAYERS = 1;
-    private const float COLOR_NOISE_BASE_ROUGHNESS = 1f;
-    private const float COLOR_NOISE_ROUGHNESS = 2f;
-    private const float COLOR_NOISE_PERSISTENCE = 0.5f;
+    private const float COLOR_NOISE_STRENGHT = 1.95f;
+    private const int COLOR_NOISE_NUMBER_OF_LAYERS = 2;
+    private const float COLOR_NOISE_BASE_ROUGHNESS = 0f;
+    private const float COLOR_NOISE_ROUGHNESS = 0f;
+    private const float COLOR_NOISE_PERSISTENCE = 0.0f;
     private const float COLOR_NOISE_CENTRE_X = 0f;
     private const float COLOR_NOISE_CENTRE_Y = 0f;
     private const float COLOR_NOISE_CENTRE_Z = 0f;
@@ -75,16 +75,16 @@ public static class PlanetFactory
     private const float BIOME1_TINT_PERCENT = 0.15f;
 
     // biome 2 settings
-    private const float BIOME2_START_HEIGHT = 0.115f;
+    private const float BIOME2_START_HEIGHT = 0f;
     private const float BIOME2_TINT_PERCENT = 0.0f;
 
     // biome 3 settings
-    private const float BIOME3_START_HEIGHT = 0.95f;
+    private const float BIOME3_START_HEIGHT = 0.969f;
     private const float BIOME3_TINT_PERCENT = 0.15f;
 
     // biome color settings
-    private const float BIOME_COLOR_NOISE_OFFSET = 1f;
-    private const float BIOME_COLOR_NOISE_STRENGHT = 1f;
+    private const float BIOME_COLOR_NOISE_OFFSET = 0f;
+    private const float BIOME_COLOR_NOISE_STRENGHT = 0f;
     private const float BIOME_COLOR_BLEND_AMOUNT = 0.15f;
 
 
@@ -305,7 +305,7 @@ public static class PlanetFactory
         planetColorSettings.biomeColorSettings = biomeColorSettings;
         planetColorSettings.oceanColor = oceanColorGradient;
 
-        planetColorSettings.planetMaterial = new Material(Resources.Load("PlanetMat") as Material);
+        planetColorSettings.planetMaterial = new Material(Resources.Load("Planet Material") as Material);
 
         GameObject planetGameObject = new GameObject();
         planetGameObject.AddComponent<Planet>();
