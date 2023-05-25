@@ -13,6 +13,7 @@ TagManager:
   - Class B Star
   - Class O Star
   - Star
+  - Planet
   layers:
   - Default
   - TransparentFX

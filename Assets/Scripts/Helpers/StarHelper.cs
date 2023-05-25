@@ -86,6 +86,7 @@ public class StarHelper : MonoBehaviour
         star.tag = "Star";
         galaxyChunkSystem.addItemToChunk(star);
 
+        PlanetFactory.generatePlanet(star.transform);
     }
 
     public void createStarSystem(Vector3 locationInSpace, StarClass starClass)

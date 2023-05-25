@@ -499,9 +499,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starship
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 4512592108504982333, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512592108965774005, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4512592109494747250, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -575,13 +579,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f6bebd07ce0dc458a2d9ba53087d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 70
+  primaryNumberOfPoints: 700
   primaryTurnFraction: 0.7501
   primaryDistanceFactor: 10000
   primaryLocationNoiseXZ: 2500
   primaryMinLocationNoiseXZ: 400
   primaryLocationNoiseY: 500
-  secondaryNumberOfPoints: 30
+  secondaryNumberOfPoints: 300
   secondaryTurnFraction: 1.618034
   secondaryDistanceFactor: 11000
   secondaryLocationNoiseXZ: 1000

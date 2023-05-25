@@ -11,7 +11,7 @@ public class NoiseSettings
     [ConditionalHide("filterType", 0)]
     public SimpleNoiseSettings simpleNoiseSettings;
     [ConditionalHide("filterType", 1)]
-    public RidgidNoiseSettings ridgidNoiseSettings;
+    public RigidNoiseSettings rigidNoiseSettings;
 
     [System.Serializable]
     public class SimpleNoiseSettings
@@ -40,13 +40,13 @@ public class NoiseSettings
     }
 
     [System.Serializable]
-    public class RidgidNoiseSettings : SimpleNoiseSettings
+    public class RigidNoiseSettings : SimpleNoiseSettings
     {
         public float weightMultiplier = 0.8f;
 
-        public RidgidNoiseSettings() { }
+        public RigidNoiseSettings() { }
 
-        public RidgidNoiseSettings(float strenght, int numberOfLayers, float baseRoughness, float roughness, float persistence, Vector3 centre, float minValue, float weightMultiplier)
+        public RigidNoiseSettings(float strenght, int numberOfLayers, float baseRoughness, float roughness, float persistence, Vector3 centre, float minValue, float weightMultiplier)
         {
             this.strenght = strenght;
             this.numberOfLayers = numberOfLayers;
@@ -65,10 +65,10 @@ public class NoiseSettings
         this.simpleNoiseSettings = simpleNoiseSettings;
     }
 
-    public NoiseSettings(RidgidNoiseSettings ridgidNoiseSettings)
+    public NoiseSettings(RigidNoiseSettings rigidNoiseSettings)
     {
         this.filterType = FilterType.Rigid;
-        this.ridgidNoiseSettings = ridgidNoiseSettings;
+        this.rigidNoiseSettings = rigidNoiseSettings;
     }
 
     public NoiseSettings() { }

@@ -11,7 +11,7 @@ public static class NoiseFilterFactory
             case NoiseSettings.FilterType.Simple:
                 return new SimpleNoiseFilter(settings.simpleNoiseSettings);
             case NoiseSettings.FilterType.Rigid:
-                return new RidgidNoiseFilter(settings.ridgidNoiseSettings);
+                return new RigidNoiseFilter(settings.rigidNoiseSettings);
         }
         return null;
     }

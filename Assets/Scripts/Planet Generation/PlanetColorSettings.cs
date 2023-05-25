@@ -8,6 +8,13 @@ public class PlanetColorSettings : ScriptableObject
     public Material planetMaterial;
     public BiomeColorSettings biomeColorSettings;
     public Gradient oceanColor;
+    public PlanetColorSettings() { }
+
+    public PlanetColorSettings(BiomeColorSettings biomeColorSettings, Gradient oceanColor)
+    {
+        this.biomeColorSettings = biomeColorSettings;
+        this.oceanColor = oceanColor;
+    }
 
     [System.Serializable]
     public class BiomeColorSettings
@@ -50,13 +57,5 @@ public class PlanetColorSettings : ScriptableObject
             this.noiseStenght = noiseStenght;
             this.blendAmount = blendAmount;
         }
-    }
-
-    public PlanetColorSettings() { }
-
-    public PlanetColorSettings(BiomeColorSettings biomeColorSettings, Gradient oceanColor)
-    {
-        this.biomeColorSettings = biomeColorSettings;
-        this.oceanColor = oceanColor;
     }
 }

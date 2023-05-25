@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RidgidNoiseFilter : INoiseFilter
+public class RigidNoiseFilter : INoiseFilter
 {
-    NoiseSettings.RidgidNoiseSettings settings;
+    NoiseSettings.RigidNoiseSettings settings;
     SimplexNoise noise = new SimplexNoise();
 
-    public RidgidNoiseFilter(NoiseSettings.RidgidNoiseSettings settings)
+    public RigidNoiseFilter(NoiseSettings.RigidNoiseSettings settings)
     {
         this.settings = settings;
     }
