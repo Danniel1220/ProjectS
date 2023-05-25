@@ -44,7 +44,7 @@ public static class PlanetFactory
     private const float LAYER2_SHAPE_MIN_VALUE = 0f;
     private const float LAYER2_SHAPE_WEIGHT_MULTIPLIER = 0f;
 
-    // shape layer 2 noise settings
+    // shape layer 3 noise settings
     private const bool LAYER3_USE_FIRST_LAYER_AS_MASK = true;
     private const NoiseSettings.FilterType LAYER3_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Rigid;
     private const float LAYER3_SHAPE_STRENGHT = 0.53f;
@@ -55,12 +55,20 @@ public static class PlanetFactory
     private const float LAYER3_SHAPE_CENTRE_Y = 0f;
     private const float LAYER3_SHAPE_CENTRE_Z = 0f;
     private const float LAYER3_SHAPE_MIN_VALUE = 0f;
-    private const float LAYER3_WEIGHT_MULTIPLIER = 0f;
     private const float LAYER3_SHAPE_WEIGHT_MULTIPLIER = 0f;
 
 
     // color noise settings
-
+    private const NoiseSettings.FilterType COLOR_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Simple;
+    private const float COLOR_NOISE_STRENGHT = 1f;
+    private const int COLOR_NOISE_NUMBER_OF_LAYERS = 1;
+    private const float COLOR_NOISE_BASE_ROUGHNESS = 1f;
+    private const float COLOR_NOISE_ROUGHNESS = 2f;
+    private const float COLOR_NOISE_PERSISTENCE = 0.5f;
+    private const float COLOR_NOISE_CENTRE_X = 0f;
+    private const float COLOR_NOISE_CENTRE_Y = 0f;
+    private const float COLOR_NOISE_CENTRE_Z = 0f;
+    private const float COLOR_NOISE_MIN_VALUE = 0f;
 
     // biome 1 settings
     private const float BIOME1_START_HEIGHT = 0f;
@@ -74,15 +82,16 @@ public static class PlanetFactory
     private const float BIOME3_START_HEIGHT = 0.95f;
     private const float BIOME3_TINT_PERCENT = 0.15f;
 
+    // biome color settings
+    private const float BIOME_COLOR_NOISE_OFFSET = 1f;
+    private const float BIOME_COLOR_NOISE_STRENGHT = 1f;
+    private const float BIOME_COLOR_BLEND_AMOUNT = 0.15f;
+
 
 
 
     public static void generatePlanet(Transform targetTransform)
     {
-        NoiseSettings colorNoiseSettings = new NoiseSettings();
-        colorNoiseSettings.simpleNoiseSettings = new NoiseSettings.SimpleNoiseSettings();
-        colorNoiseSettings.filterType = NoiseSettings.FilterType.Simple;
-
         // ----------- SHAPE NOISE LAYERS ------------------------------------------------------------------------
         // ----------- LAYER 1 -----------------------------------------------------------------------------------
         NoiseSettings layer1NoiseSettings = new NoiseSettings();
@@ -157,13 +166,13 @@ public static class PlanetFactory
 
         // ----------- BIOME 1 -----------------------------------------------------------------------------------
         GradientColorKey[] biome1ColorKeys = new GradientColorKey[7];
-        ColorUtility.TryParseHtmlString("FFFFFF", out biome1ColorKeys[0].color);
-        ColorUtility.TryParseHtmlString("FEFFDC", out biome1ColorKeys[1].color);
-        ColorUtility.TryParseHtmlString("D6FFC9", out biome1ColorKeys[2].color);
-        ColorUtility.TryParseHtmlString("6D845E", out biome1ColorKeys[3].color);
-        ColorUtility.TryParseHtmlString("C0B580", out biome1ColorKeys[4].color);
-        ColorUtility.TryParseHtmlString("595140", out biome1ColorKeys[5].color);
-        ColorUtility.TryParseHtmlString("FFFFFF", out biome1ColorKeys[6].color);
+        biome1ColorKeys[0].color = parseHexColor("#FFFFFF");
+        biome1ColorKeys[1].color = parseHexColor("#FEFFDC");
+        biome1ColorKeys[2].color = parseHexColor("#D6FFC9");
+        biome1ColorKeys[3].color = parseHexColor("#6D845E");
+        biome1ColorKeys[4].color = parseHexColor("#C0B580");
+        biome1ColorKeys[5].color = parseHexColor("#595140");
+        biome1ColorKeys[6].color = parseHexColor("#FFFFFF");
 
         biome1ColorKeys[0].time = 0.0f;
         biome1ColorKeys[1].time = 0.06f;
@@ -185,39 +194,116 @@ public static class PlanetFactory
         PlanetColorSettings.BiomeColorSettings.Biome biome1 = new PlanetColorSettings.BiomeColorSettings.Biome(
             biome1Gradient, Color.white, BIOME1_START_HEIGHT, BIOME1_TINT_PERCENT);
         // -------------------------------------------------------------------------------------------------------
+        // ----------- BIOME 2 -----------------------------------------------------------------------------------
+        GradientColorKey[] biome2ColorKeys = new GradientColorKey[7];
+        biome2ColorKeys[0].color = parseHexColor("#FCFF83");
+        biome2ColorKeys[1].color = parseHexColor("#6DFF40");
+        biome2ColorKeys[2].color = parseHexColor("#468420");
+        biome2ColorKeys[3].color = parseHexColor("#CAA805");
+        biome2ColorKeys[4].color = parseHexColor("#5B3E00");
+        biome2ColorKeys[5].color = parseHexColor("#E9E5DD");
+        biome2ColorKeys[6].color = parseHexColor("#FFFFFF");
 
+        biome2ColorKeys[0].time = 0.0f;
+        biome2ColorKeys[1].time = 0.097f;
+        biome2ColorKeys[2].time = 0.3f;
+        biome2ColorKeys[3].time = 0.52f;
+        biome2ColorKeys[4].time = 0.7f;
+        biome2ColorKeys[5].time = 0.75f;
+        biome2ColorKeys[6].time = 1.00f;
 
+        GradientAlphaKey[] biome2AlphaKeys = new GradientAlphaKey[2];
+        biome2AlphaKeys[0].alpha = 1.0f;
+        biome2AlphaKeys[1].alpha = 1.0f;
+        biome2AlphaKeys[0].time = 0.0f;
+        biome2AlphaKeys[1].time = 1.0f;
 
+        Gradient biome2Gradient = new Gradient();
+        biome2Gradient.SetKeys(biome2ColorKeys, biome2AlphaKeys);
 
+        PlanetColorSettings.BiomeColorSettings.Biome biome2 = new PlanetColorSettings.BiomeColorSettings.Biome(
+            biome2Gradient, Color.white, BIOME2_START_HEIGHT, BIOME2_TINT_PERCENT);
+        // -------------------------------------------------------------------------------------------------------
+        // ----------- BIOME 3 -----------------------------------------------------------------------------------
+        GradientColorKey[] biome3ColorKeys = new GradientColorKey[7];
+        biome3ColorKeys[0].color = parseHexColor("#FFFFFF");
+        biome3ColorKeys[1].color = parseHexColor("#FEFFDC");
+        biome3ColorKeys[2].color = parseHexColor("#D6FFC9");
+        biome3ColorKeys[3].color = parseHexColor("#6D845E");
+        biome3ColorKeys[4].color = parseHexColor("#C0B580");
+        biome3ColorKeys[5].color = parseHexColor("#595140");
+        biome3ColorKeys[6].color = parseHexColor("#FFFFFF");
 
-        // generating color settings
-        // this planet has 3 basic layers of color, 2 for poles and 1 for the center portion
+        biome3ColorKeys[0].time = 0.0f;
+        biome3ColorKeys[1].time = 0.06f;
+        biome3ColorKeys[2].time = 0.135f;
+        biome3ColorKeys[3].time = 0.215f;
+        biome3ColorKeys[4].time = 0.500f;
+        biome3ColorKeys[5].time = 0.825f;
+        biome3ColorKeys[6].time = 1.00f;
+
+        GradientAlphaKey[] biome3AlphaKeys = new GradientAlphaKey[2];
+        biome3AlphaKeys[0].alpha = 1.0f;
+        biome3AlphaKeys[1].alpha = 1.0f;
+        biome3AlphaKeys[0].time = 0.0f;
+        biome3AlphaKeys[1].time = 1.0f;
+
+        Gradient biome3Gradient = new Gradient();
+        biome3Gradient.SetKeys(biome3ColorKeys, biome3AlphaKeys);
+
+        PlanetColorSettings.BiomeColorSettings.Biome biome3 = new PlanetColorSettings.BiomeColorSettings.Biome(
+            biome3Gradient, Color.white, BIOME3_START_HEIGHT, BIOME3_TINT_PERCENT);
+        // -------------------------------------------------------------------------------------------------------
+
+        NoiseSettings colorNoiseSettings = new NoiseSettings();
+        colorNoiseSettings.simpleNoiseSettings = new NoiseSettings.SimpleNoiseSettings();
+        colorNoiseSettings.filterType = NoiseSettings.FilterType.Simple;
+        colorNoiseSettings.simpleNoiseSettings.strenght = COLOR_NOISE_STRENGHT;
+        colorNoiseSettings.simpleNoiseSettings.numberOfLayers = COLOR_NOISE_NUMBER_OF_LAYERS;
+        colorNoiseSettings.simpleNoiseSettings.baseRoughness = COLOR_NOISE_BASE_ROUGHNESS;
+        colorNoiseSettings.simpleNoiseSettings.roughness = COLOR_NOISE_ROUGHNESS;
+        colorNoiseSettings.simpleNoiseSettings.persistence = COLOR_NOISE_PERSISTENCE;
+        colorNoiseSettings.simpleNoiseSettings.centre.x = COLOR_NOISE_CENTRE_X;
+        colorNoiseSettings.simpleNoiseSettings.centre.y = COLOR_NOISE_CENTRE_X;
+        colorNoiseSettings.simpleNoiseSettings.centre.z = COLOR_NOISE_CENTRE_X;
 
         PlanetColorSettings planetColorSettings = ScriptableObject.CreateInstance<PlanetColorSettings>();
         PlanetColorSettings.BiomeColorSettings.Biome[] biomes = new PlanetColorSettings.BiomeColorSettings.Biome[3];
-        biomes[0] = new PlanetColorSettings.BiomeColorSettings.Biome(
-            new Gradient(),
-            new Color(),
-            0,
-            0.15f);
-
-        biomes[1] = new PlanetColorSettings.BiomeColorSettings.Biome(
-            new Gradient(),
-            new Color(),
-            0.1f,
-            0f);
-
-        biomes[2] = new PlanetColorSettings.BiomeColorSettings.Biome(
-            new Gradient(),
-            new Color(),
-            0.9f,
-            0.15f);
+        biomes[0] = biome1;
+        biomes[1] = biome2;
+        biomes[2] = biome3;
 
         PlanetColorSettings.BiomeColorSettings biomeColorSettings = new PlanetColorSettings.BiomeColorSettings();
         biomeColorSettings.biomes = biomes;
         biomeColorSettings.noise = colorNoiseSettings;
+        biomeColorSettings.noiseOffset = BIOME_COLOR_NOISE_OFFSET;
+        biomeColorSettings.noiseStenght = BIOME_COLOR_NOISE_STRENGHT;
+        biomeColorSettings.blendAmount = BIOME_COLOR_BLEND_AMOUNT;
+
+        GradientColorKey[] oceanColorKeys = new GradientColorKey[5];
+        oceanColorKeys[0].color = parseHexColor("#111B52");
+        oceanColorKeys[1].color = parseHexColor("#13285B");
+        oceanColorKeys[2].color = parseHexColor("#2E4582");
+        oceanColorKeys[3].color = parseHexColor("#3A5FA4");
+        oceanColorKeys[4].color = parseHexColor("#41AABE");
+
+        oceanColorKeys[0].time = 0.0f;
+        oceanColorKeys[1].time = 0.35f;
+        oceanColorKeys[2].time = 0.62f;
+        oceanColorKeys[3].time = 0.85f;
+        oceanColorKeys[4].time = 1.00f;
+
+        GradientAlphaKey[] oceanAlphaKeys = new GradientAlphaKey[2];
+        oceanAlphaKeys[0].alpha = 1.0f;
+        oceanAlphaKeys[1].alpha = 1.0f;
+        oceanAlphaKeys[0].time = 0.0f;
+        oceanAlphaKeys[1].time = 1.0f;
+
+        Gradient oceanColorGradient = new Gradient();
+        oceanColorGradient.SetKeys(oceanColorKeys, oceanAlphaKeys);
+
         planetColorSettings.biomeColorSettings = biomeColorSettings;
-        planetColorSettings.oceanColor = new Gradient();
+        planetColorSettings.oceanColor = oceanColorGradient;
 
         planetColorSettings.planetMaterial = new Material(Resources.Load("PlanetMat") as Material);
 
@@ -237,31 +323,13 @@ public static class PlanetFactory
         planetGameObject.transform.localPosition = Vector3.zero;
     }
 
-    public static void generatePlanetV2(Transform targetTransform)
+    private static Color parseHexColor(string hexColorCode)
     {
-        PlanetShapeSettings planetShapeSettings = ScriptableObject.CreateInstance<PlanetShapeSettings>();
-        PlanetColorSettings planetColorSettings = ScriptableObject.CreateInstance<PlanetColorSettings>();
+        Color parsedColor;
 
-        planetShapeSettings.planetRadius = 4f;
-        NoiseLayer[] planetShapeNoiseLayers = new NoiseLayer[] { new NoiseLayer(false, new NoiseSettings()) };
-
-        planetColorSettings.biomeColorSettings = new PlanetColorSettings.BiomeColorSettings();
-
-
-
-
-
-        GameObject planetGameObject = new GameObject();
-        planetGameObject.AddComponent<Planet>();
-        Planet planetScript = planetGameObject.GetComponent<Planet>();
-        planetScript.shapeSettings = planetShapeSettings;
-        planetScript.colorSettings = planetColorSettings;
-
-        planetGameObject.name = "Auto Generated Planet";
-        planetGameObject.tag = "Planet";
-
-        // set the planet's parent to the star system
-        planetGameObject.transform.parent = targetTransform.transform;
-        planetGameObject.transform.localPosition = Vector3.zero;
+        if (ColorUtility.TryParseHtmlString(hexColorCode, out parsedColor)) return parsedColor;
+        else ColorUtility.TryParseHtmlString("#FF009A", out parsedColor);
+        
+        return parsedColor;
     }
 }

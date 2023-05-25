@@ -62,7 +62,7 @@ MonoBehaviour:
         ctime2: 20046
         ctime3: 34502
         ctime4: 45296
-        ctime5: 50886
+        ctime5: 51272
         ctime6: 65535
         ctime7: 65535
         atime0: 0
@@ -118,10 +118,10 @@ MonoBehaviour:
         numberOfLayers: 1
         baseRoughness: 1
         roughness: 2
-        persistence: 0.53
-        centre: {x: 0, y: 0, z: 0}
+        persistence: 0.5
+        centre: {x: 3.29, y: 0, z: 0}
         minValue: 0
-      ridgidNoiseSettings:
+      rigidNoiseSettings:
         strenght: 1
         numberOfLayers: 1
         baseRoughness: 1
@@ -130,9 +130,9 @@ MonoBehaviour:
         centre: {x: 0, y: 0, z: 0}
         minValue: 0
         weightMultiplier: 0.8
-    noiseOffset: 0.77
-    noiseStenght: 0.2
-    blendAmount: 0.239
+    noiseOffset: 1
+    noiseStenght: 0
+    blendAmount: 0.15
   oceanColor:
     serializedVersion: 2
     key0: {r: 0.06505874, g: 0.10473568, b: 0.3207547, a: 1}
@@ -144,7 +144,7 @@ MonoBehaviour:
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 24094
+    ctime1: 23516
     ctime2: 41249
     ctime3: 55705
     ctime4: 65535
