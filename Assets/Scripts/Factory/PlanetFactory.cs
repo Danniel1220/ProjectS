@@ -9,54 +9,59 @@ public static class PlanetFactory
     private const int DEFAULT_RESOLUTION = 40;
     private const int DEFAULT_NUMBER_OF_LAYERS = 5;
 
-    private const float MIN_PLANET_RADIUS = 1f;
-    private const float MAX_PLANET_RADIUS = 4f;
+    private const float MIN_PLANET_RADIUS = 1.5f;
+    private const float MAX_PLANET_RADIUS = 6f;
 
-    private const float MIN_BASE_PLANET_STRENGHT = 0.02f;
-    private const float MAX_BASE_PLANET_STRENGHT = 0.06f;
+    // layer 1 random min/max parameter values
+    private const bool SHAPE_LAYER1_USE_FIRST_LAYER_AS_MASK = false;
+    private const NoiseSettings.FilterType SHAPE_LAYER1_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Simple;
+    private const float MIN_SHAPE_LAYER1_STRENGHT = 0.0001f;
+    private const float MAX_SHAPE_LAYER1_STRENGHT = 0.1f;
+    private const float MIN_SHAPE_LAYER1_BASE_ROUGHNESS = 0.5f;
+    private const float MAX_SHAPE_LAYER1_BASE_ROUGHNESS = 5f;
+    private const float MIN_SHAPE_LAYER1_ROUGHNESS = 0f;
+    private const float MAX_SHAPE_LAYER1_ROUGHNESS = 5f;
+    private const float MIN_SHAPE_LAYER1_PERSISTENCE = 0.1f;
+    private const float MAX_SHAPE_LAYER1_PERSISTENCE = 0.3f;
+    private const float MIN_SHAPE_LAYER1_MIN_VALUE = 0.6f;
+    private const float MAX_SHAPE_LAYER1_MIN_VALUE = 1f;
 
-    private const float MIN_BASE_ROUGHNESS = 1f;
-    private const float MAX_BASE_ROUGHNESS = 2f;
+    // layer 2 random min/max parameter values
+    private const bool SHAPE_LAYER2_USE_FIRST_LAYER_AS_MASK = true;
+    private const NoiseSettings.FilterType SHAPE_LAYER2_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Rigid;
+    private const float MIN_SHAPE_LAYER2_STRENGHT = 0f;
+    private const float MAX_SHAPE_LAYER2_STRENGHT = 1f;
+    private const float MIN_SHAPE_LAYER2_BASE_ROUGHNESS = 1f;
+    private const float MAX_SHAPE_LAYER2_BASE_ROUGHNESS = 5f;
+    private const float MIN_SHAPE_LAYER2_ROUGHNESS = 0f;
+    private const float MAX_SHAPE_LAYER2_ROUGHNESS = 5f;
+    private const float MIN_SHAPE_LAYER2_PERSISTENCE = 0.1f;
+    private const float MAX_SHAPE_LAYER2_PERSISTENCE = 0.3f;
+    private const float MIN_SHAPE_LAYER2_MIN_VALUE = 0f;
+    private const float MAX_SHAPE_LAYER2_MIN_VALUE = 0f;
+    private const float MIN_SHAPE_LAYER2_WEIGHT_MULTIPLIER = 0f;
+    private const float MAX_SHAPE_LAYER2_WEIGHT_MULTIPLIER = 0f;
+
+    // layer 3 random min/max parameter values
+    private const bool SHAPE_LAYER3_USE_FIRST_LAYER_AS_MASK = true;
+    private const NoiseSettings.FilterType SHAPE_LAYER3_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Rigid;
+    private const float MIN_SHAPE_LAYER3_STRENGHT = 0f;
+    private const float MAX_SHAPE_LAYER3_STRENGHT = 1f;
+    private const float MIN_SHAPE_LAYER3_BASE_ROUGHNESS = 1f;
+    private const float MAX_SHAPE_LAYER3_BASE_ROUGHNESS = 5f;
+    private const float MIN_SHAPE_LAYER3_ROUGHNESS = 0f;
+    private const float MAX_SHAPE_LAYER3_ROUGHNESS = 5f;
+    private const float MIN_SHAPE_LAYER3_PERSISTENCE = 0.1f;
+    private const float MAX_SHAPE_LAYER3_PERSISTENCE = 0.3f;
+    private const float MIN_SHAPE_LAYER3_MIN_VALUE = 0f;
+    private const float MAX_SHAPE_LAYER3_MIN_VALUE = 0f;
+    private const float MIN_SHAPE_LAYER3_WEIGHT_MULTIPLIER = 0f;
+    private const float MAX_SHAPE_LAYER3_WEIGHT_MULTIPLIER = 0f;
 
 
-    // shape layer 1 noise settings
-    private const bool LAYER1_USE_FIRST_LAYER_AS_MASK = false;
-    private const NoiseSettings.FilterType LAYER1_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Simple;
-    private const float LAYER1_SHAPE_STRENGHT = 0.04f;
-    private const float LAYER1_SHAPE_BASE_ROUGHNESS = 1.38f;
-    private const float LAYER1_SHAPE_ROUGHNESS = 3f;
-    private const float LAYER1_SHAPE_PERSISTENCE = 0.24f;
-    private const float LAYER1_SHAPE_CENTRE_X = 0f;
-    private const float LAYER1_SHAPE_CENTRE_Y = 0f;
-    private const float LAYER1_SHAPE_CENTRE_Z = 0f;
-    private const float LAYER1_SHAPE_MIN_VALUE = 0.679f;
-    
-    // shape layer 2 noise settings
-    private const bool LAYER2_USE_FIRST_LAYER_AS_MASK = true;
-    private const NoiseSettings.FilterType LAYER2_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Rigid;
-    private const float LAYER2_SHAPE_STRENGHT = 1.56f;
-    private const float LAYER2_SHAPE_BASE_ROUGHNESS = 0.25f;
-    private const float LAYER2_SHAPE_ROUGHNESS = 2.24f;
-    private const float LAYER2_SHAPE_PERSISTENCE = 1.51f;
-    private const float LAYER2_SHAPE_CENTRE_X = 0f;
-    private const float LAYER2_SHAPE_CENTRE_Y = 0f;
-    private const float LAYER2_SHAPE_CENTRE_Z = 0f;
-    private const float LAYER2_SHAPE_MIN_VALUE = 0f;
-    private const float LAYER2_SHAPE_WEIGHT_MULTIPLIER = 0f;
-
-    // shape layer 3 noise settings
-    private const bool LAYER3_USE_FIRST_LAYER_AS_MASK = true;
-    private const NoiseSettings.FilterType LAYER3_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Rigid;
-    private const float LAYER3_SHAPE_STRENGHT = 0.53f;
-    private const float LAYER3_SHAPE_BASE_ROUGHNESS = 0f;
-    private const float LAYER3_SHAPE_ROUGHNESS = 0f;
-    private const float LAYER3_SHAPE_PERSISTENCE = 0f;
-    private const float LAYER3_SHAPE_CENTRE_X = 0f;
-    private const float LAYER3_SHAPE_CENTRE_Y = 0f;
-    private const float LAYER3_SHAPE_CENTRE_Z = 0f;
-    private const float LAYER3_SHAPE_MIN_VALUE = 0f;
-    private const float LAYER3_SHAPE_WEIGHT_MULTIPLIER = 0f;
-
+    // color biome random min/max parameter values
+    private const int MIN_BIOME_NUMBER_OF_KEYS = 2;
+    private const int MAX_BIOME_NUMBER_OF_KEYS = 5;
 
     // color noise settings
     private const NoiseSettings.FilterType COLOR_NOISE_FILTER_TYPE = NoiseSettings.FilterType.Simple;
@@ -92,66 +97,68 @@ public static class PlanetFactory
 
     public static void generatePlanet(Transform targetTransform)
     {
+        #region Shape Noise Layers Random Value Assignments
         // ----------- SHAPE NOISE LAYERS ------------------------------------------------------------------------
         // ----------- LAYER 1 -----------------------------------------------------------------------------------
         NoiseSettings layer1NoiseSettings = new NoiseSettings();
+        layer1NoiseSettings.filterType = SHAPE_LAYER1_NOISE_FILTER_TYPE;
         NoiseSettings.SimpleNoiseSettings layer1SimpleNoiseSettings = new NoiseSettings.SimpleNoiseSettings();
 
-        layer1SimpleNoiseSettings.strenght = LAYER1_SHAPE_STRENGHT;
+        layer1SimpleNoiseSettings.strenght = Random.Range(MIN_SHAPE_LAYER1_STRENGHT, MAX_SHAPE_LAYER1_STRENGHT);
         layer1SimpleNoiseSettings.numberOfLayers = DEFAULT_NUMBER_OF_LAYERS;
-        layer1SimpleNoiseSettings.baseRoughness = LAYER1_SHAPE_BASE_ROUGHNESS;
-        layer1SimpleNoiseSettings.roughness = LAYER1_SHAPE_ROUGHNESS;
-        layer1SimpleNoiseSettings.persistence = LAYER1_SHAPE_PERSISTENCE;
-        layer1SimpleNoiseSettings.centre.x = LAYER1_SHAPE_CENTRE_X;
-        layer1SimpleNoiseSettings.centre.y = LAYER1_SHAPE_CENTRE_Y;
-        layer1SimpleNoiseSettings.centre.z = LAYER1_SHAPE_CENTRE_Z;
-        layer1SimpleNoiseSettings.minValue = LAYER1_SHAPE_MIN_VALUE;
+        layer1SimpleNoiseSettings.baseRoughness = Random.Range(MIN_SHAPE_LAYER1_BASE_ROUGHNESS, MAX_SHAPE_LAYER1_BASE_ROUGHNESS);
+        layer1SimpleNoiseSettings.roughness = Random.Range(MIN_SHAPE_LAYER1_ROUGHNESS, MAX_SHAPE_LAYER1_ROUGHNESS);
+        layer1SimpleNoiseSettings.persistence = Random.Range(MIN_SHAPE_LAYER1_PERSISTENCE, MAX_SHAPE_LAYER1_PERSISTENCE);
+        layer1SimpleNoiseSettings.centre.x = generateRandomFloat();
+        layer1SimpleNoiseSettings.centre.y = generateRandomFloat();
+        layer1SimpleNoiseSettings.centre.z = generateRandomFloat();
+        layer1SimpleNoiseSettings.minValue = Random.Range(MIN_SHAPE_LAYER1_MIN_VALUE, MAX_SHAPE_LAYER1_MIN_VALUE);
 
-        layer1NoiseSettings.filterType = LAYER1_NOISE_FILTER_TYPE;
         layer1NoiseSettings.simpleNoiseSettings = layer1SimpleNoiseSettings;
 
-        NoiseLayer layer1NoiseLayer = new NoiseLayer(LAYER1_USE_FIRST_LAYER_AS_MASK, layer1NoiseSettings);
+        NoiseLayer layer1NoiseLayer = new NoiseLayer(SHAPE_LAYER1_USE_FIRST_LAYER_AS_MASK, layer1NoiseSettings);
         // -------------------------------------------------------------------------------------------------------
         // ----------- LAYER 2 -----------------------------------------------------------------------------------
         NoiseSettings layer2NoiseSettings = new NoiseSettings();
+        layer2NoiseSettings.filterType = SHAPE_LAYER2_NOISE_FILTER_TYPE;
         NoiseSettings.RigidNoiseSettings layer2RigidNoiseSettings = new NoiseSettings.RigidNoiseSettings();
 
-        layer2RigidNoiseSettings.strenght = LAYER2_SHAPE_STRENGHT;
+        layer2RigidNoiseSettings.strenght = Random.Range(MIN_SHAPE_LAYER2_STRENGHT, MAX_SHAPE_LAYER2_STRENGHT);
         layer2RigidNoiseSettings.numberOfLayers = DEFAULT_NUMBER_OF_LAYERS;
-        layer2RigidNoiseSettings.baseRoughness = LAYER2_SHAPE_BASE_ROUGHNESS;
-        layer2RigidNoiseSettings.roughness = LAYER2_SHAPE_ROUGHNESS;
-        layer2RigidNoiseSettings.persistence = LAYER2_SHAPE_PERSISTENCE;
-        layer2RigidNoiseSettings.centre.x = LAYER2_SHAPE_CENTRE_X;
-        layer2RigidNoiseSettings.centre.y = LAYER2_SHAPE_CENTRE_Y;
-        layer2RigidNoiseSettings.centre.z = LAYER2_SHAPE_CENTRE_Z;
-        layer2RigidNoiseSettings.minValue = LAYER2_SHAPE_MIN_VALUE;
-        layer2RigidNoiseSettings.weightMultiplier = LAYER2_SHAPE_WEIGHT_MULTIPLIER;
+        layer2RigidNoiseSettings.baseRoughness = Random.Range(MIN_SHAPE_LAYER2_BASE_ROUGHNESS, MAX_SHAPE_LAYER2_BASE_ROUGHNESS);
+        layer2RigidNoiseSettings.roughness = Random.Range(MIN_SHAPE_LAYER2_ROUGHNESS, MAX_SHAPE_LAYER2_ROUGHNESS);
+        layer2RigidNoiseSettings.persistence = Random.Range(MIN_SHAPE_LAYER2_PERSISTENCE, MAX_SHAPE_LAYER2_PERSISTENCE);
+        layer2RigidNoiseSettings.centre.x = generateRandomFloat();
+        layer2RigidNoiseSettings.centre.y = generateRandomFloat();
+        layer2RigidNoiseSettings.centre.z = generateRandomFloat();
+        layer2RigidNoiseSettings.minValue = Random.Range(MIN_SHAPE_LAYER2_MIN_VALUE, MAX_SHAPE_LAYER2_MIN_VALUE);
+        layer2RigidNoiseSettings.weightMultiplier = Random.Range(MIN_SHAPE_LAYER2_WEIGHT_MULTIPLIER, MAX_SHAPE_LAYER2_WEIGHT_MULTIPLIER);
 
-        layer2NoiseSettings.filterType = LAYER2_NOISE_FILTER_TYPE;
         layer2NoiseSettings.rigidNoiseSettings = layer2RigidNoiseSettings;
 
-        NoiseLayer layer2NoiseLayer = new NoiseLayer(LAYER2_USE_FIRST_LAYER_AS_MASK, layer2NoiseSettings);
+        NoiseLayer layer2NoiseLayer = new NoiseLayer(SHAPE_LAYER2_USE_FIRST_LAYER_AS_MASK, layer2NoiseSettings);
         // -------------------------------------------------------------------------------------------------------
         // ----------- LAYER 3 -----------------------------------------------------------------------------------
         NoiseSettings layer3NoiseSettings = new NoiseSettings();
+        layer3NoiseSettings.filterType = SHAPE_LAYER3_NOISE_FILTER_TYPE;
         NoiseSettings.RigidNoiseSettings layer3RigidNoiseSettings = new NoiseSettings.RigidNoiseSettings();
 
-        layer3RigidNoiseSettings.strenght = LAYER3_SHAPE_STRENGHT;
+        layer3RigidNoiseSettings.strenght = Random.Range(MIN_SHAPE_LAYER3_STRENGHT, MAX_SHAPE_LAYER3_STRENGHT);
         layer3RigidNoiseSettings.numberOfLayers = DEFAULT_NUMBER_OF_LAYERS;
-        layer3RigidNoiseSettings.baseRoughness = LAYER3_SHAPE_BASE_ROUGHNESS;
-        layer3RigidNoiseSettings.roughness = LAYER3_SHAPE_ROUGHNESS;
-        layer3RigidNoiseSettings.persistence = LAYER3_SHAPE_PERSISTENCE;
-        layer3RigidNoiseSettings.centre.x = LAYER3_SHAPE_CENTRE_X;
-        layer3RigidNoiseSettings.centre.y = LAYER3_SHAPE_CENTRE_Y;
-        layer3RigidNoiseSettings.centre.z = LAYER3_SHAPE_CENTRE_Z;
-        layer3RigidNoiseSettings.minValue = LAYER3_SHAPE_MIN_VALUE;
-        layer3RigidNoiseSettings.weightMultiplier = LAYER3_SHAPE_WEIGHT_MULTIPLIER;
+        layer3RigidNoiseSettings.baseRoughness = Random.Range(MIN_SHAPE_LAYER3_BASE_ROUGHNESS, MAX_SHAPE_LAYER3_BASE_ROUGHNESS);
+        layer3RigidNoiseSettings.roughness = Random.Range(MIN_SHAPE_LAYER3_ROUGHNESS, MAX_SHAPE_LAYER3_ROUGHNESS);
+        layer3RigidNoiseSettings.persistence = Random.Range(MIN_SHAPE_LAYER3_PERSISTENCE, MAX_SHAPE_LAYER3_PERSISTENCE);
+        layer3RigidNoiseSettings.centre.x = generateRandomFloat();
+        layer3RigidNoiseSettings.centre.y = generateRandomFloat();
+        layer3RigidNoiseSettings.centre.z = generateRandomFloat();
+        layer3RigidNoiseSettings.minValue = Random.Range(MIN_SHAPE_LAYER3_MIN_VALUE, MAX_SHAPE_LAYER3_MIN_VALUE);
+        layer2RigidNoiseSettings.weightMultiplier = Random.Range(MIN_SHAPE_LAYER3_WEIGHT_MULTIPLIER, MAX_SHAPE_LAYER3_WEIGHT_MULTIPLIER);
 
-        layer3NoiseSettings.filterType = LAYER3_NOISE_FILTER_TYPE;
         layer3NoiseSettings.rigidNoiseSettings = layer3RigidNoiseSettings;
 
-        NoiseLayer layer3NoiseLayer = new NoiseLayer(LAYER3_USE_FIRST_LAYER_AS_MASK, layer3NoiseSettings);
+        NoiseLayer layer3NoiseLayer = new NoiseLayer(SHAPE_LAYER3_USE_FIRST_LAYER_AS_MASK, layer3NoiseSettings);
         // -------------------------------------------------------------------------------------------------------
+        #endregion
 
         // assignign the defined noise layers (3 layers)
         PlanetShapeSettings.NoiseLayer[] shapeNoiseLayers = new PlanetShapeSettings.NoiseLayer[3];
@@ -163,6 +170,7 @@ public static class PlanetFactory
         PlanetShapeSettings planetShapeSettings = ScriptableObject.CreateInstance<PlanetShapeSettings>();
         planetShapeSettings.planetRadius = Random.Range(MIN_PLANET_RADIUS, MAX_PLANET_RADIUS);
         planetShapeSettings.noiseLayers = shapeNoiseLayers;
+
 
         // ----------- BIOME 1 -----------------------------------------------------------------------------------
         GradientColorKey[] biome1ColorKeys = new GradientColorKey[7];
@@ -331,5 +339,35 @@ public static class PlanetFactory
         else ColorUtility.TryParseHtmlString("#FF009A", out parsedColor);
         
         return parsedColor;
+    }
+
+    private static float generateRandomFloat()
+    {
+        return Random.Range(-12000, 12000);
+    }
+    
+    private static PlanetColorSettings.BiomeColorSettings.Biome generateRandomBiome(float biomeStartHeight, float biomeTintPercent)
+    {
+        int numberOfKeys = Random.Range(MIN_BIOME_NUMBER_OF_KEYS, MAX_BIOME_NUMBER_OF_KEYS);
+        float distanceBetweenKeys = 1 / numberOfKeys;
+        GradientColorKey[] biomeColorKeys = new GradientColorKey[numberOfKeys];
+        for (int i = 0; i < numberOfKeys; i++)
+        {
+            biomeColorKeys[i].color = Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
+            biomeColorKeys[i].time = distanceBetweenKeys * i;
+        }
+
+        GradientAlphaKey[] biomeAlphaKeys = new GradientAlphaKey[2];
+        biomeAlphaKeys[0].alpha = 1.0f;
+        biomeAlphaKeys[1].alpha = 1.0f;
+        biomeAlphaKeys[0].time = 0.0f;
+        biomeAlphaKeys[1].time = 1.0f;
+
+        Gradient biomeGradient = new Gradient();
+        biomeGradient.SetKeys(biomeColorKeys, biomeAlphaKeys);
+
+        Color tintColor = Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
+
+        return new PlanetColorSettings.BiomeColorSettings.Biome(biomeGradient, tintColor, biomeStartHeight, biomeTintPercent);
     }
 }
