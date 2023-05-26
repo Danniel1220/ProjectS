@@ -48,7 +48,7 @@ MonoBehaviour:
         centre: {x: 0, y: 0, z: 0}
         minValue: 0
       rigidNoiseSettings:
-        strenght: 1
+        strenght: 2
         numberOfLayers: 1
         baseRoughness: 1
         roughness: 2
@@ -69,7 +69,7 @@ MonoBehaviour:
         centre: {x: 0, y: 0, z: 0}
         minValue: 0
       rigidNoiseSettings:
-        strenght: 1
+        strenght: 2
         numberOfLayers: 1
         baseRoughness: 1
         roughness: 2
