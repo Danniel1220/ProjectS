@@ -12,15 +12,15 @@ public class GalaxyViewShipPosition : MonoBehaviour
     float shipSpeed = 2f;
     [SerializeField] private float floatDistanceAboveTarget = 20f;
 
-    StarHelper starHelper;
+    StarFactory starHelper;
 
     // Start is called before the first frame update
     void Start()
     {
         starShipGameObject = this.gameObject;
         shipTransform = this.transform.Find("Body").transform;
-        starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
-        targetTransform = GameObject.Find("StarContainer").transform.GetChild(0);
+        starHelper = GameObject.Find("StarManager").GetComponent<StarFactory>();
+        targetTransform = GameObject.Find("Star Systems Container").transform.GetChild(0);
     }
 
     // Update is called once per frame

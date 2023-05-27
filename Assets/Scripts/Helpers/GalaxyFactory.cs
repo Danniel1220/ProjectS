@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class StarSystemGenerator : MonoBehaviour
+public class GalaxyFactory : MonoBehaviour
 {
     private GalaxyChunkSystem galaxyChunkSystem;
-    private StarHelper starHelper;
+    private StarFactory starHelper;
     private GalaxyViewShipPosition galaxyViewShipPosition;
 
     [SerializeField] private int primaryNumberOfPoints;
@@ -45,7 +45,7 @@ public class StarSystemGenerator : MonoBehaviour
     void Start()
     {
         galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
-        starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
+        starHelper = GameObject.Find("StarManager").GetComponent<StarFactory>();
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
         galaxyViewShipPosition.enabled = true;
 
@@ -124,7 +124,7 @@ public class StarSystemGenerator : MonoBehaviour
                     // and if both objects have Star tags
                     if (chunk.chunkGameObjectList[i] != chunk.chunkGameObjectList[j] &&
                         Vector3.Distance(chunk.chunkGameObjectList[i].transform.position, chunk.chunkGameObjectList[j].transform.position) < minDistance &&
-                        chunk.chunkGameObjectList[i].tag == "Star" && chunk.chunkGameObjectList[j].tag == "Star")
+                        chunk.chunkGameObjectList[i].tag == "Star System" && chunk.chunkGameObjectList[j].tag == "Star System")
                     {
                         // flag the object that it should be deleted
                         shouldDelete = true;

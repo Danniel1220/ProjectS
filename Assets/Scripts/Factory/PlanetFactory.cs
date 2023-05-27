@@ -9,7 +9,7 @@ public static class PlanetFactory
     private const int DEFAULT_RESOLUTION = 40;
     private const int DEFAULT_NUMBER_OF_LAYERS = 5;
 
-    private const float MIN_PLANET_RADIUS = 1.5f;
+    private const float MIN_PLANET_RADIUS = 2f;
     private const float MAX_PLANET_RADIUS = 6f;
 
     // layer 1 random min/max parameter values
@@ -91,7 +91,10 @@ public static class PlanetFactory
     private const float BIOME2_START_HEIGHT = 0f;
     private const float BIOME3_START_HEIGHT = 0.969f;
 
-    public static void generatePlanet(Transform targetTransform)
+    private const float PLANET_LIGHT_RANGE = 100f;
+    private const float PLANET_LIGHT_INTENSITY = 500f;
+
+    public static GameObject generatePlanet(Transform targetTransform)
     {
         #region Shape Noise Layers Random Value Assignments
         // ----------- SHAPE NOISE LAYERS ------------------------------------------------------------------------
@@ -213,7 +216,38 @@ public static class PlanetFactory
 
         // set the planet's parent to the star system
         planetGameObject.transform.parent = targetTransform;
-        planetGameObject.transform.localPosition = Vector3.zero;
+        planetGameObject.transform.localPosition = new Vector3(50, 0, 0);
+
+        GameObject lightGameObjectNorth = new GameObject("PlanetLightning");
+        GameObject lightGameObjectSouth = new GameObject("PlanetLightning");
+        GameObject lightGameObjectEast = new GameObject("PlanetLightning");
+        GameObject lightGameObjectWest = new GameObject("PlanetLightning");
+
+        Light lightNorth = lightGameObjectNorth.AddComponent<Light>();
+        Light lightSouth = lightGameObjectSouth.AddComponent<Light>();
+        Light lightEast = lightGameObjectEast.AddComponent<Light>();
+        Light lightWest = lightGameObjectWest.AddComponent<Light>();
+
+        lightNorth.range = PLANET_LIGHT_RANGE;
+        lightNorth.intensity = PLANET_LIGHT_INTENSITY;
+        lightSouth.range = PLANET_LIGHT_RANGE;
+        lightSouth.intensity = PLANET_LIGHT_INTENSITY;
+        lightEast.range = PLANET_LIGHT_RANGE;
+        lightEast.intensity = PLANET_LIGHT_INTENSITY;
+        lightWest.range = PLANET_LIGHT_RANGE;
+        lightWest.intensity = PLANET_LIGHT_INTENSITY;
+
+        lightGameObjectNorth.transform.parent = planetGameObject.transform;
+        lightGameObjectSouth.transform.parent = planetGameObject.transform;
+        lightGameObjectEast.transform.parent = planetGameObject.transform;
+        lightGameObjectWest.transform.parent = planetGameObject.transform;
+
+        lightGameObjectNorth.transform.localPosition = new Vector3(0, 0, 50f);
+        lightGameObjectSouth.transform.localPosition = new Vector3(0, 0, -50f);
+        lightGameObjectEast.transform.localPosition = new Vector3(50f, 0, 0);
+        lightGameObjectWest.transform.localPosition = new Vector3(-50f, 0, 0);
+
+        return planetGameObject;
     }
 
     private static float generateRandomFloat()
@@ -249,5 +283,10 @@ public static class PlanetFactory
         gradient.SetKeys(colorKeys, alphaKeys);
 
         return gradient;
+    }
+
+    public static float getMaxPlanetRadius()
+    {
+        return MAX_PLANET_RADIUS;
     }
 }

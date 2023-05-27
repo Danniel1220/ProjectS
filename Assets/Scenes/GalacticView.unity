@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 663801b222724b94088e8e6bc540dd7e, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -219,11 +219,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 238224581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9eaaee0be7d6cf4d821eb3c778acab8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d649b88482a16740a37a10f99fc5372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  galaxyChunkSystem: {fileID: 0}
-  starContainer: {fileID: 0}
+  starSystemsContainer: {fileID: 0}
   classMStarPrefab: {fileID: 1518546042757392187, guid: 52f8c8a8a569ecf4c86b488bfc4d5075, type: 3}
   classKStarPrefab: {fileID: 4835239247682124009, guid: ce5ad00ce4386654293e3075b222463f, type: 3}
   classGStarPrefab: {fileID: 1785997038535751018, guid: 259a80eeef63aff41aca6b50b4d0ed88, type: 3}
@@ -357,7 +356,7 @@ MonoBehaviour:
   cameraAnchorLookPointYPos: 0
   cameraMaxYClamp: 200
   cameraMinYClamp: -200
-  zoomMinDistance: 200
+  zoomMinDistance: 50
   zoomMaxDistance: 20000
   zoomMinMultiplier: 100
   zoomMaxMultiplier: 20000
@@ -424,7 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 744882351}
   m_Layer: 0
-  m_Name: StarContainer
+  m_Name: Star Systems Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,13 +578,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f6bebd07ce0dc458a2d9ba53087d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 700
+  primaryNumberOfPoints: 70
   primaryTurnFraction: 0.7501
   primaryDistanceFactor: 10000
   primaryLocationNoiseXZ: 2500
   primaryMinLocationNoiseXZ: 400
   primaryLocationNoiseY: 500
-  secondaryNumberOfPoints: 300
+  secondaryNumberOfPoints: 30
   secondaryTurnFraction: 1.618034
   secondaryDistanceFactor: 11000
   secondaryLocationNoiseXZ: 1000

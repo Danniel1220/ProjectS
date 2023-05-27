@@ -5,10 +5,10 @@ using System.Linq;
 using Unity.Jobs;
 using UnityEngine;
 
-public class StarHelper : MonoBehaviour
+public class StarFactory : MonoBehaviour
 {
-    [SerializeField] private GalaxyChunkSystem galaxyChunkSystem;
-    [SerializeField] private GameObject starContainer;
+    private GalaxyChunkSystem galaxyChunkSystem;
+    [SerializeField] private GameObject starSystemsContainer;
 
     [SerializeField] private GameObject classMStarPrefab;
     [SerializeField] private GameObject classKStarPrefab;
@@ -27,66 +27,150 @@ public class StarHelper : MonoBehaviour
     [SerializeField] private int classOStarAmount = 0;
     [SerializeField] private int defaultedStars = 0;
 
-    private string lowerCaseVowels = "aeiou";
-    private string upperCaseVowels = "AEIOU";
+    private const string lowerCaseVowels = "aeiou";
+    private const string upperCaseVowels = "AEIOU";
 
-    private string lowerCaseConsonants = "bcdfghjklmnpqrstvwxyz";
-    private string upperCaseConsonants = "BCDFGHJKLMNPQRSTVWXYZ";
+    private const string lowerCaseConsonants = "bcdfghjklmnpqrstvwxyz";
+    private const string upperCaseConsonants = "BCDFGHJKLMNPQRSTVWXYZ";
+
+    private const int MIN_PLANET_AMOUNT = 0;
+    private const int MAX_PLANET_AMOUNT = 8;
+
+    private const float CLASS_M_STAR_ROCHE_LIMIT = 8f;
+    private const float CLASS_K_STAR_ROCHE_LIMIT = 9f;
+    private const float CLASS_G_STAR_ROCHE_LIMIT = 10f;
+    private const float CLASS_F_STAR_ROCHE_LIMIT = 11f;
+    private const float CLASS_A_STAR_ROCHE_LIMIT = 15f;
+    private const float CLASS_B_STAR_ROCHE_LIMIT = 20f;
+    private const float CLASS_O_STAR_ROCHE_LIMIT = 22f;
+
+    private const float DISTANCE_BETWEEN_PLANET_ORBITS = 18f;
+
+    private List<float> classMStarOrbitalDistances;
+    private List<float> classKStarOrbitalDistances;
+    private List<float> classGStarOrbitalDistances;
+    private List<float> classFStarOrbitalDistances;
+    private List<float> classAStarOrbitalDistances;
+    private List<float> classBStarOrbitalDistances;
+    private List<float> classOStarOrbitalDistances;
+
 
     List<GalaxyChunk> chunks;
 
     void Start()
     {
         galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
+        starSystemsContainer = GameObject.Find("Star Systems Container");
         chunks = galaxyChunkSystem.getAllChunks();
-        starContainer = GameObject.Find("StarContainer");
+        chunks = galaxyChunkSystem.getAllChunks();
+
+        float maxPlanetRadius = PlanetFactory.getMaxPlanetRadius();
+
+        for (int i = 0; i < MAX_PLANET_AMOUNT; i++)
+        {
+
+            // first orbit should be equal to the star's roche limit + half of the maximum planet radius
+            if (i == 0)
+            {
+                classMStarOrbitalDistances.Add(CLASS_M_STAR_ROCHE_LIMIT + maxPlanetRadius / 2);
+                classKStarOrbitalDistances.Add(CLASS_K_STAR_ROCHE_LIMIT + maxPlanetRadius / 2);
+                classGStarOrbitalDistances.Add(CLASS_G_STAR_ROCHE_LIMIT + maxPlanetRadius / 2);
+                classFStarOrbitalDistances.Add(CLASS_F_STAR_ROCHE_LIMIT + maxPlanetRadius / 2);
+                classAStarOrbitalDistances.Add(CLASS_A_STAR_ROCHE_LIMIT + maxPlanetRadius / 2);
+                classBStarOrbitalDistances.Add(CLASS_B_STAR_ROCHE_LIMIT + maxPlanetRadius / 2);
+                classOStarOrbitalDistances.Add(CLASS_O_STAR_ROCHE_LIMIT + maxPlanetRadius / 2);
+            }
+            else
+            {
+                classMStarOrbitalDistances.Add(classMStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+                classKStarOrbitalDistances.Add(classKStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+                classGStarOrbitalDistances.Add(classGStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+                classFStarOrbitalDistances.Add(classFStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+                classAStarOrbitalDistances.Add(classAStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+                classBStarOrbitalDistances.Add(classBStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+                classOStarOrbitalDistances.Add(classOStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+            }
+        }
     }
 
     public void createStarSystem(Vector3 locationInSpace)
     {
+        // creating the new star system's container
+        GameObject starSystemContainer = new GameObject();
+
+        string starSystemName = generateRandomName();
+
+        starSystemContainer.transform.position = locationInSpace;
+        starSystemContainer.name = starSystemName + " System";
+        starSystemContainer.tag = "Star System";
+
+        // ad the new star system container to the container for all star systems
+        starSystemContainer.transform.parent = starSystemsContainer.transform;
+
         GameObject star;
+        // figuring out what star class the new star will be
         switch (getWeightedRandomStarClass())
         {
             case StarClass.M:
-                star = Instantiate(classMStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classMStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classMStarAmount++;
                 break;
             case StarClass.K:
-                star = Instantiate(classKStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classKStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classKStarAmount++;
                 break;
             case StarClass.G:
-                star = Instantiate(classGStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classGStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classGStarAmount++;
                 break;
             case StarClass.F:
-                star = Instantiate(classFStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classFStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classFStarAmount++;
                 break;
             case StarClass.A:
-                star = Instantiate(classAStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classAStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classAStarAmount++;
                 break;
             case StarClass.B:
-                star = Instantiate(classBStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classBStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classBStarAmount++;
                 break;
             case StarClass.O:
-                star = Instantiate(classOStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classOStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classOStarAmount++;
                 break;
             default:
-                star = Instantiate(classMStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classMStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 defaultedStars++;
                 Debug.LogWarning("Star class RNG error in createStar()... defaulting to class M");
                 break;
         }
-        star.transform.parent = starContainer.transform;
-        star.name = generateRandomStarName();
+        // add the new star to the new star system's container
+        star.transform.parent = starSystemContainer.transform;
+        star.name = starSystemName;
         star.tag = "Star";
-        galaxyChunkSystem.addItemToChunk(star);
 
-        PlanetFactory.generatePlanet(star.transform);
+        int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
+        if (numberOfPlanets > 0)
+        {
+            List<float> planetOrbitalDistance = new List<float>();
+            for (int i = 0; i < numberOfPlanets; i++)
+            {
+
+            }
+
+            for (int i = 0; i < numberOfPlanets; i++)
+            {
+
+            }
+        }
+
+        GameObject planet = PlanetFactory.generatePlanet(starSystemContainer.transform);
+        Orbit planetOrbit = planet.AddComponent<Orbit>();
+        planetOrbit.setOrbitParameters(star.transform, 20, 20);
+
+        galaxyChunkSystem.addItemToChunk(starSystemContainer);
+
     }
 
     public void createStarSystem(Vector3 locationInSpace, StarClass starClass)
@@ -128,8 +212,8 @@ public class StarHelper : MonoBehaviour
                 Debug.LogWarning("Star class error in createStar() with class argument... defaulting to class M");
                 break;
         }
-        star.transform.parent = starContainer.transform;
-        star.name = generateRandomStarName();
+        star.transform.parent = starSystemsContainer.transform;
+        star.name = generateRandomName();
         star.tag = "Star";
         galaxyChunkSystem.addItemToChunk(star);
 
@@ -149,7 +233,7 @@ public class StarHelper : MonoBehaviour
         return StarClass.M;
     }
 
-    public string generateRandomStarName()
+    public string generateRandomName()
     {
         string name;
         int nameLenght = Random.Range(4, 9);

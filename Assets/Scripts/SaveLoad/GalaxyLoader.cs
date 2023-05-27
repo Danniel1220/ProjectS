@@ -8,7 +8,7 @@ public class GalaxyLoader : MonoBehaviour
 {
     GalaxyViewStarDataWrapper dataWrapper;
     GalaxyChunkSystem galaxyChunkSystem;
-    StarHelper starHelper;
+    StarFactory starHelper;
     GalaxyViewShipPosition galaxyViewShipPosition;
 
     [SerializeField] private GameObject classMStarPrefab;
@@ -24,7 +24,7 @@ public class GalaxyLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        starHelper = GameObject.Find("StarManager").GetComponent<StarHelper>();
+        starHelper = GameObject.Find("StarManager").GetComponent<StarFactory>();
         galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
         dataWrapper = deserializeJsonFile(Application.dataPath + "/StarLocations.json");
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();

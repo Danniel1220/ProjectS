@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
-    public Transform orbitTargetTransform;
+    private Transform orbitTargetTransform;
     private Transform planetTransform;
     public float orbitSpeed;
     public float rotationSpeed;
@@ -13,8 +13,6 @@ public class Orbit : MonoBehaviour
     void Start()
     {
         planetTransform = GetComponent<Transform>();
-        orbitSpeed = Random.Range(10, 40);
-        rotationSpeed = Random.Range(2, 10);
     }
 
     // Update is called once per frame
@@ -22,5 +20,12 @@ public class Orbit : MonoBehaviour
     {
         planetTransform.RotateAround(planetTransform.position, planetTransform.up, rotationSpeed * Time.deltaTime);
         planetTransform.RotateAround(orbitTargetTransform.position, Vector3.up, orbitSpeed * Time.deltaTime);
+    }
+
+    public void setOrbitParameters(Transform orbitTargetTransform, float orbitSpeed, float rotationSpeed)
+    {
+        this.orbitTargetTransform = orbitTargetTransform;
+        this.orbitSpeed = orbitSpeed;
+        this.rotationSpeed = rotationSpeed;
     }
 }
