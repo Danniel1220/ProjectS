@@ -42,9 +42,9 @@ public class StarFactory : MonoBehaviour
     private const float CLASS_F_STAR_ROCHE_LIMIT = 11f;
     private const float CLASS_A_STAR_ROCHE_LIMIT = 15f;
     private const float CLASS_B_STAR_ROCHE_LIMIT = 20f;
-    private const float CLASS_O_STAR_ROCHE_LIMIT = 22f;
+    private const float CLASS_O_STAR_ROCHE_LIMIT = 100f;
 
-    private const float DISTANCE_BETWEEN_PLANET_ORBITS = 18f;
+    private const float MIN_DISTANCE_BETWEEN_PLANET_ORBITS = 32f;
 
     private const float MIN_PLANET_SPIN = 5f;
     private const float MAX_PLANET_SPIN = 30f;
@@ -88,13 +88,13 @@ public class StarFactory : MonoBehaviour
             }
             else
             {
-                classMStarOrbitalDistances.Add(classMStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
-                classKStarOrbitalDistances.Add(classKStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
-                classGStarOrbitalDistances.Add(classGStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
-                classFStarOrbitalDistances.Add(classFStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
-                classAStarOrbitalDistances.Add(classAStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
-                classBStarOrbitalDistances.Add(classBStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
-                classOStarOrbitalDistances.Add(classOStarOrbitalDistances.Last() + DISTANCE_BETWEEN_PLANET_ORBITS);
+                classMStarOrbitalDistances.Add(classMStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classKStarOrbitalDistances.Add(classKStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classGStarOrbitalDistances.Add(classGStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classFStarOrbitalDistances.Add(classFStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classAStarOrbitalDistances.Add(classAStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classBStarOrbitalDistances.Add(classBStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classOStarOrbitalDistances.Add(classOStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
             }
         }
     }
@@ -156,7 +156,7 @@ public class StarFactory : MonoBehaviour
         star.name = starSystemName;
         star.tag = "Star";
 
-        int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
+        /*int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
         if (numberOfPlanets > 0)
         {
             List<float> planetOrbitalDistances = new List<float>(classOStarOrbitalDistances);
@@ -174,7 +174,7 @@ public class StarFactory : MonoBehaviour
                 planet.transform.localPosition = new Vector3(randomOrbitalDistanceValue, 0f, 0f);
                 planetOrbitalDistances.RemoveAt(randomOrbitalDistanceIndex);
             }
-        }
+        }*/
 
         
 

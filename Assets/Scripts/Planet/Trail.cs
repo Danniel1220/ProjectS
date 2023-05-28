@@ -16,6 +16,7 @@ public class Trail : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.colorGradient = ParseColorIntoColorGradient(trailColor);
         trailRenderer.time = trailTime;
+        trailRenderer.material = new Material(Resources.Load("Planet Trail Material") as Material);
     }
 
     // Update is called once per frame

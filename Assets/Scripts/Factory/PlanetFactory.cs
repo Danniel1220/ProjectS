@@ -246,6 +246,9 @@ public static class PlanetFactory
         lightGameObjectEast.transform.localPosition = new Vector3(20f, 0, 0);
         lightGameObjectWest.transform.localPosition = new Vector3(-20f, 0, 0);
 
+        // adding trail renderer object so it can later be accessed by the Trail class and tweaked in StarFactory
+        planetGameObject.AddComponent<TrailRenderer>();
+
         return planetGameObject;
     }
 
