@@ -46,6 +46,12 @@ public class StarFactory : MonoBehaviour
 
     private const float DISTANCE_BETWEEN_PLANET_ORBITS = 18f;
 
+    private const float MIN_PLANET_SPIN = 5f;
+    private const float MAX_PLANET_SPIN = 30f;
+
+    private const float MIN_ORBITAL_SPEED = 10f;
+    private const float MAX_ORBITAL_SPEED = 40f;
+
     private List<float> classMStarOrbitalDistances = new List<float>();
     private List<float> classKStarOrbitalDistances = new List<float>();
     private List<float> classGStarOrbitalDistances = new List<float>();
@@ -153,16 +159,20 @@ public class StarFactory : MonoBehaviour
         int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
         if (numberOfPlanets > 0)
         {
-            List<float> planetOrbitalDistances = classOStarOrbitalDistances;
+            List<float> planetOrbitalDistances = new List<float>(classOStarOrbitalDistances);
             for (int i = 0; i < numberOfPlanets; i++)
             {
-                /*GameObject planet = PlanetFactory.generatePlanet(starSystemContainer.transform);
+                GameObject planet = PlanetFactory.generatePlanet(starSystemContainer.transform);
+                
                 Orbit planetOrbit = planet.AddComponent<Orbit>();
-                planetOrbit.setOrbitParameters(star.transform, 20, 20);
+                planetOrbit.setOrbitParameters(star.transform, Random.Range(MIN_ORBITAL_SPEED, MAX_ORBITAL_SPEED), Random.Range(MIN_PLANET_SPIN, MAX_PLANET_SPIN));
+                
+                Trail planetTrail = planet.AddComponent<Trail>();
+                
                 int randomOrbitalDistanceIndex = Random.Range(0, planetOrbitalDistances.Count() - 1);
                 float randomOrbitalDistanceValue = planetOrbitalDistances.ElementAt(randomOrbitalDistanceIndex);
                 planet.transform.localPosition = new Vector3(randomOrbitalDistanceValue, 0f, 0f);
-                planetOrbitalDistances.RemoveAt(randomOrbitalDistanceIndex);*/
+                planetOrbitalDistances.RemoveAt(randomOrbitalDistanceIndex);
             }
         }
 
