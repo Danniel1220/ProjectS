@@ -216,7 +216,6 @@ public static class PlanetFactory
 
         // set the planet's parent to the star system
         planetGameObject.transform.parent = targetTransform;
-        planetGameObject.transform.localPosition = new Vector3(50, 0, 0);
 
         GameObject lightGameObjectNorth = new GameObject("PlanetLightning");
         GameObject lightGameObjectSouth = new GameObject("PlanetLightning");
@@ -242,10 +241,10 @@ public static class PlanetFactory
         lightGameObjectEast.transform.parent = planetGameObject.transform;
         lightGameObjectWest.transform.parent = planetGameObject.transform;
 
-        lightGameObjectNorth.transform.localPosition = new Vector3(0, 0, 50f);
-        lightGameObjectSouth.transform.localPosition = new Vector3(0, 0, -50f);
-        lightGameObjectEast.transform.localPosition = new Vector3(50f, 0, 0);
-        lightGameObjectWest.transform.localPosition = new Vector3(-50f, 0, 0);
+        lightGameObjectNorth.transform.localPosition = new Vector3(0, 0, 20f);
+        lightGameObjectSouth.transform.localPosition = new Vector3(0, 0, -20f);
+        lightGameObjectEast.transform.localPosition = new Vector3(20f, 0, 0);
+        lightGameObjectWest.transform.localPosition = new Vector3(-20f, 0, 0);
 
         return planetGameObject;
     }

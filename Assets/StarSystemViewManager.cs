@@ -14,7 +14,7 @@ public class StarSystemViewManager : MonoBehaviour
 
     public void enterStarSystemView()
     {
-        starHelper.disableAllStarSystemsButOne(galaxyViewShipPosition.getTargetPosition());
+        starHelper.disableAllStarSystemsButOne(galaxyViewShipPosition.getTargetStarSystem());
     }
 
     public void exitStarSystemView()

@@ -46,13 +46,13 @@ public class StarFactory : MonoBehaviour
 
     private const float DISTANCE_BETWEEN_PLANET_ORBITS = 18f;
 
-    private List<float> classMStarOrbitalDistances;
-    private List<float> classKStarOrbitalDistances;
-    private List<float> classGStarOrbitalDistances;
-    private List<float> classFStarOrbitalDistances;
-    private List<float> classAStarOrbitalDistances;
-    private List<float> classBStarOrbitalDistances;
-    private List<float> classOStarOrbitalDistances;
+    private List<float> classMStarOrbitalDistances = new List<float>();
+    private List<float> classKStarOrbitalDistances = new List<float>();
+    private List<float> classGStarOrbitalDistances = new List<float>();
+    private List<float> classFStarOrbitalDistances = new List<float>();
+    private List<float> classAStarOrbitalDistances = new List<float>();
+    private List<float> classBStarOrbitalDistances = new List<float>();
+    private List<float> classOStarOrbitalDistances = new List<float>();
 
 
     List<GalaxyChunk> chunks;
@@ -143,7 +143,7 @@ public class StarFactory : MonoBehaviour
                 star = Instantiate(classMStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 defaultedStars++;
                 Debug.LogWarning("Star class RNG error in createStar()... defaulting to class M");
-                break;
+                break; 
         }
         // add the new star to the new star system's container
         star.transform.parent = starSystemContainer.transform;
@@ -153,21 +153,20 @@ public class StarFactory : MonoBehaviour
         int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
         if (numberOfPlanets > 0)
         {
-            List<float> planetOrbitalDistance = new List<float>();
+            List<float> planetOrbitalDistances = classOStarOrbitalDistances;
             for (int i = 0; i < numberOfPlanets; i++)
             {
-
-            }
-
-            for (int i = 0; i < numberOfPlanets; i++)
-            {
-
+                /*GameObject planet = PlanetFactory.generatePlanet(starSystemContainer.transform);
+                Orbit planetOrbit = planet.AddComponent<Orbit>();
+                planetOrbit.setOrbitParameters(star.transform, 20, 20);
+                int randomOrbitalDistanceIndex = Random.Range(0, planetOrbitalDistances.Count() - 1);
+                float randomOrbitalDistanceValue = planetOrbitalDistances.ElementAt(randomOrbitalDistanceIndex);
+                planet.transform.localPosition = new Vector3(randomOrbitalDistanceValue, 0f, 0f);
+                planetOrbitalDistances.RemoveAt(randomOrbitalDistanceIndex);*/
             }
         }
 
-        GameObject planet = PlanetFactory.generatePlanet(starSystemContainer.transform);
-        Orbit planetOrbit = planet.AddComponent<Orbit>();
-        planetOrbit.setOrbitParameters(star.transform, 20, 20);
+        
 
         galaxyChunkSystem.addItemToChunk(starSystemContainer);
 
@@ -274,23 +273,23 @@ public class StarFactory : MonoBehaviour
         return name;
     }
 
-    public void disableAllStarSystemsButOne(Transform starSystemToNotDisable)
+    public void disableAllStarSystemsButOne(GameObject starSystemToNotDisable)
     {
         List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
 
         foreach (GalaxyChunk chunk in chunks)
         {
-            foreach (GameObject star in chunk.chunkGameObjectList)
+            foreach (GameObject starSystem in chunk.chunkGameObjectList)
             {
-                if (star != starSystemToNotDisable.gameObject && star.tag == "Star")
+                if (starSystem != starSystemToNotDisable.gameObject && starSystem.tag == "Star System")
                 {
-                    star.SetActive(false);
+                    starSystem.SetActive(false);
                 }
             }
         }
     }
 
-    public void moveStarSystemsRelativeToPoint(Transform centerPoint, bool outwards)
+    public void moveStarSystemsRelativeToPoint(GameObject centerPoint, bool outwards)
     {
         List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
 
@@ -298,7 +297,7 @@ public class StarFactory : MonoBehaviour
         {
             foreach (GameObject star in chunk.chunkGameObjectList)
             {
-                if (star != centerPoint.transform.parent.gameObject && star.tag == "Star")
+                if (star != centerPoint && star.tag == "Star")
                 {
                     StartCoroutine(moveStarRelativeToPoint(centerPoint.transform, star.transform, outwards));
                 }
