@@ -19,7 +19,7 @@ public class GalaxyViewShipPosition : MonoBehaviour
     {
         starShipGameObject = this.gameObject;
         shipTransform = this.transform.Find("Body").transform;
-        starHelper = GameObject.Find("StarManager").GetComponent<StarFactory>();
+        starHelper = GameObject.Find("GameManager").GetComponent<StarFactory>();
         targetObject = GameObject.Find("Star Systems Container").transform.GetChild(0).gameObject;
     }
 

@@ -44,8 +44,8 @@ public class GalaxyStarGenerator : MonoBehaviour
 
     void Start()
     {
-        galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
-        starHelper = GameObject.Find("StarManager").GetComponent<StarFactory>();
+        galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<GalaxyChunkSystem>();
+        starHelper = GameObject.Find("GameManager").GetComponent<StarFactory>();
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
         galaxyViewShipPosition.enabled = true;
 

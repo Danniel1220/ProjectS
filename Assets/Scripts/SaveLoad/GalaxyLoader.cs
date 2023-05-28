@@ -24,8 +24,8 @@ public class GalaxyLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        starHelper = GameObject.Find("StarManager").GetComponent<StarFactory>();
-        galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
+        starHelper = GameObject.Find("GameManager").GetComponent<StarFactory>();
+        galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<GalaxyChunkSystem>();
         dataWrapper = deserializeJsonFile(Application.dataPath + "/StarLocations.json");
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
         galaxyViewShipPosition.enabled = true;

@@ -14,7 +14,7 @@ public class GalaxySaver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        galaxyChunkSystem = GameObject.Find("GalaxyManager").GetComponent<GalaxyChunkSystem>();
+        galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<GalaxyChunkSystem>();
         chunkList = galaxyChunkSystem.getAllChunks();
     }
 

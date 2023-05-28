@@ -8,7 +8,7 @@ public class StarSystemViewManager : MonoBehaviour
     private GalaxyViewShipPosition galaxyViewShipPosition;
     void Start()
     {
-        starHelper = GameObject.Find("StarManager").GetComponent<StarFactory>();
+        starHelper = GameObject.Find("GameManager").GetComponent<StarFactory>();
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
     }
 
