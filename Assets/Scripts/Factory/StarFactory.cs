@@ -156,27 +156,27 @@ public class StarFactory : MonoBehaviour
         star.name = starSystemName;
         star.tag = "Star";
 
-        /*int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
+        int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
         if (numberOfPlanets > 0)
         {
             List<float> planetOrbitalDistances = new List<float>(classOStarOrbitalDistances);
             for (int i = 0; i < numberOfPlanets; i++)
             {
                 GameObject planet = PlanetFactory.generatePlanet(starSystemContainer.transform);
-                
+
                 Orbit planetOrbit = planet.AddComponent<Orbit>();
                 planetOrbit.setOrbitParameters(star.transform, Random.Range(MIN_ORBITAL_SPEED, MAX_ORBITAL_SPEED), Random.Range(MIN_PLANET_SPIN, MAX_PLANET_SPIN));
-                
+
                 Trail planetTrail = planet.AddComponent<Trail>();
-                
+
                 int randomOrbitalDistanceIndex = Random.Range(0, planetOrbitalDistances.Count() - 1);
                 float randomOrbitalDistanceValue = planetOrbitalDistances.ElementAt(randomOrbitalDistanceIndex);
                 planet.transform.localPosition = new Vector3(randomOrbitalDistanceValue, 0f, 0f);
                 planetOrbitalDistances.RemoveAt(randomOrbitalDistanceIndex);
             }
-        }*/
+        }
 
-        
+
 
         galaxyChunkSystem.addItemToChunk(starSystemContainer);
 

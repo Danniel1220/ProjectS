@@ -16,7 +16,11 @@ public class Trail : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.colorGradient = ParseColorIntoColorGradient(trailColor);
         trailRenderer.time = trailTime;
-        trailRenderer.material = new Material(Resources.Load("Planet Trail Material") as Material);
+
+        // this line below just grabs the material Default-Line, see here why
+        // https://stackoverflow.com/questions/72240485/how-to-add-the-default-line-material-back-to-the-linerenderer-material
+        trailRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+
     }
 
     // Update is called once per frame

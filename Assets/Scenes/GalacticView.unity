@@ -219,7 +219,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 238224581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d649b88482a16740a37a10f99fc5372, type: 3}
+  m_Script: {fileID: 11500000, guid: d5462d043b514ff4aa6b4ff7d4db32b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   starSystemsContainer: {fileID: 0}
@@ -575,7 +575,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1337681925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f6bebd07ce0dc458a2d9ba53087d8a, type: 3}
+  m_Script: {fileID: 11500000, guid: b1ec79ddc855ea54d8bb0e3174285bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   primaryNumberOfPoints: 70
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9940d8174dbfd5842987f9cba3407692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
+  targetObject: {fileID: 0}
   floatDistanceAboveTarget: 20
 --- !u!114 &1662816037
 MonoBehaviour:
