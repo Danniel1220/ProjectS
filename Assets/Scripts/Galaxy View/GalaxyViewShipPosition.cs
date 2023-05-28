@@ -12,14 +12,14 @@ public class GalaxyViewShipPosition : MonoBehaviour
     float shipSpeed = 2f;
     [SerializeField] private float floatDistanceAboveTarget = 20f;
 
-    StarFactory starHelper;
+    StarFactory starFactory;
 
     // Start is called before the first frame update
     void Start()
     {
         starShipGameObject = this.gameObject;
         shipTransform = this.transform.Find("Body").transform;
-        starHelper = GameObject.Find("GameManager").GetComponent<StarFactory>();
+        starFactory = GameManagers.starFactory;
         targetObject = GameObject.Find("Star Systems Container").transform.GetChild(0).gameObject;
     }
 
@@ -46,12 +46,12 @@ public class GalaxyViewShipPosition : MonoBehaviour
 
     public void enterStarView()
     {
-        starHelper.moveStarSystemsRelativeToPoint(targetObject, true);
+        starFactory.moveStarSystemsRelativeToPoint(targetObject, true);
     }
 
     public void exitStarView()
     {
-        starHelper.moveStarSystemsRelativeToPoint(targetObject, false);
+        starFactory.moveStarSystemsRelativeToPoint(targetObject, false);
     }
 
     public GameObject getTargetStarSystem()

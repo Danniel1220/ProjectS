@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class GalaxyStarGenerator : MonoBehaviour
 {
     private GalaxyChunkSystem galaxyChunkSystem;
-    private StarFactory starHelper;
+    private StarFactory starFactory;
     private GalaxyViewShipPosition galaxyViewShipPosition;
 
     [SerializeField] private int primaryNumberOfPoints;
@@ -44,8 +44,8 @@ public class GalaxyStarGenerator : MonoBehaviour
 
     void Start()
     {
-        galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<GalaxyChunkSystem>();
-        starHelper = GameObject.Find("GameManager").GetComponent<StarFactory>();
+        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+        starFactory = GameManagers.starFactory;
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
         galaxyViewShipPosition.enabled = true;
 
@@ -102,7 +102,7 @@ public class GalaxyStarGenerator : MonoBehaviour
             float pointYAfterNoise = pointY + noiseY;
             float pointZAfterNoise = pointZ + noiseZ;
 
-            starHelper.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
+            starFactory.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
         }
     }
 

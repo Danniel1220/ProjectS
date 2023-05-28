@@ -65,7 +65,7 @@ public class StarFactory : MonoBehaviour
 
     void Start()
     {
-        galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<GalaxyChunkSystem>();
+        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
         starSystemsContainer = GameObject.Find("Star Systems Container");
         chunks = galaxyChunkSystem.getAllChunks();
         chunks = galaxyChunkSystem.getAllChunks();
