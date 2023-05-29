@@ -8,7 +8,7 @@ using UnityEngine;
 public class StarFactory : MonoBehaviour
 {
     private GalaxyChunkSystem galaxyChunkSystem;
-    [SerializeField] private GameObject starSystemsContainer;
+    private GameObject starSystemsContainer;
 
     [SerializeField] private GameObject classMStarPrefab;
     [SerializeField] private GameObject classKStarPrefab;
