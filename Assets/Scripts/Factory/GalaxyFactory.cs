@@ -28,14 +28,6 @@ public class GalaxyFactory : MonoBehaviour
 
     [SerializeField] private float minDistanceBetweenPoints;
 
-    [SerializeField] private GameObject classMStarPrefab;
-    [SerializeField] private GameObject classKStarPrefab;
-    [SerializeField] private GameObject classGStarPrefab;
-    [SerializeField] private GameObject classFStarPrefab;
-    [SerializeField] private GameObject classAStarPrefab;
-    [SerializeField] private GameObject classBStarPrefab;
-    [SerializeField] private GameObject classOStarPrefab;
-
     [SerializeField] private GameObject testCubePrefabBlue;
     [SerializeField] private GameObject testCubePrefabRed;
     [SerializeField] private GameObject testCubePrefabGreen;
