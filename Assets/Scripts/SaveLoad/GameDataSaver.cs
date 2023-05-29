@@ -139,7 +139,7 @@ public static class GameDataSaver
         // C# default json serialization
         GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(serializableStarSystems);
         Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
-        saveJsonToFile(Application.dataPath + "/SavedGameDataCSharpDefault.json", JsonConvert.SerializeObject(gameData));
+        saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonConvert.SerializeObject(gameData));
     }
 
     private static void saveJsonToFile(string path, string json)
