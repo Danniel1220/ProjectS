@@ -13,6 +13,6 @@ public class StaticFunctionsWrapper : MonoBehaviour
     public void loadGameData()
     {
         Debug.Log("Loading game data...");
-
+        GameDataLoader.loadGameData();
     }
 }
