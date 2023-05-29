@@ -6,10 +6,10 @@ using UnityEngine;
 [Serializable]
 public class StarSystemSerializableDataWrapper
 {
-    Transform transform;
-    StarClass starClass;
-    string name;
-    List<PlanetSerializableDataWrapper> planets = new List<PlanetSerializableDataWrapper>();
+    public Transform transform;
+    public StarClass starClass;
+    public string name;
+    public List<PlanetSerializableDataWrapper> planets = new List<PlanetSerializableDataWrapper>();
 
     public StarSystemSerializableDataWrapper(Transform transform, StarClass starClass, string name, List<PlanetSerializableDataWrapper> planets)
     {

@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using FullSerializer;
+using UnityEngine.Playables;
 
 public static class GameDataSaver
 {
@@ -13,8 +16,6 @@ public static class GameDataSaver
     {
         // serializable list where all star system data gets stored
         List<StarSystemSerializableDataWrapper> serializableStarSystems = new List<StarSystemSerializableDataWrapper>();
-        // serializable list where all the planets in the star system will get stored
-        List <PlanetSerializableDataWrapper> serializablePlanets = new List<PlanetSerializableDataWrapper>();
 
         List<GalaxyChunk> chunks =  galaxyChunkSystem.getAllChunks();
 
@@ -28,6 +29,9 @@ public static class GameDataSaver
                 // check if the game object we are iterating through is really a star system
                 if (starSystem.transform.tag == "Star System")
                 {
+                    // serializable list where all the planets in the star system will get stored
+                    List<PlanetSerializableDataWrapper> serializablePlanets = new List<PlanetSerializableDataWrapper>();
+
                     // getting the name of the star system, which is the first word of the name
                     string starSystemName = starSystem.name.Split(' ')[0];
 
@@ -36,7 +40,6 @@ public static class GameDataSaver
                     StarClass starClass = StarClassParser.parseGameObjectTagToStarClass(starSystem.transform.Find(starSystemName).transform.Find("StarSphere").transform.tag);
 
                     Debug.Log("Serializing star system " + starSystemName);
-
 
                     // iterating through all children of the star system game object
                     foreach (Transform planet in starSystem.transform)
@@ -105,8 +108,7 @@ public static class GameDataSaver
                                     planetScript.colorSettings.biomeColorSettings.biomes[i].gradient,
                                     planetScript.colorSettings.biomeColorSettings.biomes[i].tint,
                                     planetScript.colorSettings.biomeColorSettings.biomes[i].startHeight,
-                                    planetScript.colorSettings.biomeColorSettings.biomes[i].tintPercent
-                                    );
+                                    planetScript.colorSettings.biomeColorSettings.biomes[i].tintPercent);
                             }
 
                             serializablePlanets.Add(new PlanetSerializableDataWrapper(
@@ -116,23 +118,36 @@ public static class GameDataSaver
                                 shapeNoiseLayers,
                                 colorNoise,
                                 planetScript.colorSettings.biomeColorSettings.biomes.Count(),
-                                biomes));
+                                biomes,
+                                planetScript.colorSettings.oceanColor));
+
+                            
                         }
                     }
-
                     serializableStarSystems.Add(new StarSystemSerializableDataWrapper(
-                        starSystem.transform,
-                        starClass,
-                        starSystemName,
-                        serializablePlanets
-                        ));
+                            starSystem.transform,
+                            starClass,
+                            starSystemName,
+                            serializablePlanets));
                 }
             }
         }
-
         Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
-        saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonUtility.ToJson(serializableStarSystems));
+        fsSerializer serializer = new fsSerializer();
+        fsData data;
+        serializer.TrySerialize(typeof(List<StarSystemSerializableDataWrapper>), serializableStarSystems, out data);
+        saveJsonToFile(Application.dataPath + "/SavedGameData.json", fsJsonPrinter.CompressedJson(data));
 
+
+        /*GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(serializableStarSystems);
+        Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
+        saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonUtility.ToJson(gameData));
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream saveFile = File.Create(Application.dataPath + "/SavedGameData.bin", (int)FileMode.Create);
+
+        formatter.Serialize(saveFile, serializableStarSystems);
+        saveFile.Close();*/
     }
 
     private static void saveJsonToFile(string path, string json)
