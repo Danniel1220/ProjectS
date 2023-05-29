@@ -26,11 +26,13 @@ public class PlanetSerializableDataWrapper
         public float baseRoughness;
         public float roughness;
         public float persistence;
-        public Vector3 centre;
+        public float centreX;
+        public float centreY;
+        public float centreZ;
         public float minValue;
         public float weightMultiplier;
 
-        public ShapeNoise(bool enabled, bool useFirstLayerAsMask, NoiseSettings.FilterType filterType, float strenght, int numberOfLayers, float baseRoughness, float roughness, float persistence, Vector3 centre, float minValue, float weightMultiplier)
+        public ShapeNoise(bool enabled, bool useFirstLayerAsMask, NoiseSettings.FilterType filterType, float strenght, int numberOfLayers, float baseRoughness, float roughness, float persistence, float centreX, float centreY, float centreZ, float minValue, float weightMultiplier)
         {
             this.enabled = enabled;
             this.useFirstLayerAsMask = useFirstLayerAsMask;
@@ -40,7 +42,9 @@ public class PlanetSerializableDataWrapper
             this.baseRoughness = baseRoughness;
             this.roughness = roughness;
             this.persistence = persistence;
-            this.centre = centre;
+            this.centreX = centreX;
+            this.centreY = centreY;
+            this.centreZ = centreZ;
             this.minValue = minValue;
             this.weightMultiplier = weightMultiplier;
         }
@@ -58,10 +62,12 @@ public class PlanetSerializableDataWrapper
         public float baseRoughness;
         public float roughness;
         public float persistence;
-        public Vector3 centre;
+        public float centreX;
+        public float centreY;
+        public float centreZ;
         public float minValue;
 
-        public ColorNoise(float noiseOffset, float noiseStrenght, float blendAmount, NoiseSettings.FilterType filterType, float strenght, int numberOfLayers, float baseRoughness, float roughness, float persistence, Vector3 centre, float minValue)
+        public ColorNoise(float noiseOffset, float noiseStrenght, float blendAmount, NoiseSettings.FilterType filterType, float strenght, int numberOfLayers, float baseRoughness, float roughness, float persistence, float centreX, float centreY, float centreZ, float minValue)
         {
             this.noiseOffset = noiseOffset;
             this.noiseStrenght = noiseStrenght;
@@ -72,7 +78,9 @@ public class PlanetSerializableDataWrapper
             this.baseRoughness = baseRoughness;
             this.roughness = roughness;
             this.persistence = persistence;
-            this.centre = centre;
+            this.centreX = centreX;
+            this.centreY = centreY;
+            this.centreZ = centreZ;
             this.minValue = minValue;
         }
     }
@@ -91,6 +99,79 @@ public class PlanetSerializableDataWrapper
             this.tint = tint;
             this.startHeight = startHeight;
             this.tintPercent = tintPercent;
+
+            Debug.Log("Log from Biome constructor: " + gradient);
+        }
+    }
+
+    [Serializable]
+    public struct Gradient
+    {
+        public List<AlphaKey> alphaKeys;
+        public List<ColorKey> colorKeys;
+
+        public Gradient(UnityEngine.Gradient gradient)
+        {
+            List<AlphaKey> alphaKeysAux = new List<AlphaKey>();
+            List<ColorKey> colorKeysAux = new List<ColorKey>();
+
+            for (int i = 0; i < gradient.alphaKeys.Length; i++)
+            {
+                alphaKeysAux.Add(new AlphaKey(gradient.alphaKeys[i]));
+            }
+            for (int i = 0; i < gradient.colorKeys.Length; i++)
+            {
+                colorKeysAux.Add(new ColorKey(gradient.colorKeys[i]));
+            }
+
+            this.alphaKeys = alphaKeysAux;
+            this.colorKeys = colorKeysAux;
+
+            Debug.Log("Log from Gradient constructor: " + alphaKeysAux);
+            Debug.Log("Log from Gradient constructor: " + colorKeysAux);
+        }
+    }
+
+    [Serializable]
+    public struct AlphaKey
+    {
+        public float alpha;
+        public float time;
+
+        public AlphaKey(UnityEngine.GradientAlphaKey gradientAlphaKey)
+        {
+            this.alpha = gradientAlphaKey.alpha;
+            this.time = gradientAlphaKey.time;
+        }
+    }
+
+    [Serializable]
+    public struct ColorKey
+    {
+        public Color color;
+        public float time;
+
+        public ColorKey(UnityEngine.GradientColorKey gradientColorKey)
+        {
+            this.color = new Color(gradientColorKey.color);
+            this.time = gradientColorKey.time;
+        }
+    }
+
+    [Serializable]
+    public struct Color
+    {
+        public float r;
+        public float g;
+        public float b;
+        public float a;
+
+        public Color(UnityEngine.Color color)
+        {
+            this.r = color.r;
+            this.g = color.g;
+            this.b = color.b;
+            this.a = color.a;
         }
     }
 

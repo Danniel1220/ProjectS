@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using FullSerializer;
 using UnityEngine.Playables;
+using Newtonsoft.Json;
 
 public static class GameDataSaver
 {
@@ -65,7 +66,9 @@ public static class GameDataSaver
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.baseRoughness,
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.roughness,
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.persistence,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre,
+                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.x,
+                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.y,
+                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.z,
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.minValue,
                                     -1f);
                                         break;
@@ -79,7 +82,9 @@ public static class GameDataSaver
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.baseRoughness,
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.roughness,
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.persistence,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre,
+                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.x,
+                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.y,
+                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.z,
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.minValue,
                                     planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.weightMultiplier);
                                         break;
@@ -97,16 +102,18 @@ public static class GameDataSaver
                                 planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.baseRoughness,
                                 planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.roughness,
                                 planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.persistence,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre,
+                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.x,
+                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.y,
+                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.z,
                                 planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.minValue);
 
 
                             PlanetSerializableDataWrapper.Biome[] biomes = new PlanetSerializableDataWrapper.Biome[planetScript.colorSettings.biomeColorSettings.biomes.Count()];
                             for (int i = 0; i < planetScript.colorSettings.biomeColorSettings.biomes.Count(); i++)
                             {
-                                PlanetSerializableDataWrapper.Biome biome = new PlanetSerializableDataWrapper.Biome(
-                                    planetScript.colorSettings.biomeColorSettings.biomes[i].gradient,
-                                    planetScript.colorSettings.biomeColorSettings.biomes[i].tint,
+                                biomes[i] = new PlanetSerializableDataWrapper.Biome(
+                                    new PlanetSerializableDataWrapper.Gradient(planetScript.colorSettings.biomeColorSettings.biomes[i].gradient),
+                                    new PlanetSerializableDataWrapper.Color(planetScript.colorSettings.biomeColorSettings.biomes[i].tint),
                                     planetScript.colorSettings.biomeColorSettings.biomes[i].startHeight,
                                     planetScript.colorSettings.biomeColorSettings.biomes[i].tintPercent);
                             }
@@ -119,31 +126,40 @@ public static class GameDataSaver
                                 colorNoise,
                                 planetScript.colorSettings.biomeColorSettings.biomes.Count(),
                                 biomes,
-                                planetScript.colorSettings.oceanColor));
-
-                            
+                                new PlanetSerializableDataWrapper.Gradient(planetScript.colorSettings.oceanColor)));
                         }
                     }
                     serializableStarSystems.Add(new StarSystemSerializableDataWrapper(
-                            starSystem.transform,
+                            starSystem.transform.localPosition.x,
+                            starSystem.transform.localPosition.y,
+                            starSystem.transform.localPosition.z,
                             starClass,
                             starSystemName,
                             serializablePlanets));
                 }
             }
         }
-        Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
+        // FullSerialization
+        /*Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
         fsSerializer serializer = new fsSerializer();
         fsData data;
         serializer.TrySerialize(typeof(List<StarSystemSerializableDataWrapper>), serializableStarSystems, out data);
-        saveJsonToFile(Application.dataPath + "/SavedGameData.json", fsJsonPrinter.CompressedJson(data));
+        saveJsonToFile(Application.dataPath + "/SavedGameData.json", fsJsonPrinter.CompressedJson(data));*/
 
-
+        // C# default json serialization
         /*GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(serializableStarSystems);
+        Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
+        saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonConvert.SerializeObject(gameData));*/
+
+
+
+
+        // Unity built in json serialization
+        GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(serializableStarSystems);
         Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
         saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonUtility.ToJson(gameData));
 
-        BinaryFormatter formatter = new BinaryFormatter();
+        /*BinaryFormatter formatter = new BinaryFormatter();
         FileStream saveFile = File.Create(Application.dataPath + "/SavedGameData.bin", (int)FileMode.Create);
 
         formatter.Serialize(saveFile, serializableStarSystems);
