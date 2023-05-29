@@ -2,11 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.RegularExpressions;
 using UnityEngine;
-using FullSerializer;
-using UnityEngine.Playables;
 using Newtonsoft.Json;
 
 public static class GameDataSaver
@@ -139,31 +135,11 @@ public static class GameDataSaver
                 }
             }
         }
-        // FullSerialization
-        /*Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
-        fsSerializer serializer = new fsSerializer();
-        fsData data;
-        serializer.TrySerialize(typeof(List<StarSystemSerializableDataWrapper>), serializableStarSystems, out data);
-        saveJsonToFile(Application.dataPath + "/SavedGameData.json", fsJsonPrinter.CompressedJson(data));*/
 
         // C# default json serialization
-        /*GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(serializableStarSystems);
-        Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
-        saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonConvert.SerializeObject(gameData));*/
-
-
-
-
-        // Unity built in json serialization
         GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(serializableStarSystems);
         Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
-        saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonUtility.ToJson(gameData));
-
-        /*BinaryFormatter formatter = new BinaryFormatter();
-        FileStream saveFile = File.Create(Application.dataPath + "/SavedGameData.bin", (int)FileMode.Create);
-
-        formatter.Serialize(saveFile, serializableStarSystems);
-        saveFile.Close();*/
+        saveJsonToFile(Application.dataPath + "/SavedGameDataCSharpDefault.json", JsonConvert.SerializeObject(gameData));
     }
 
     private static void saveJsonToFile(string path, string json)

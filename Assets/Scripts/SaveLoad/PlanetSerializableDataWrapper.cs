@@ -99,36 +99,31 @@ public class PlanetSerializableDataWrapper
             this.tint = tint;
             this.startHeight = startHeight;
             this.tintPercent = tintPercent;
-
-            Debug.Log("Log from Biome constructor: " + gradient);
         }
     }
 
     [Serializable]
     public struct Gradient
     {
-        public List<AlphaKey> alphaKeys;
-        public List<ColorKey> colorKeys;
+        public AlphaKey[] alphaKeys;
+        public ColorKey[] colorKeys;
 
         public Gradient(UnityEngine.Gradient gradient)
         {
-            List<AlphaKey> alphaKeysAux = new List<AlphaKey>();
-            List<ColorKey> colorKeysAux = new List<ColorKey>();
+            AlphaKey[] alphaKeysAux = new AlphaKey[gradient.alphaKeys.Length];
+            ColorKey[] colorKeysAux = new ColorKey[gradient.colorKeys.Length];
 
             for (int i = 0; i < gradient.alphaKeys.Length; i++)
             {
-                alphaKeysAux.Add(new AlphaKey(gradient.alphaKeys[i]));
+                alphaKeysAux[i] = new AlphaKey(gradient.alphaKeys[i]);
             }
             for (int i = 0; i < gradient.colorKeys.Length; i++)
             {
-                colorKeysAux.Add(new ColorKey(gradient.colorKeys[i]));
+                colorKeysAux[i] = new ColorKey(gradient.colorKeys[i]);
             }
 
             this.alphaKeys = alphaKeysAux;
             this.colorKeys = colorKeysAux;
-
-            Debug.Log("Log from Gradient constructor: " + alphaKeysAux);
-            Debug.Log("Log from Gradient constructor: " + colorKeysAux);
         }
     }
 
