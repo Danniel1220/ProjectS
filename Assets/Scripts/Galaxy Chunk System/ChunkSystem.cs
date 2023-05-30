@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GalaxyChunkSystem : MonoBehaviour
+public class ChunkSystem : MonoBehaviour
 {
     private float chunkSize = 10240f;
     public float ChunkSize { get => chunkSize; }
 
-    private Dictionary<Vector2, GalaxyChunk> chunkDictionary = new Dictionary<Vector2, GalaxyChunk>();
+    private Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk>();
 
-    public List<GalaxyChunk> chunkList = new List<GalaxyChunk>();
+    public List<Chunk> chunkList = new List<Chunk>();
 
     public Text UIText;
 
@@ -33,7 +33,7 @@ public class GalaxyChunkSystem : MonoBehaviour
         if (chunkDictionary.ContainsKey(chunkPosition) == false)
         {
             Debug.Log("Creating new chunk: " + chunkPosition.x + " " + chunkPosition.y);
-            GalaxyChunk newChunk = new GalaxyChunk(chunkPosition);
+            Chunk newChunk = new Chunk(chunkPosition);
             chunkDictionary.Add(chunkPosition, newChunk);
             chunkList.Add(newChunk);
         }
@@ -58,15 +58,15 @@ public class GalaxyChunkSystem : MonoBehaviour
         return new Vector2(positionX * chunkSize, positionZ * chunkSize);
     }
 
-    public GalaxyChunk getGalaxyChunk(Vector2 chunkPosition)
+    public Chunk getGalaxyChunk(Vector2 chunkPosition)
     {
         if (chunkDictionary.ContainsKey(chunkPosition)) return chunkDictionary[chunkPosition];
         else return null;
     }
 
-    public List<GalaxyChunk> getAdjacentChunks(GalaxyChunk chunk)
+    public List<Chunk> getAdjacentChunks(Chunk chunk)
     {
-        List<GalaxyChunk> adjacentChunks = new List<GalaxyChunk>();
+        List<Chunk> adjacentChunks = new List<Chunk>();
 
         // Vector2 uses X and Y as it's coordinates, but our chunks are described based on X and Z in world space
         // as such, when checking if the dictionary contains a key and we construct a new Vector2
@@ -97,7 +97,7 @@ public class GalaxyChunkSystem : MonoBehaviour
         return adjacentChunks;
     }
 
-    public void deleteGameObjectFromChunk(GameObject gameObject, GalaxyChunk chunk)
+    public void deleteGameObjectFromChunk(GameObject gameObject, Chunk chunk)
     {
         if (chunkDictionary.ContainsKey(chunk.chunkPosition))
         {
@@ -115,19 +115,19 @@ public class GalaxyChunkSystem : MonoBehaviour
     public float getTotalNumberOfGameObjectsInChunks()
     {
         float total = 0f;
-        foreach (GalaxyChunk chunk in chunkDictionary.Values) 
+        foreach (Chunk chunk in chunkDictionary.Values) 
         {
             total = total + chunk.chunkGameObjectList.Count;
         }
         return total;
     }
 
-    public List<GalaxyChunk> getAllChunks()
+    public List<Chunk> getAllChunks()
     {
         return chunkList;
     }
 
-    public GalaxyChunk getChunkOfGameObject(GameObject gameObject)
+    public Chunk getChunkOfGameObject(GameObject gameObject)
     {
         Vector2 gameObjectChunkPosition = parseGameObjectPositionToChunkPosition(gameObject);
 
@@ -138,7 +138,7 @@ public class GalaxyChunkSystem : MonoBehaviour
         return null;
     }
 
-    public Vector2 getChunkCenter(GalaxyChunk chunk)
+    public Vector2 getChunkCenter(Chunk chunk)
     {
         return new Vector2(chunk.chunkPosition.x + chunkSize / 2, chunk.chunkPosition.y + chunkSize / 2);
     }

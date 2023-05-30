@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class StarFactory : MonoBehaviour
 {
-    private GalaxyChunkSystem galaxyChunkSystem;
+    private ChunkSystem galaxyChunkSystem;
     private GameObject starSystemsContainer;
     private PlanetFactory planetFactory;
 
@@ -62,7 +62,7 @@ public class StarFactory : MonoBehaviour
     private List<float> classOStarOrbitalDistances = new List<float>();
 
 
-    List<GalaxyChunk> chunks;
+    List<Chunk> chunks;
 
     void Start()
     {
@@ -288,9 +288,9 @@ public class StarFactory : MonoBehaviour
 
     public void disableAllStarSystemsButOne(GameObject starSystemToNotDisable)
     {
-        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
+        List<Chunk> chunks = galaxyChunkSystem.getAllChunks();
 
-        foreach (GalaxyChunk chunk in chunks)
+        foreach (Chunk chunk in chunks)
         {
             foreach (GameObject starSystem in chunk.chunkGameObjectList)
             {
@@ -304,9 +304,9 @@ public class StarFactory : MonoBehaviour
 
     public void moveStarSystemsRelativeToPoint(GameObject centerPoint, bool outwards)
     {
-        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
+        List<Chunk> chunks = galaxyChunkSystem.getAllChunks();
 
-        foreach (GalaxyChunk chunk in chunks)
+        foreach (Chunk chunk in chunks)
         {
             foreach (GameObject star in chunk.chunkGameObjectList)
             {
@@ -320,9 +320,9 @@ public class StarFactory : MonoBehaviour
 
     public void enableAllStarsSystems()
     {
-        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
+        List<Chunk> chunks = galaxyChunkSystem.getAllChunks();
 
-        foreach (GalaxyChunk chunk in chunks)
+        foreach (Chunk chunk in chunks)
         {
             foreach (GameObject star in chunk.chunkGameObjectList)
             {

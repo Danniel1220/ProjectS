@@ -7,7 +7,7 @@ public class AddStarshipToChunkSystem : MonoBehaviour
     Transform starShipGameObjectTransform;
     Transform shipTransform;
 
-    GalaxyChunkSystem galaxyChunkSystem;
+    ChunkSystem galaxyChunkSystem;
 
     // Start is called before the first frame update
     void Start()

@@ -7,7 +7,7 @@ using UnityEngine;
 public class GalaxyLoader : MonoBehaviour
 {
     GalaxyViewStarDataWrapper dataWrapper;
-    GalaxyChunkSystem galaxyChunkSystem;
+    ChunkSystem galaxyChunkSystem;
     StarFactory starFactory;
     GalaxyViewShipPosition galaxyViewShipPosition;
 

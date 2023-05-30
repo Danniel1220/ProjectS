@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class GalaxyStarGenerator : MonoBehaviour
 {
-    private GalaxyChunkSystem galaxyChunkSystem;
+    private ChunkSystem galaxyChunkSystem;
     private StarFactory starFactory;
     private GalaxyViewShipPosition galaxyViewShipPosition;
 
@@ -109,7 +109,7 @@ public class GalaxyStarGenerator : MonoBehaviour
     private void removeOverlappedStarSystems(float minDistance)
     {
         // for each chunk
-        foreach (GalaxyChunk chunk in galaxyChunkSystem.chunkList)
+        foreach (Chunk chunk in galaxyChunkSystem.chunkList)
         {
             // iterate through every object in a given chunk
             for (int i = 0; i < chunk.chunkGameObjectList.Count;)

@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class GalaxySaver : MonoBehaviour
 {
-    GalaxyChunkSystem galaxyChunkSystem;
-    List<GalaxyChunk> chunkList;
+    ChunkSystem galaxyChunkSystem;
+    List<Chunk> chunkList;
     public bool saveJson = false;
     public bool saveBinary = false;
     // Start is called before the first frame update
@@ -49,7 +49,7 @@ public class GalaxySaver : MonoBehaviour
         chunkList = galaxyChunkSystem.getAllChunks();
         Debug.Log("Chunk count:" + chunkList.Count);
 
-        foreach (GalaxyChunk chunk in chunkList)
+        foreach (Chunk chunk in chunkList)
         {
             foreach (GameObject star in chunk.chunkGameObjectList)
             {

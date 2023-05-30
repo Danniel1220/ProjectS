@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 public class GameDataSaver : MonoBehaviour
 {
-    private GalaxyChunkSystem galaxyChunkSystem;
+    private ChunkSystem galaxyChunkSystem;
 
     void Start()
     {
@@ -19,10 +19,10 @@ public class GameDataSaver : MonoBehaviour
         // serializable list where all star system data gets stored
         List<StarSystemSerializableDataWrapper> serializableStarSystems = new List<StarSystemSerializableDataWrapper>();
 
-        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
+        List<Chunk> chunks = galaxyChunkSystem.getAllChunks();
 
         // for each chunk in the game
-        foreach (GalaxyChunk chunk in chunks)
+        foreach (Chunk chunk in chunks)
         {
             Debug.Log("Checking chunk " + chunk.chunkPosition);
             // for each object in each chunk

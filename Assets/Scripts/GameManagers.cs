@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GameManagers
 {
-    public static GalaxyChunkSystem galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<GalaxyChunkSystem>();
+    public static ChunkSystem galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
 
     public static StarFactory starFactory = GameObject.Find("GameManager").GetComponent<StarFactory>();
     public static PlanetFactory planetFactory = GameObject.Find("GameManager").GetComponent<PlanetFactory>();
