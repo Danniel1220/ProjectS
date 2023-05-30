@@ -5,16 +5,21 @@ using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public static class GameDataSaver
+public class GameDataSaver : MonoBehaviour
 {
-    static GalaxyChunkSystem galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+    private GalaxyChunkSystem galaxyChunkSystem;
 
-    public static void saveGameData()
+    void Start()
+    {
+        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+    }
+
+    public void saveGameData()
     {
         // serializable list where all star system data gets stored
         List<StarSystemSerializableDataWrapper> serializableStarSystems = new List<StarSystemSerializableDataWrapper>();
 
-        List<GalaxyChunk> chunks =  galaxyChunkSystem.getAllChunks();
+        List<GalaxyChunk> chunks = galaxyChunkSystem.getAllChunks();
 
         // for each chunk in the game
         foreach (GalaxyChunk chunk in chunks)
@@ -142,7 +147,7 @@ public static class GameDataSaver
         saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonConvert.SerializeObject(gameData));
     }
 
-    private static void saveJsonToFile(string path, string json)
+    private void saveJsonToFile(string path, string json)
     {
         File.WriteAllText(path, json);
     }
