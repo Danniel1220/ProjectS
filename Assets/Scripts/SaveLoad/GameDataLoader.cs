@@ -49,11 +49,12 @@ public class GameDataLoader : MonoBehaviour
             // for each planet deserialized in the current star system we iterate through
             foreach (PlanetSerializableDataWrapper planetWrapper in starSystemWrapper.planets)
             {
+                // grabbing all the relevant data to form the full planet settings
                 PlanetShapeSettings planetShapeSettings = extractPlanetShapeSettings(planetWrapper);
                 PlanetColorSettings planetColorSettings = extractPlanetColorSettings(planetWrapper);
-                Planet planetSettings = new Planet(planetShapeSettings, planetColorSettings);
 
-                planetFactory.generatePlanet(starSystemGameObject.transform, planetSettings, planetWrapper.name);
+                // generate the new planet under the current iteration star system with the specified settings
+                planetFactory.generatePlanet(starSystemGameObject.transform, planetShapeSettings, planetColorSettings, planetWrapper.name);
             }
         }
     }
@@ -63,7 +64,12 @@ public class GameDataLoader : MonoBehaviour
         PlanetColorSettings.BiomeColorSettings biomeColorSettings = extractBiomesAndBiomeSettings(planetWrapper);
         Gradient oceanColor = extractGradient(planetWrapper.oceanColor);
 
-        PlanetColorSettings planetColorSettings = new PlanetColorSettings(biomeColorSettings, oceanColor);
+        PlanetColorSettings planetColorSettings = ScriptableObject.CreateInstance<PlanetColorSettings>();
+        planetColorSettings.init(biomeColorSettings, oceanColor);
+
+        // creating a new material for the planet and assigning it
+        planetColorSettings.planetMaterial = new Material(Resources.Load("Planet Material") as Material);
+
         return planetColorSettings;
     }
 
@@ -120,7 +126,9 @@ public class GameDataLoader : MonoBehaviour
 
             noiseLayers[i] = new PlanetShapeSettings.NoiseLayer(planetWrapper.shapeNoiseLayers[i].useFirstLayerAsMask, noiseSettings);
         }
-        PlanetShapeSettings planetShapeSettings = new PlanetShapeSettings(planetWrapper.radius, noiseLayers);
+        PlanetShapeSettings planetShapeSettings = ScriptableObject.CreateInstance<PlanetShapeSettings>();
+        planetShapeSettings.init(planetWrapper.radius, noiseLayers);
+
         return planetShapeSettings;
     }
 

@@ -7,8 +7,9 @@ using UnityEngine;
 
 public class StarFactory : MonoBehaviour
 {
-    private ChunkSystem galaxyChunkSystem;
     private GameObject starSystemsContainer;
+
+    private ChunkSystem galaxyChunkSystem;
     private PlanetFactory planetFactory;
 
     [SerializeField] private GameObject classMStarPrefab;
@@ -66,8 +67,9 @@ public class StarFactory : MonoBehaviour
 
     void Start()
     {
+        starSystemsContainer = GameManagers.starSystemsContainer;
+
         galaxyChunkSystem = GameManagers.galaxyChunkSystem;
-        starSystemsContainer = GameObject.Find("Star Systems Container");
         planetFactory = GameManagers.planetFactory;
 
         chunks = galaxyChunkSystem.getAllChunks();

@@ -49,7 +49,7 @@ public class GameDataSaver : MonoBehaviour
                         // if the object on the current iteration is actually a planet
                         if (planet.tag == "Planet")
                         {
-                            Planet planetScript = planet.GetComponent<Planet>();
+                            PlanetGenerationSettings planetScript = planet.GetComponent<PlanetGenerationSettings>();
 
                             // grabbing all the noise layers that make up the planet's shape and placing them in serializable wrappers
                             PlanetSerializableDataWrapper.ShapeNoise[] shapeNoiseLayers = new PlanetSerializableDataWrapper.ShapeNoise[planetScript.shapeSettings.noiseLayers.Length];
