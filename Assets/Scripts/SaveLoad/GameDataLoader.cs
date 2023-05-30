@@ -38,11 +38,11 @@ public class GameDataLoader : MonoBehaviour
         string json = File.ReadAllText(Application.dataPath + "/SavedGameData.json");
         GameDataSerializableWrapper gameData = JsonConvert.DeserializeObject<GameDataSerializableWrapper>(json);
 
-        foreach (StarSystemSerializableDataWrapper starSystem in gameData.starSystems)
+        foreach (StarSystemSerializableDataWrapper starSystemWrapper in gameData.starSystems)
         {
-            Vector3 starSystemLocation = new Vector3(starSystem.transformX, starSystem.transformY, starSystem.transformZ);
+            Vector3 starSystemLocation = new Vector3(starSystemWrapper.transformX, starSystemWrapper.transformY, starSystemWrapper.transformZ);
 
-            //starFactory.createStarSystem(starSystemLocation, StarClassParser.stringToStarClass(starSystem.starClass));
+            GameObject starSystemGameObject = starFactory.createStarSystem(starSystemLocation, StarClassParser.stringToStarClass(starSystemWrapper.starClass));
         }
     }
 }
