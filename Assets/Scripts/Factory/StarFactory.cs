@@ -102,7 +102,7 @@ public class StarFactory : MonoBehaviour
         }
     }
 
-    public void createStarSystem(Vector3 locationInSpace)
+    public GameObject createStarSystem(Vector3 locationInSpace)
     {
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
@@ -113,7 +113,7 @@ public class StarFactory : MonoBehaviour
         starSystemContainer.name = starSystemName + " System";
         starSystemContainer.tag = "Star System";
 
-        // ad the new star system container to the container for all star systems
+        // add the new star system container to the container for all star systems
         starSystemContainer.transform.parent = starSystemsContainer.transform;
 
         GameObject star;
@@ -179,56 +179,71 @@ public class StarFactory : MonoBehaviour
             }
         }
 
-
-
         galaxyChunkSystem.addItemToChunk(starSystemContainer);
 
+        return starSystemContainer;
     }
 
-    public void createStarSystem(Vector3 locationInSpace, StarClass starClass)
+    public GameObject createStarSystem(Vector3 locationInSpace, StarClass starClass)
     {
+        // creating the new star system's container
+        GameObject starSystemContainer = new GameObject();
+
+        string starSystemName = generateRandomName();
+
+        starSystemContainer.transform.position = locationInSpace;
+        starSystemContainer.name = starSystemName + " System";
+        starSystemContainer.tag = "Star System";
+
+        // add the new star system container to the container for all star systems
+        starSystemContainer.transform.parent = starSystemsContainer.transform;
+
         GameObject star;
+        // figuring out what star class the new star will be
         switch (starClass)
         {
             case StarClass.M:
-                star = Instantiate(classMStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classMStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classMStarAmount++;
                 break;
             case StarClass.K:
-                star = Instantiate(classKStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classKStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classKStarAmount++;
                 break;
             case StarClass.G:
-                star = Instantiate(classGStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classGStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classGStarAmount++;
                 break;
             case StarClass.F:
-                star = Instantiate(classFStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classFStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classFStarAmount++;
                 break;
             case StarClass.A:
-                star = Instantiate(classAStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classAStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classAStarAmount++;
                 break;
             case StarClass.B:
-                star = Instantiate(classBStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classBStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classBStarAmount++;
                 break;
             case StarClass.O:
-                star = Instantiate(classOStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classOStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 classOStarAmount++;
                 break;
             default:
-                star = Instantiate(classMStarPrefab, locationInSpace, Quaternion.identity);
+                star = Instantiate(classMStarPrefab, starSystemContainer.transform.position, Quaternion.identity);
                 defaultedStars++;
-                Debug.LogWarning("Star class error in createStar() with class argument... defaulting to class M");
+                Debug.LogWarning("Star class RNG error in createStar()... defaulting to class M");
                 break;
         }
-        star.transform.parent = starSystemsContainer.transform;
-        star.name = generateRandomName();
+        // add the new star to the new star system's container
+        star.transform.parent = starSystemContainer.transform;
+        star.name = starSystemName;
         star.tag = "Star";
-        galaxyChunkSystem.addItemToChunk(star);
 
+        galaxyChunkSystem.addItemToChunk(starSystemContainer);
+
+        return starSystemContainer;
     }
 
     private StarClass getWeightedRandomStarClass()
