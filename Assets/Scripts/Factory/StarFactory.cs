@@ -9,6 +9,7 @@ public class StarFactory : MonoBehaviour
 {
     private GalaxyChunkSystem galaxyChunkSystem;
     private GameObject starSystemsContainer;
+    private PlanetFactory planetFactory;
 
     [SerializeField] private GameObject classMStarPrefab;
     [SerializeField] private GameObject classKStarPrefab;
@@ -67,10 +68,12 @@ public class StarFactory : MonoBehaviour
     {
         galaxyChunkSystem = GameManagers.galaxyChunkSystem;
         starSystemsContainer = GameObject.Find("Star Systems Container");
+        planetFactory = GameManagers.planetFactory;
+
         chunks = galaxyChunkSystem.getAllChunks();
         chunks = galaxyChunkSystem.getAllChunks();
 
-        float maxPlanetRadius = PlanetFactory.getMaxPlanetRadius();
+        float maxPlanetRadius = planetFactory.getMaxPlanetRadius();
 
         for (int i = 0; i < MAX_PLANET_AMOUNT; i++)
         {
@@ -162,7 +165,7 @@ public class StarFactory : MonoBehaviour
             List<float> planetOrbitalDistances = new List<float>(classOStarOrbitalDistances);
             for (int i = 0; i < numberOfPlanets; i++)
             {
-                GameObject planet = PlanetFactory.generatePlanet(starSystemContainer.transform);
+                GameObject planet = planetFactory.generatePlanet(starSystemContainer.transform);
 
                 Orbit planetOrbit = planet.AddComponent<Orbit>();
                 planetOrbit.setOrbitParameters(star.transform, Random.Range(MIN_ORBITAL_SPEED, MAX_ORBITAL_SPEED), Random.Range(MIN_PLANET_SPIN, MAX_PLANET_SPIN));

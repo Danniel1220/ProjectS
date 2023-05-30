@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static PlanetShapeSettings;
 
-public static class PlanetFactory
+public class PlanetFactory : MonoBehaviour
 {
     private const int DEFAULT_RESOLUTION = 40;
     private const int DEFAULT_NUMBER_OF_LAYERS = 5;
@@ -95,7 +95,12 @@ public static class PlanetFactory
     private const float PLANET_LIGHT_OFFSET = 20f;
     private const float PLANET_LIGHT_INTENSITY = 100f;
 
-    public static GameObject generatePlanet(Transform targetTransform)
+    void Start()
+    {
+
+    }
+
+    public GameObject generatePlanet(Transform targetTransform)
     {
         #region Shape Noise Layers Random Value Assignments
         // ----------- SHAPE NOISE LAYERS ------------------------------------------------------------------------
@@ -253,19 +258,19 @@ public static class PlanetFactory
         return planetGameObject;
     }
 
-    private static float generateRandomFloat()
+    private float generateRandomFloat()
     {
         return Random.Range(-12000, 12000);
     }
     
-    private static PlanetColorSettings.BiomeColorSettings.Biome generateRandomBiome(float biomeStartHeight, float biomeTintPercent)
+    private PlanetColorSettings.BiomeColorSettings.Biome generateRandomBiome(float biomeStartHeight, float biomeTintPercent)
     {
         Color tintColor = Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
 
         return new PlanetColorSettings.BiomeColorSettings.Biome(generateRandomGradient(), tintColor, biomeStartHeight, biomeTintPercent);
     }
 
-    private static Gradient generateRandomGradient()
+    private Gradient generateRandomGradient()
     {
         int numberOfKeys = Random.Range(MIN_BIOME_NUMBER_OF_KEYS, MAX_BIOME_NUMBER_OF_KEYS);
         float distanceBetweenKeys = 1f / numberOfKeys;
@@ -288,7 +293,7 @@ public static class PlanetFactory
         return gradient;
     }
 
-    public static float getMaxPlanetRadius()
+    public float getMaxPlanetRadius()
     {
         return MAX_PLANET_RADIUS;
     }
