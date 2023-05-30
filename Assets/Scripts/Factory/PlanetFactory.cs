@@ -211,18 +211,47 @@ public class PlanetFactory : MonoBehaviour
         planetColorSettings.planetMaterial = new Material(Resources.Load("Planet Material") as Material);
 
         // creating the planet game object
-        GameObject planetGameObject = new GameObject();
-        planetGameObject.AddComponent<Planet>();
-        Planet planetScript = planetGameObject.GetComponent<Planet>();
+        GameObject planet = new GameObject();
+        planet.AddComponent<Planet>();
+        Planet planetScript = planet.GetComponent<Planet>();
         planetScript.shapeSettings = planetShapeSettings;
         planetScript.colorSettings = planetColorSettings;
         planetScript.resolution = DEFAULT_RESOLUTION;
-        planetGameObject.name = "Auto Generated Planet";
-        planetGameObject.tag = "Planet";
+        planet.name = "Auto Generated Planet";
+        planet.tag = "Planet";
+
+        addLightningToPlanet(planet);
 
         // set the planet's parent to the star system
-        planetGameObject.transform.parent = targetTransform;
+        planet.transform.parent = targetTransform;
+        
 
+        // adding trail renderer object so it can later be accessed by the Trail class and tweaked in StarFactory
+        planet.AddComponent<TrailRenderer>();
+
+        return planet;
+    }
+
+    public GameObject generatePlanet(Transform targetTransform, Planet planetSettings, string name)
+    {
+        GameObject planet = new GameObject();
+        planet.name = name;
+        planet.tag = "Planet";
+
+        Planet planetScript = planet.AddComponent<Planet>();
+        planetScript.resolution = DEFAULT_RESOLUTION;
+        planetScript.shapeSettings = planetSettings.shapeSettings;
+        planetScript.colorSettings = planetSettings.colorSettings;
+
+        addLightningToPlanet(planet);
+
+        planet.transform.parent = targetTransform;
+
+        return planet;
+    }
+
+    private static void addLightningToPlanet(GameObject planet)
+    {
         GameObject lightGameObjectNorth = new GameObject("PlanetLightning");
         GameObject lightGameObjectSouth = new GameObject("PlanetLightning");
         GameObject lightGameObjectEast = new GameObject("PlanetLightning");
@@ -242,20 +271,15 @@ public class PlanetFactory : MonoBehaviour
         lightWest.range = PLANET_LIGHT_RANGE;
         lightWest.intensity = PLANET_LIGHT_INTENSITY;
 
-        lightGameObjectNorth.transform.parent = planetGameObject.transform;
-        lightGameObjectSouth.transform.parent = planetGameObject.transform;
-        lightGameObjectEast.transform.parent = planetGameObject.transform;
-        lightGameObjectWest.transform.parent = planetGameObject.transform;
+        lightGameObjectNorth.transform.parent = planet.transform;
+        lightGameObjectSouth.transform.parent = planet.transform;
+        lightGameObjectEast.transform.parent = planet.transform;
+        lightGameObjectWest.transform.parent = planet.transform;
 
         lightGameObjectNorth.transform.localPosition = new Vector3(0, 0, PLANET_LIGHT_OFFSET);
         lightGameObjectSouth.transform.localPosition = new Vector3(0, 0, -PLANET_LIGHT_OFFSET);
         lightGameObjectEast.transform.localPosition = new Vector3(PLANET_LIGHT_OFFSET, 0, 0);
         lightGameObjectWest.transform.localPosition = new Vector3(-PLANET_LIGHT_OFFSET, 0, 0);
-
-        // adding trail renderer object so it can later be accessed by the Trail class and tweaked in StarFactory
-        planetGameObject.AddComponent<TrailRenderer>();
-
-        return planetGameObject;
     }
 
     private float generateRandomFloat()
