@@ -40,7 +40,10 @@ public class GalaxyFactory : MonoBehaviour
         starFactory = GameManagers.starFactory;
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
         galaxyViewShipPosition.enabled = true;
+    }
 
+    public void generateGalaxy()
+    {
         // primary formation
         createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY, primaryMinLocationNoiseXZ,
             true, true, true);
@@ -140,7 +143,7 @@ public class GalaxyFactory : MonoBehaviour
 
     }
 
-    public void createTestCube(GameObject parent)
+    private void createTestCube(GameObject parent)
     {
         GameObject cube;
         cube = Instantiate(testCubePrefabBlue, parent.transform.position, Quaternion.identity);
