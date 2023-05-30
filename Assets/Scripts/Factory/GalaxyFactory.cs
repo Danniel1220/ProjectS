@@ -40,6 +40,12 @@ public class GalaxyFactory : MonoBehaviour
         starFactory = GameManagers.starFactory;
         galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
         galaxyViewShipPosition.enabled = true;
+
+        // if the main menu tells us the game started via pressing new game then create a new galaxy
+        if (MainMenu.gameStartState == MainMenu.GameStartState.NewGame)
+        {
+            generateGalaxy();
+        }
     }
 
     public void generateGalaxy()

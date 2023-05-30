@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 072225939677cac479497ccbd1d7dc69
+  - enabled: 1
+    path: Assets/Scenes/GalacticView.unity
+    guid: 3c21993a75ddbe64bb76134c1a5edc30
   m_configObjects: {}

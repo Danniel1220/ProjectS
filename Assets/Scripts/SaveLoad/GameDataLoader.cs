@@ -32,6 +32,11 @@ public class GameDataLoader : MonoBehaviour
         classBStarPrefab = StarPrefabs.classBStar;
         classOStarPrefab = StarPrefabs.classOStar;
 
+        // if the main menu tells us the game started via pressing load game then load the save file
+        if (MainMenu.gameStartState == MainMenu.GameStartState.LoadGame)
+        {
+            loadGameData();
+        }
     }
 
     public void loadGameData()
