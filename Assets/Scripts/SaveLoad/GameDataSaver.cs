@@ -39,7 +39,7 @@ public class GameDataSaver : MonoBehaviour
 
                     Debug.Log(starSystem.transform.Find(starSystemName).transform.Find("StarSphere").transform.tag);
                     // retrieving the star class of this star system
-                    StarClass starClass = StarClassParser.parseGameObjectTagToStarClass(starSystem.transform.Find(starSystemName).transform.Find("StarSphere").transform.tag);
+                    StarClass starClass = StarClassParser.gameObjectTagToStarClass(starSystem.transform.Find(starSystemName).transform.Find("StarSphere").transform.tag);
 
                     Debug.Log("Serializing star system " + starSystemName);
 
@@ -134,7 +134,7 @@ public class GameDataSaver : MonoBehaviour
                             starSystem.transform.localPosition.x,
                             starSystem.transform.localPosition.y,
                             starSystem.transform.localPosition.z,
-                            starClass,
+                            StarClassParser.starClassToString(starClass),
                             starSystemName,
                             serializablePlanets));
                 }

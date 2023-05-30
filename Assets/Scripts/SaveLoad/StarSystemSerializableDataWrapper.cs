@@ -9,11 +9,11 @@ public class StarSystemSerializableDataWrapper
     public float transformX;
     public float transformY;
     public float transformZ;
-    public StarClass starClass;
+    public string starClass;
     public string name;
     public List<PlanetSerializableDataWrapper> planets = new List<PlanetSerializableDataWrapper>();
 
-    public StarSystemSerializableDataWrapper(float transformX, float transformY, float transformZ, StarClass starClass, string name, List<PlanetSerializableDataWrapper> planets)
+    public StarSystemSerializableDataWrapper(float transformX, float transformY, float transformZ, string starClass, string name, List<PlanetSerializableDataWrapper> planets)
     {
         this.transformX = transformX;
         this.transformY = transformY;
