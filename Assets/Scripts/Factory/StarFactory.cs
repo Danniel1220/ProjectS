@@ -48,12 +48,6 @@ public class StarFactory : MonoBehaviour
 
     private const float MIN_DISTANCE_BETWEEN_PLANET_ORBITS = 32f;
 
-    private const float MIN_PLANET_SPIN = 5f;
-    private const float MAX_PLANET_SPIN = 30f;
-
-    private const float MIN_ORBITAL_SPEED = 10f;
-    private const float MAX_ORBITAL_SPEED = 40f;
-
     private List<float> classMStarOrbitalDistances = new List<float>();
     private List<float> classKStarOrbitalDistances = new List<float>();
     private List<float> classGStarOrbitalDistances = new List<float>();
@@ -62,9 +56,6 @@ public class StarFactory : MonoBehaviour
     private List<float> classBStarOrbitalDistances = new List<float>();
     private List<float> classOStarOrbitalDistances = new List<float>();
 
-
-    List<Chunk> chunks;
-
     void Start()
     {
         starSystemsContainer = GameManagers.starSystemsContainer;
@@ -72,14 +63,10 @@ public class StarFactory : MonoBehaviour
         galaxyChunkSystem = GameManagers.galaxyChunkSystem;
         planetFactory = GameManagers.planetFactory;
 
-        chunks = galaxyChunkSystem.getAllChunks();
-        chunks = galaxyChunkSystem.getAllChunks();
-
         float maxPlanetRadius = planetFactory.getMaxPlanetRadius();
 
         for (int i = 0; i < MAX_PLANET_AMOUNT; i++)
         {
-
             // first orbit should be equal to the star's roche limit + half of the maximum planet radius
             if (i == 0)
             {
@@ -167,17 +154,11 @@ public class StarFactory : MonoBehaviour
             List<float> planetOrbitalDistances = new List<float>(classOStarOrbitalDistances);
             for (int i = 0; i < numberOfPlanets; i++)
             {
-                GameObject planet = planetFactory.generatePlanet(starSystemContainer.transform);
-
-                Orbit planetOrbit = planet.AddComponent<Orbit>();
-                planetOrbit.setOrbitParameters(star.transform, Random.Range(MIN_ORBITAL_SPEED, MAX_ORBITAL_SPEED), Random.Range(MIN_PLANET_SPIN, MAX_PLANET_SPIN));
-
-                Trail planetTrail = planet.AddComponent<Trail>();
-
                 int randomOrbitalDistanceIndex = Random.Range(0, planetOrbitalDistances.Count() - 1);
                 float randomOrbitalDistanceValue = planetOrbitalDistances.ElementAt(randomOrbitalDistanceIndex);
-                planet.transform.localPosition = new Vector3(randomOrbitalDistanceValue, 0f, 0f);
                 planetOrbitalDistances.RemoveAt(randomOrbitalDistanceIndex);
+
+                GameObject planet = planetFactory.generatePlanet(starSystemContainer.transform, randomOrbitalDistanceValue);
             }
         }
 
@@ -307,6 +288,7 @@ public class StarFactory : MonoBehaviour
     {
         List<Chunk> chunks = galaxyChunkSystem.getAllChunks();
 
+        // disabling all star systems that shouldnt be in view
         foreach (Chunk chunk in chunks)
         {
             foreach (GameObject starSystem in chunk.chunkGameObjectList)
@@ -315,6 +297,15 @@ public class StarFactory : MonoBehaviour
                 {
                     starSystem.SetActive(false);
                 }
+            }
+        }
+
+        // enabling the current visible star system's planets
+        foreach (Transform child in starSystemToNotDisable.transform)
+        {
+            if (child.gameObject.tag == "Planet")
+            {
+                child.gameObject.SetActive(true);
             }
         }
     }
@@ -341,9 +332,18 @@ public class StarFactory : MonoBehaviour
 
         foreach (Chunk chunk in chunks)
         {
-            foreach (GameObject star in chunk.chunkGameObjectList)
+            foreach (GameObject starSystem in chunk.chunkGameObjectList)
             {
-                star.SetActive(true);
+                starSystem.SetActive(true);
+                
+                // enabling the star system means the planets shouldnt be visible anymore
+                foreach (Transform child in starSystem.transform)
+                {
+                    if (child.gameObject.tag == "Planet")
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
             }
         }
     }

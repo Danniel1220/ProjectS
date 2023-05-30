@@ -15,6 +15,10 @@ public class PlanetSerializableDataWrapper
     public Biome[] biomes;
     public Gradient oceanColor;
 
+    public float orbitDistance;
+    public float orbitSpeed;
+    public float rotationSpeed;
+
     [Serializable]
     public struct ShapeNoise
     {
@@ -170,7 +174,7 @@ public class PlanetSerializableDataWrapper
         }
     }
 
-    public PlanetSerializableDataWrapper(string name, float radius, int shapeNoiseLayersCount, ShapeNoise[] shapeNoiseLayers, ColorNoise colorNoise, int biomesCount, Biome[] biomes, Gradient oceanColor)
+    public PlanetSerializableDataWrapper(string name, float radius, int shapeNoiseLayersCount, ShapeNoise[] shapeNoiseLayers, ColorNoise colorNoise, int biomesCount, Biome[] biomes, Gradient oceanColor, float orbitDistance, float orbitSpeed, float rotationSpeed)
     {
         this.name = name;
         this.radius = radius;
@@ -180,5 +184,8 @@ public class PlanetSerializableDataWrapper
         this.biomesCount = biomesCount;
         this.biomes = biomes;
         this.oceanColor = oceanColor;
+        this.orbitDistance = orbitDistance;
+        this.orbitSpeed = orbitSpeed;
+        this.rotationSpeed = rotationSpeed;
     }
 }

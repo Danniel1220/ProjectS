@@ -127,7 +127,10 @@ public class GameDataSaver : MonoBehaviour
                                 colorNoise,
                                 planetScript.colorSettings.biomeColorSettings.biomes.Count(),
                                 biomes,
-                                new PlanetSerializableDataWrapper.Gradient(planetScript.colorSettings.oceanColor)));
+                                new PlanetSerializableDataWrapper.Gradient(planetScript.colorSettings.oceanColor),
+                                planet.GetComponent<Orbit>().orbitDistance,
+                                planet.GetComponent<Orbit>().orbitSpeed,
+                                planet.GetComponent<Orbit>().rotationSpeed));
                         }
                     }
                     serializableStarSystems.Add(new StarSystemSerializableDataWrapper(

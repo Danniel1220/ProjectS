@@ -54,7 +54,7 @@ public class GameDataLoader : MonoBehaviour
                 PlanetColorSettings planetColorSettings = extractPlanetColorSettings(planetWrapper);
 
                 // generate the new planet under the current iteration star system with the specified settings
-                planetFactory.generatePlanet(starSystemGameObject.transform, planetShapeSettings, planetColorSettings, planetWrapper.name);
+                planetFactory.generatePlanet(starSystemGameObject.transform, planetShapeSettings, planetColorSettings, planetWrapper.name, planetWrapper.orbitDistance);
             }
         }
     }

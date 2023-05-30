@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static PlanetShapeSettings;
@@ -95,12 +96,62 @@ public class PlanetFactory : MonoBehaviour
     private const float PLANET_LIGHT_OFFSET = 20f;
     private const float PLANET_LIGHT_INTENSITY = 100f;
 
+    private const int MIN_PLANET_AMOUNT = 0;
+    private const int MAX_PLANET_AMOUNT = 8;
+
+    private const float MIN_DISTANCE_BETWEEN_PLANET_ORBITS = 32f;
+
+    private const float MIN_PLANET_SPIN = 5f;
+    private const float MAX_PLANET_SPIN = 30f;
+
+    private const float MIN_ORBITAL_SPEED = 10f;
+    private const float MAX_ORBITAL_SPEED = 40f;
+
+    private const float CLASS_M_STAR_ROCHE_LIMIT = 8f;
+    private const float CLASS_K_STAR_ROCHE_LIMIT = 9f;
+    private const float CLASS_G_STAR_ROCHE_LIMIT = 10f;
+    private const float CLASS_F_STAR_ROCHE_LIMIT = 11f;
+    private const float CLASS_A_STAR_ROCHE_LIMIT = 15f;
+    private const float CLASS_B_STAR_ROCHE_LIMIT = 20f;
+    private const float CLASS_O_STAR_ROCHE_LIMIT = 100f;
+
+    private List<float> classMStarOrbitalDistances = new List<float>();
+    private List<float> classKStarOrbitalDistances = new List<float>();
+    private List<float> classGStarOrbitalDistances = new List<float>();
+    private List<float> classFStarOrbitalDistances = new List<float>();
+    private List<float> classAStarOrbitalDistances = new List<float>();
+    private List<float> classBStarOrbitalDistances = new List<float>();
+    private List<float> classOStarOrbitalDistances = new List<float>();
+
     void Start()
     {
-
+        for (int i = 0; i < MAX_PLANET_AMOUNT; i++)
+        {
+            // first orbit should be equal to the star's roche limit + half of the maximum planet radius
+            if (i == 0)
+            {
+                classMStarOrbitalDistances.Add(CLASS_M_STAR_ROCHE_LIMIT + MAX_PLANET_RADIUS / 2);
+                classKStarOrbitalDistances.Add(CLASS_K_STAR_ROCHE_LIMIT + MAX_PLANET_RADIUS / 2);
+                classGStarOrbitalDistances.Add(CLASS_G_STAR_ROCHE_LIMIT + MAX_PLANET_RADIUS / 2);
+                classFStarOrbitalDistances.Add(CLASS_F_STAR_ROCHE_LIMIT + MAX_PLANET_RADIUS / 2);
+                classAStarOrbitalDistances.Add(CLASS_A_STAR_ROCHE_LIMIT + MAX_PLANET_RADIUS / 2);
+                classBStarOrbitalDistances.Add(CLASS_B_STAR_ROCHE_LIMIT + MAX_PLANET_RADIUS / 2);
+                classOStarOrbitalDistances.Add(CLASS_O_STAR_ROCHE_LIMIT + MAX_PLANET_RADIUS / 2);
+            }
+            else
+            {
+                classMStarOrbitalDistances.Add(classMStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classKStarOrbitalDistances.Add(classKStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classGStarOrbitalDistances.Add(classGStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classFStarOrbitalDistances.Add(classFStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classAStarOrbitalDistances.Add(classAStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classBStarOrbitalDistances.Add(classBStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+                classOStarOrbitalDistances.Add(classOStarOrbitalDistances.Last() + MIN_DISTANCE_BETWEEN_PLANET_ORBITS);
+            }
+        }
     }
 
-    public GameObject generatePlanet(Transform targetTransform)
+    public GameObject generatePlanet(Transform targetTransform, float orbitDistance)
     {
         #region Shape Noise Layers Random Value Assignments
         // ----------- SHAPE NOISE LAYERS ------------------------------------------------------------------------
@@ -212,8 +263,12 @@ public class PlanetFactory : MonoBehaviour
 
         // creating the planet game object
         GameObject planet = new GameObject();
+        
         planet.name = "Auto Generated Planet";
         planet.tag = "Planet";
+
+        // set the planet's parent to the star system
+        planet.transform.parent = targetTransform;
 
         PlanetGenerationSettings planetScript = planet.AddComponent<PlanetGenerationSettings>();
         planetScript.resolution = DEFAULT_RESOLUTION;
@@ -221,22 +276,27 @@ public class PlanetFactory : MonoBehaviour
         planetScript.colorSettings = planetColorSettings;
 
         addLightningToPlanet(planet);
-
-        // set the planet's parent to the star system
-        planet.transform.parent = targetTransform;
         
         // adding trail renderer object so it can  be accessed by the Trail 
         planet.AddComponent<TrailRenderer>();
         planet.AddComponent<Trail>();
 
+        Orbit planetOrbit = planet.AddComponent<Orbit>();
+        planetOrbit.setOrbitParameters(targetTransform.GetChild(0), Random.Range(MIN_ORBITAL_SPEED, MAX_ORBITAL_SPEED), Random.Range(MIN_PLANET_SPIN, MAX_PLANET_SPIN), orbitDistance);
+        // the planet should be inactive by default because it shouldnt be visible when we first start the game, only when we zoom in on a star
+        planet.SetActive(false);
+
         return planet;
     }
 
-    public GameObject generatePlanet(Transform targetTransform, PlanetShapeSettings planetshapeSettings, PlanetColorSettings planetColorSettings, string name)
+    public GameObject generatePlanet(Transform targetTransform, PlanetShapeSettings planetshapeSettings, PlanetColorSettings planetColorSettings, string name, float orbitDistance)
     {
         GameObject planet = new GameObject();
         planet.name = name;
         planet.tag = "Planet";
+
+        // set the planet's parent to the star system
+        planet.transform.parent = targetTransform;
 
         PlanetGenerationSettings planetScript = planet.AddComponent<PlanetGenerationSettings>();
         planetScript.resolution = DEFAULT_RESOLUTION;
@@ -245,12 +305,15 @@ public class PlanetFactory : MonoBehaviour
 
         addLightningToPlanet(planet);
 
-        // set the planet's parent to the star system
-        planet.transform.parent = targetTransform;
-
         // adding trail renderer object so it can  be accessed by the Trail 
         planet.AddComponent<TrailRenderer>();
         planet.AddComponent<Trail>();
+
+        Orbit planetOrbit = planet.AddComponent<Orbit>();
+        planetOrbit.setOrbitParameters(targetTransform.GetChild(0), Random.Range(MIN_ORBITAL_SPEED, MAX_ORBITAL_SPEED), Random.Range(MIN_PLANET_SPIN, MAX_PLANET_SPIN), orbitDistance);
+
+        // the planet should be inactive by default because it shouldnt be visible when we first start the game, only when we zoom in on a star
+        planet.SetActive(false);
 
         return planet;
     }
