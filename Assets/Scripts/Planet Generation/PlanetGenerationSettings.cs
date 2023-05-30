@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Planet : MonoBehaviour
+public class PlanetGenerationSettings : MonoBehaviour
 {
     [Range(2, 256)]
     public int resolution = 10;
@@ -22,19 +22,19 @@ public class Planet : MonoBehaviour
     [SerializeField, HideInInspector] MeshFilter[] meshFilters;
     TerrainFace[] terrainFaces;
 
-    public Planet(PlanetShapeSettings shapeSettings, PlanetColorSettings colorSettings)
+    public PlanetGenerationSettings(PlanetShapeSettings shapeSettings, PlanetColorSettings colorSettings)
     {
         this.shapeSettings = shapeSettings;
         this.colorSettings = colorSettings;
         generatePlanet();
     }
 
-    public Planet(float radius)
+    public PlanetGenerationSettings(float radius)
     {
         shapeSettings.planetRadius = radius;
     }
 
-    public Planet()
+    public PlanetGenerationSettings()
     {
 
     }

@@ -2,13 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class GameManagers
+public class GameManagers: MonoBehaviour
 {
-    public static ChunkSystem galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
+    public static ChunkSystem galaxyChunkSystem;
 
-    public static StarFactory starFactory = GameObject.Find("GameManager").GetComponent<StarFactory>();
-    public static PlanetFactory planetFactory = GameObject.Find("GameManager").GetComponent<PlanetFactory>();
+    public static GameObject starSystemsContainer;
 
-    public static GameDataSaver gameDataSaver = GameObject.Find("GameManager").GetComponent<GameDataSaver>();
-    public static GameDataLoader gameDataLoader = GameObject.Find("GameManager").GetComponent<GameDataLoader>();
+    public static StarFactory starFactory;
+    public static PlanetFactory planetFactory;
+
+    public static GameDataSaver gameDataSaver;
+    public static GameDataLoader gameDataLoader;
+
+    void Awake()
+    {
+        galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
+
+        starSystemsContainer = GameObject.Find("Star Systems Container");
+
+        starFactory = GameObject.Find("GameManager").GetComponent<StarFactory>();
+        planetFactory = GameObject.Find("GameManager").GetComponent<PlanetFactory>();
+
+        gameDataSaver = GameObject.Find("GameManager").GetComponent<GameDataSaver>();
+        gameDataLoader = GameObject.Find("GameManager").GetComponent<GameDataLoader>();
+    }
 }

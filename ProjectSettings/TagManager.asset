@@ -15,6 +15,7 @@ TagManager:
   - Star
   - Planet
   - Star System
+  - Star Systems Container
   layers:
   - Default
   - TransparentFX

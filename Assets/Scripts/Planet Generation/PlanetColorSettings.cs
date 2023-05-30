@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,18 @@ public class PlanetColorSettings : ScriptableObject
     {
         this.biomeColorSettings = biomeColorSettings;
         this.oceanColor = oceanColor;
+    }
+
+    public void init(BiomeColorSettings biomeColorSettings, Gradient oceanColor)
+    {
+        this.biomeColorSettings = biomeColorSettings;
+        this.oceanColor = oceanColor;
+    }
+
+    public void init(PlanetColorSettings planetColorSettings)
+    {
+        this.biomeColorSettings = planetColorSettings.biomeColorSettings;
+        this.oceanColor = planetColorSettings.oceanColor;
     }
 
     [System.Serializable]

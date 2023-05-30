@@ -27,4 +27,16 @@ public class PlanetShapeSettings : ScriptableObject
         this.planetRadius = planetRadius;
         this.noiseLayers = noiseLayers;
     }
+
+    public void init(float planetRadius, NoiseLayer[] noiseLayers)
+    {
+        this.planetRadius = planetRadius;
+        this.noiseLayers = noiseLayers;
+    }
+
+    public void init(PlanetShapeSettings planetShapeSettings)
+    {
+        this.planetRadius = planetShapeSettings.planetRadius;
+        this.noiseLayers = planetShapeSettings.noiseLayers;
+    }
 }

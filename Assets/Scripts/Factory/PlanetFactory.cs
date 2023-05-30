@@ -207,45 +207,50 @@ public class PlanetFactory : MonoBehaviour
         planetColorSettings.biomeColorSettings = biomeColorSettings;
         planetColorSettings.oceanColor = generateRandomGradient();
 
-        // creating a new material for the planet
+        // creating a new material for the planet and assigning it
         planetColorSettings.planetMaterial = new Material(Resources.Load("Planet Material") as Material);
 
         // creating the planet game object
         GameObject planet = new GameObject();
-        planet.AddComponent<Planet>();
-        Planet planetScript = planet.GetComponent<Planet>();
-        planetScript.shapeSettings = planetShapeSettings;
-        planetScript.colorSettings = planetColorSettings;
-        planetScript.resolution = DEFAULT_RESOLUTION;
         planet.name = "Auto Generated Planet";
         planet.tag = "Planet";
+
+        PlanetGenerationSettings planetScript = planet.AddComponent<PlanetGenerationSettings>();
+        planetScript.resolution = DEFAULT_RESOLUTION;
+        planetScript.shapeSettings = planetShapeSettings;
+        planetScript.colorSettings = planetColorSettings;
 
         addLightningToPlanet(planet);
 
         // set the planet's parent to the star system
         planet.transform.parent = targetTransform;
         
-
-        // adding trail renderer object so it can later be accessed by the Trail class and tweaked in StarFactory
+        // adding trail renderer object so it can  be accessed by the Trail 
         planet.AddComponent<TrailRenderer>();
+        planet.AddComponent<Trail>();
 
         return planet;
     }
 
-    public GameObject generatePlanet(Transform targetTransform, Planet planetSettings, string name)
+    public GameObject generatePlanet(Transform targetTransform, PlanetShapeSettings planetshapeSettings, PlanetColorSettings planetColorSettings, string name)
     {
         GameObject planet = new GameObject();
         planet.name = name;
         planet.tag = "Planet";
 
-        Planet planetScript = planet.AddComponent<Planet>();
+        PlanetGenerationSettings planetScript = planet.AddComponent<PlanetGenerationSettings>();
         planetScript.resolution = DEFAULT_RESOLUTION;
-        planetScript.shapeSettings = planetSettings.shapeSettings;
-        planetScript.colorSettings = planetSettings.colorSettings;
+        planetScript.shapeSettings = planetshapeSettings;
+        planetScript.colorSettings = planetColorSettings;
 
         addLightningToPlanet(planet);
 
+        // set the planet's parent to the star system
         planet.transform.parent = targetTransform;
+
+        // adding trail renderer object so it can  be accessed by the Trail 
+        planet.AddComponent<TrailRenderer>();
+        planet.AddComponent<Trail>();
 
         return planet;
     }
