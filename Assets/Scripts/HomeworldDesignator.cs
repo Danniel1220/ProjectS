@@ -5,16 +5,33 @@ using UnityEngine;
 public class HomeworldDesignator : MonoBehaviour
 {
     ChunkSystem chunkSystem;
-    GameObject homeworldStarSystem;
-    
+    StarshipPosition starshipPosition;
 
-    // Start is called before the first frame update
+    GameObject homeworldStarSystem;
+
     void Start()
     {
         chunkSystem = GameManagers.chunkSystem;
+        starshipPosition = GameManagers.starshipPosition;
     }
 
-    public void designateHomeWorld()
+    public void designateHomeworld()
+    {
+        homeworldStarSystem = findHomeworldSystem();
+        if (homeworldStarSystem == null)
+        {
+            Debug.LogError("Failed to assign a homeworld...");
+        }
+        else
+        {
+            // make the found star system homeworld
+            StarSystem starSystemScript = homeworldStarSystem.GetComponent<StarSystem>();
+            starSystemScript.makeHomeWorld();
+            moveStarShipToHomeWorld();
+        }
+    }
+
+    private GameObject findHomeworldSystem()
     {
         List<Chunk> chunks = chunkSystem.chunkList;
         // basically we are iterating through all star system to find one suitable for being a homeworld
@@ -44,26 +61,17 @@ public class HomeworldDesignator : MonoBehaviour
                 // if we found a G class star with more than 2 planets then it is a suitable homeworld
                 if (starIsGClass == true && planetCount > 2)
                 {
-                    // we keep a refference to the homeworld system cached so we can move the starship there later
-                    // without having to find it again
-                    homeworldStarSystem = starSystem;
-
-                    // make the star system homeworld
-                    StarSystem starSystemScript = starSystem.GetComponent<StarSystem>();
-                    starSystemScript.makeHomeWorld();
-
-                    return;
-                }
-                else
-                {
-                    Debug.LogError("Could not find a suitable homeworld system...");
+                    return starSystem;
                 }
             }
         }
+
+        return null;
     }
 
     public void moveStarShipToHomeWorld()
     {
-
+        starshipPosition.transform.position = homeworldStarSystem.transform.position;
+        starshipPosition.setTargetPositionViaStarSystem(homeworldStarSystem);
     }
 }

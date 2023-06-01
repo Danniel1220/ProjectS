@@ -10,7 +10,7 @@ public class GalaxyFactory : MonoBehaviour
 {
     private ChunkSystem galaxyChunkSystem;
     private StarFactory starFactory;
-    private StarshipPosition galaxyViewShipPosition;
+    private HomeworldDesignator homeworldDesignator;
 
     [SerializeField] private int primaryNumberOfPoints;
     [SerializeField] private float primaryTurnFraction;
@@ -38,8 +38,7 @@ public class GalaxyFactory : MonoBehaviour
     {
         galaxyChunkSystem = GameManagers.chunkSystem;
         starFactory = GameManagers.starFactory;
-        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
-        galaxyViewShipPosition.enabled = true;
+        homeworldDesignator = GameManagers.homeworldDesignator;
 
         // if the main menu tells us the game started via pressing new game then create a new galaxy
         if (MainMenu.gameStartState == MainMenu.GameStartState.NewGame)
@@ -59,6 +58,9 @@ public class GalaxyFactory : MonoBehaviour
 
         // remove overlapped points caused by location noise rng
         removeOverlappedStarSystems(minDistanceBetweenPoints);
+
+        // designate the homeworld
+        homeworldDesignator.designateHomeworld();
     }
 
     private void createPointsOnDisk(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ,

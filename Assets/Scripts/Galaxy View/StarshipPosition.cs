@@ -33,15 +33,20 @@ public class StarshipPosition : MonoBehaviour
             targetPosition.x= 0f;
         }
     }
-    public void setTargetPosition(GameObject target)
+    public void setTargetPositionViaStar(GameObject target)
     {
         // this ugly mess is required because the collider that checks for a click is bound to
-        // the StarSphere object of a star, but we actually need to check for the whole star system
-        // so the parent of the parent of the star sphere is actually the whole system and we retrieve that here
+        // the StarSphere object of a star, but we actually need to refference the whole star system
+        // so the parent of the parent of the star sphere is actually the whole system and thats what we are setting the target to
 
-        // this shit is absolutely horrendous... too bad!
+        // also, this shit is absolutely horrendous... too bad!
         this.targetObject = target.transform.parent.gameObject.transform.parent.gameObject;
-        Debug.Log("setting target..");
+    }
+
+    public void setTargetPositionViaStarSystem(GameObject target)
+    {
+        // since we receive the star system game object right away, no need for a horrible mess of parenting logic, great
+        this.targetObject = target;
     }
 
     public void enterStarView()

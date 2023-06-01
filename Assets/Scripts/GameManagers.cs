@@ -14,6 +14,10 @@ public class GameManagers: MonoBehaviour
     public static GameDataSaver gameDataSaver;
     public static GameDataLoader gameDataLoader;
 
+    public static StarshipPosition starshipPosition;
+
+    public static HomeworldDesignator homeworldDesignator;
+
     void Awake()
     {
         chunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
@@ -25,5 +29,9 @@ public class GameManagers: MonoBehaviour
 
         gameDataSaver = GameObject.Find("GameManager").GetComponent<GameDataSaver>();
         gameDataLoader = GameObject.Find("GameManager").GetComponent<GameDataLoader>();
+
+        starshipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
+
+        homeworldDesignator = GameObject.Find("GameManager").GetComponent<HomeworldDesignator>();
     }
 }
