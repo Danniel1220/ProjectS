@@ -60,7 +60,7 @@ public class StarFactory : MonoBehaviour
     {
         starSystemsContainer = GameManagers.starSystemsContainer;
 
-        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+        galaxyChunkSystem = GameManagers.chunkSystem;
         planetFactory = GameManagers.planetFactory;
 
         float maxPlanetRadius = planetFactory.getMaxPlanetRadius();
@@ -95,6 +95,8 @@ public class StarFactory : MonoBehaviour
     {
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
+        StarSystem starSystemScript = starSystemsContainer.AddComponent<StarSystem>();
+        starSystemScript.isHomeWorldSystem = false;
 
         string starSystemName = generateRandomName();
 

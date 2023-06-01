@@ -5,13 +5,13 @@ using UnityEngine;
 public class GalaxyViewStarMouseDetection : MonoBehaviour
 {
     Transform starTransform;
-    GalaxyViewShipPosition galaxyViewShipPosition;
+    StarshipPosition galaxyViewShipPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         starTransform = GetComponent<Transform>();
-        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
+        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
     }
 
     void OnMouseEnter()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManagers: MonoBehaviour
 {
-    public static ChunkSystem galaxyChunkSystem;
+    public static ChunkSystem chunkSystem;
 
     public static GameObject starSystemsContainer;
 
@@ -16,7 +16,7 @@ public class GameManagers: MonoBehaviour
 
     void Awake()
     {
-        galaxyChunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
+        chunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
 
         starSystemsContainer = GameObject.Find("Star Systems Container");
 

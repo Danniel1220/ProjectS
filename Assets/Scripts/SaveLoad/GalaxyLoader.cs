@@ -9,7 +9,7 @@ public class GalaxyLoader : MonoBehaviour
     GalaxyViewStarDataWrapper dataWrapper;
     ChunkSystem galaxyChunkSystem;
     StarFactory starFactory;
-    GalaxyViewShipPosition galaxyViewShipPosition;
+    StarshipPosition galaxyViewShipPosition;
 
     [SerializeField] private GameObject classMStarPrefab;
     [SerializeField] private GameObject classKStarPrefab;
@@ -25,9 +25,9 @@ public class GalaxyLoader : MonoBehaviour
     void Start()
     {
         starFactory = GameManagers.starFactory;
-        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+        galaxyChunkSystem = GameManagers.chunkSystem;
         dataWrapper = deserializeJsonFile(Application.dataPath + "/StarLocations.json");
-        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
+        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
         galaxyViewShipPosition.enabled = true;
 
         foreach (GalaxyViewStarSerializableData star in dataWrapper.starData)

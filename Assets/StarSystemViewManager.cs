@@ -5,11 +5,11 @@ using UnityEngine;
 public class StarSystemViewManager : MonoBehaviour
 {
     private StarFactory starFactory;
-    private GalaxyViewShipPosition galaxyViewShipPosition;
+    private StarshipPosition galaxyViewShipPosition;
     void Start()
     {
         starFactory = GameManagers.starFactory;
-        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
+        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
     }
 
     public void enterStarSystemView()

@@ -10,7 +10,7 @@ public class GalaxyFactory : MonoBehaviour
 {
     private ChunkSystem galaxyChunkSystem;
     private StarFactory starFactory;
-    private GalaxyViewShipPosition galaxyViewShipPosition;
+    private StarshipPosition galaxyViewShipPosition;
 
     [SerializeField] private int primaryNumberOfPoints;
     [SerializeField] private float primaryTurnFraction;
@@ -36,9 +36,9 @@ public class GalaxyFactory : MonoBehaviour
 
     void Start()
     {
-        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+        galaxyChunkSystem = GameManagers.chunkSystem;
         starFactory = GameManagers.starFactory;
-        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<GalaxyViewShipPosition>();
+        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
         galaxyViewShipPosition.enabled = true;
 
         // if the main menu tells us the game started via pressing new game then create a new galaxy

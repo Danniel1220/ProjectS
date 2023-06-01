@@ -15,7 +15,7 @@ public class AddStarshipToChunkSystem : MonoBehaviour
         starShipGameObjectTransform = GetComponent<Transform>();
         shipTransform = this.transform.Find("Body").transform;
 
-        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+        galaxyChunkSystem = GameManagers.chunkSystem;
         galaxyChunkSystem.addItemToChunk(this.gameObject);
     }
 

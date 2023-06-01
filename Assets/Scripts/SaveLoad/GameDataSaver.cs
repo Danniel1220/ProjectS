@@ -11,7 +11,7 @@ public class GameDataSaver : MonoBehaviour
 
     void Start()
     {
-        galaxyChunkSystem = GameManagers.galaxyChunkSystem;
+        galaxyChunkSystem = GameManagers.chunkSystem;
     }
 
     public void saveGameData()
