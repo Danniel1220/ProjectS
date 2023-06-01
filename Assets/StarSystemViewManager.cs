@@ -5,16 +5,19 @@ using UnityEngine;
 public class StarSystemViewManager : MonoBehaviour
 {
     private StarFactory starFactory;
-    private StarshipPosition galaxyViewShipPosition;
+    private StarshipPosition starshipPosition;
+    private GameObject starSystemCurrentlyInView;
+
     void Start()
     {
         starFactory = GameManagers.starFactory;
-        galaxyViewShipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
+        starshipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
     }
 
     public void enterStarSystemView()
     {
-        starFactory.disableAllStarSystemsButOne(galaxyViewShipPosition.getTargetStarSystem());
+        starFactory.disableAllStarSystemsButOne(starshipPosition.getTargetStarSystem());
+        starSystemCurrentlyInView = starshipPosition.getTargetStarSystem();
     }
 
     public void exitStarSystemView()
