@@ -158,6 +158,7 @@ public class GameDataSaver : MonoBehaviour
             currentStarshipPosition.position.x,
             currentStarshipPosition.position.y,
             currentStarshipPosition.position.z,
+            starshipPosition.getTargetIndex(),
             serializableStarSystems);
         Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
         saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonConvert.SerializeObject(gameData));

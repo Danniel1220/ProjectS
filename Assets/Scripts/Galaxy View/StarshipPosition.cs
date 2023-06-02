@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,9 +92,8 @@ public class StarshipPosition : MonoBehaviour
         return starshipTransform;
     }
 
-    // this is kinda ~not nice~ because we dont update the target index too by doing this but.. too bad!
-    public void setStarshipPositionViaVector3(Vector3 coordinates)
+    public int getTargetIndex()
     {
-        starshipTransform.position = coordinates;
+        return targetIndex;
     }
 }

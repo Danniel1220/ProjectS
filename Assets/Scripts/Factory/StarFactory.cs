@@ -180,7 +180,7 @@ public class StarFactory : MonoBehaviour
 
     // this function is used when creating a star system loaded from a save file
     // since we need to create a specific type of star more arguments are required
-    public GameObject createStarSystem(Vector3 locationInSpace, StarClass starClass, bool isHomeworld, int index)
+    public GameObject createStarSystem(Vector3 locationInSpace, StarClass starClass, string name, bool isHomeworld, int index)
     {
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
@@ -188,7 +188,7 @@ public class StarFactory : MonoBehaviour
         starSystemScript.index = index;
         starSystemScript.isHomeworld = isHomeworld;
 
-        string starSystemName = generateRandomName();
+        string starSystemName = name;
 
         starSystemContainer.transform.position = locationInSpace;
         starSystemContainer.name = starSystemName + " System";
