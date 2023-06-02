@@ -11,6 +11,7 @@ public class StarshipPosition : MonoBehaviour
     private ChunkSystem chunkSystem;
 
     [SerializeField] private GameObject targetObject;
+    [SerializeField] private GameObject cachedTargetObject;
     [SerializeField] private int targetStarIndex;
     [SerializeField] private int targetPlanetIndex;
 
@@ -48,9 +49,7 @@ public class StarshipPosition : MonoBehaviour
 
         // also, this shit is absolutely horrendous... too bad!
         GameObject starSystemGameObject = target.transform.parent.gameObject.transform.parent.gameObject;
-
-        targetObject = starSystemGameObject;
-        targetStarIndex = starSystemGameObject.GetComponent<StarSystem>().index;
+        setTargetPositionViaStarSystem(starSystemGameObject);
     }
 
     public void setTargetPositionViaStarSystem(GameObject target)
@@ -58,6 +57,10 @@ public class StarshipPosition : MonoBehaviour
         // since we receive the star system game object right away, no need for a horrible mess of parenting logic, great
         targetObject = target;
         targetStarIndex = target.GetComponent<StarSystem>().index;
+        // not hovering a planet, so this should be -1
+        targetPlanetIndex = -1;
+        // we're hovering a star so we dont need to cache anything
+        cachedTargetObject = null;
     }
 
     // this isn't particularly efficient so it is only used when loading the save file
@@ -72,18 +75,41 @@ public class StarshipPosition : MonoBehaviour
     // back to the star itself rather than the planet
     public void setTargetPositionViaPlanet(GameObject target)
     {
+        // if we move to a planet, we should cache the previous target too (the star's game object refference)
+        // so that when we exit star system view we can set the target back to it without having to find it by index
+        cachedTargetObject = targetObject;
+
         targetObject = target;
         targetPlanetIndex = target.GetComponent<Planet>().index;
     }
 
-    public void enterStarView()
+    public void enterStarSystemView()
     {
-        starFactory.moveStarSystemsRelativeToPoint(targetObject, true);
+        // TODO: make moving stars relative to point to work properly
+        //starFactory.moveStarSystemsRelativeToPoint(targetObject, true);
     }
 
-    public void exitStarView()
+    public void exitStarSystemView()
     {
-        starFactory.moveStarSystemsRelativeToPoint(targetObject, false);
+        // if we are currently hovering over a planet
+        if (targetPlanetIndex != -1)
+        {
+            // set the new target to be the one of the star we we're previously hovering over
+            targetObject = cachedTargetObject;
+            // means we dont need the cached target anymore
+            cachedTargetObject = null;
+            // signal that we are no longer hovering over a planet
+            targetPlanetIndex = -1;
+        }
+        // not hovering over a planet, so just exit the star system view as usual
+        else
+        {
+            starFactory.moveStarSystemsRelativeToPoint(targetObject, false);
+
+        }
+
+        // TODO: make moving stars relative to point to work properly
+        //starFactory.moveStarSystemsRelativeToPoint(targetObject, false);
     }
 
     public GameObject getTargetStarSystem()

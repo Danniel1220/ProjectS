@@ -8,6 +8,8 @@ public class StarShipCameraControl : MonoBehaviour
     private Cinemachine3rdPersonFollow cinemachine3RdPersonFollow;
     private StarSystemViewManager starSystemViewManager;
 
+    private StarshipPosition starshipPosition;
+
     private Transform cameraAnchor;
     private Transform cameraAnchorLookPoint;
 
@@ -36,6 +38,7 @@ public class StarShipCameraControl : MonoBehaviour
         cameraAnchor = GameObject.Find("Starship").transform.Find("CameraAnchor").GetComponent<Transform>();
         cameraAnchorLookPoint = GameObject.Find("Starship").transform.Find("CameraAnchorLookPoint").GetComponent<Transform>();
 
+        starshipPosition = GameManagers.starshipPosition;
     }
 
     // Update is called once per frame
@@ -102,11 +105,13 @@ public class StarShipCameraControl : MonoBehaviour
     {
         isInStarViewRange = true;
         starSystemViewManager.enterStarSystemView();
+        starshipPosition.enterStarSystemView();
     }
 
     public void exitStarView()
     {
         isInStarViewRange = false;
         starSystemViewManager.exitStarSystemView();
+        starshipPosition.exitStarSystemView();
     }
 }

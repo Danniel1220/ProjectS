@@ -26,7 +26,9 @@ public class MouseClickDetection : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("clicked gameobject " + this.gameObject.name);
-        if (this.gameObject.tag == "Star")
+        // for the star, the collider is placed on the star sphere instead of the star object so i need this
+        // war crime here to fetch the parent.. too bad!
+        if (this.gameObject.transform.parent.tag == "Star")
         {
             starshipPosition.setTargetPositionViaStar(objectTransform.gameObject);
         }
