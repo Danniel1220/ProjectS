@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -141,5 +142,24 @@ public class ChunkSystem : MonoBehaviour
     public Vector2 getChunkCenter(Chunk chunk)
     {
         return new Vector2(chunk.chunkPosition.x + chunkSize / 2, chunk.chunkPosition.y + chunkSize / 2);
+    }
+
+    public GameObject getStarSystemViaIndex(int index)
+    {
+        foreach(Chunk chunk in chunkList)
+        {
+            foreach(GameObject starSystem in chunk.chunkGameObjectList)
+            {
+                if (starSystem.GetComponent<StarSystem>().index == index)
+                {
+                    return starSystem;
+                }
+            }
+        }
+
+        // normally the function should return before we get here
+        // but just in case we dont find the index we should return something
+        Debug.LogError("Could not find star system with index: " + index + " in ChunkSystem.getStarSystemViaIndex()");
+        return null;
     }
 }

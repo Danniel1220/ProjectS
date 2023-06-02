@@ -56,6 +56,8 @@ public class StarFactory : MonoBehaviour
     private List<float> classBStarOrbitalDistances = new List<float>();
     private List<float> classOStarOrbitalDistances = new List<float>();
 
+    private int starIndexCounter = 0;
+
     void Start()
     {
         starSystemsContainer = GameManagers.starSystemsContainer;
@@ -98,6 +100,11 @@ public class StarFactory : MonoBehaviour
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
         StarSystem starSystemScript = starSystemContainer.AddComponent<StarSystem>();
+        // assigning an unique index to the star system so it can be later be refferenced via index when looking for it
+        starSystemScript.index = starIndexCounter;
+        // incrementing the index so the next star system created has a different unique one
+        starIndexCounter++;
+        // assume that, by default, the star system is not a homeworld
         starSystemScript.isHomeworld = false;
 
         string starSystemName = generateRandomName();
@@ -173,11 +180,12 @@ public class StarFactory : MonoBehaviour
 
     // this function is used when creating a star system loaded from a save file
     // since we need to create a specific type of star more arguments are required
-    public GameObject createStarSystem(Vector3 locationInSpace, StarClass starClass, bool isHomeworld)
+    public GameObject createStarSystem(Vector3 locationInSpace, StarClass starClass, bool isHomeworld, int index)
     {
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
         StarSystem starSystemScript = starSystemContainer.AddComponent<StarSystem>();
+        starSystemScript.index = index;
         starSystemScript.isHomeworld = isHomeworld;
 
         string starSystemName = generateRandomName();

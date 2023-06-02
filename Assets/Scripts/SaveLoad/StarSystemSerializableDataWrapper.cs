@@ -12,9 +12,10 @@ public class StarSystemSerializableDataWrapper
     public string starClass;
     public string name;
     public bool isHomeworld;
+    public int index;
     public List<PlanetSerializableDataWrapper> planets = new List<PlanetSerializableDataWrapper>();
 
-    public StarSystemSerializableDataWrapper(float transformX, float transformY, float transformZ, string starClass, string name, bool isHomeworld, List<PlanetSerializableDataWrapper> planets)
+    public StarSystemSerializableDataWrapper(float transformX, float transformY, float transformZ, string starClass, string name, bool isHomeworld, int index, List<PlanetSerializableDataWrapper> planets)
     {
         this.transformX = transformX;
         this.transformY = transformY;
@@ -22,6 +23,7 @@ public class StarSystemSerializableDataWrapper
         this.starClass = starClass;
         this.name = name;
         this.isHomeworld = isHomeworld;
+        this.index = index;
         this.planets = planets;
     }
 }

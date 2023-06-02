@@ -6,10 +6,17 @@ using UnityEngine;
 [Serializable]
 public class GameDataSerializableWrapper
 {
+    public float starshipTransformX;
+    public float starshipTransformY;
+    public float starshipTransformZ;
+    public int starshipTargetIndex;
     public List<StarSystemSerializableDataWrapper> starSystems;
 
-    public GameDataSerializableWrapper(List<StarSystemSerializableDataWrapper> starSystems)
+    public GameDataSerializableWrapper(float starshipTransformX, float starshipTransformY, float starshipTransformZ, List<StarSystemSerializableDataWrapper> starSystems)
     {
+        this.starshipTransformX = starshipTransformX;
+        this.starshipTransformY = starshipTransformY;
+        this.starshipTransformZ = starshipTransformZ;
         this.starSystems = starSystems;
     }
 }

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class StarshipPosition : MonoBehaviour
 {
-    private GameObject starShipGameObject;
-    private Transform shipTransform;
+    private Transform starshipTransform;
     private HomeworldDesignator homeworldDesignator;
+    private ChunkSystem chunkSystem;
 
     [SerializeField] private GameObject targetObject;
+    [SerializeField] private int targetIndex;
 
     float shipSpeed = 2f;
     [SerializeField] private float floatDistanceAboveTarget = 20f;
@@ -18,11 +19,11 @@ public class StarshipPosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        starShipGameObject = this.gameObject;
-        shipTransform = this.transform.Find("Body").transform;
+        // refference to the transform of the whole starship gameobject
+        starshipTransform = this.transform.Find("Body").transform;
         starFactory = GameManagers.starFactory;
-        targetObject = GameObject.Find("Star Systems Container").transform.GetChild(0).gameObject;
         homeworldDesignator = GameManagers.homeworldDesignator;
+        chunkSystem = GameManagers.chunkSystem;
     }
 
     // Update is called once per frame
@@ -31,8 +32,8 @@ public class StarshipPosition : MonoBehaviour
         if (targetObject != null)
         {
             Vector3 targetPosition = new Vector3(targetObject.transform.position.x, targetObject.transform.position.y + floatDistanceAboveTarget, targetObject.transform.position.z);
-            starShipGameObject.transform.position = Vector3.Lerp(shipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
-            targetPosition.x= 0f;
+            starshipTransform.position = Vector3.Lerp(starshipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
+            targetPosition.x = 0f;
         }
     }
     public void setTargetPositionViaStar(GameObject target)
@@ -42,13 +43,24 @@ public class StarshipPosition : MonoBehaviour
         // so the parent of the parent of the star sphere is actually the whole system and thats what we are setting the target to
 
         // also, this shit is absolutely horrendous... too bad!
-        this.targetObject = target.transform.parent.gameObject.transform.parent.gameObject;
+        GameObject starSystemGameObject = target.transform.parent.gameObject.transform.parent.gameObject;
+
+        targetObject = starSystemGameObject;
+        targetIndex = starSystemGameObject.GetComponent<StarSystem>().index;
     }
 
     public void setTargetPositionViaStarSystem(GameObject target)
     {
         // since we receive the star system game object right away, no need for a horrible mess of parenting logic, great
-        this.targetObject = target;
+        targetObject = target;
+        targetIndex = target.GetComponent<StarSystem>().index;
+    }
+
+    // this isn't particularly efficient so it is only used when loading the save file
+    // but it is way more efficient than looking for a star system via name so it will do
+    public void setTargetViaStarSystemIndex(int index)
+    {
+        setTargetPositionViaStarSystem(chunkSystem.getStarSystemViaIndex(index));
     }
 
     public void enterStarView()
@@ -68,7 +80,18 @@ public class StarshipPosition : MonoBehaviour
 
     public void setTargetToHomeworldSystem()
     {
-        shipTransform.position = homeworldDesignator.getHomeworldStarSystem().transform.position;
+        starshipTransform.position = homeworldDesignator.getHomeworldStarSystem().transform.position;
         setTargetPositionViaStarSystem(homeworldDesignator.getHomeworldStarSystem());
+    }
+
+    public Transform getStarshipTransform()
+    {
+        return starshipTransform;
+    }
+
+    // this is kinda ~not nice~ because we dont update the target index too by doing this but.. too bad!
+    public void setStarshipPositionViaVector3(Vector3 coordinates)
+    {
+        starshipTransform.position = coordinates;
     }
 }

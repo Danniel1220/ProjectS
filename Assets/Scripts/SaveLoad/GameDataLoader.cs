@@ -34,7 +34,7 @@ public class GameDataLoader : MonoBehaviour
         {
             Vector3 starSystemLocation = new Vector3(starSystemWrapper.transformX, starSystemWrapper.transformY, starSystemWrapper.transformZ);
 
-            GameObject starSystemGameObject = starFactory.createStarSystem(starSystemLocation, StarClassParser.stringToStarClass(starSystemWrapper.starClass), starSystemWrapper.isHomeworld);
+            GameObject starSystemGameObject = starFactory.createStarSystem(starSystemLocation, StarClassParser.stringToStarClass(starSystemWrapper.starClass), starSystemWrapper.isHomeworld, starSystemWrapper.index);
 
             // for each planet deserialized in the current star system we iterate through
             foreach (PlanetSerializableDataWrapper planetWrapper in starSystemWrapper.planets)
@@ -47,6 +47,12 @@ public class GameDataLoader : MonoBehaviour
                 planetFactory.generatePlanet(starSystemGameObject.transform, planetShapeSettings, planetColorSettings, planetWrapper.name, planetWrapper.orbitDistance);
             }
         }
+
+        // setting the starship position to the position it had when saving
+        starshipPosition.setStarshipPositionViaVector3(
+            new Vector3(gameData.starshipTransformX, 
+                        gameData.starshipTransformY,
+                        gameData.starshipTransformZ));
     }
 
     private PlanetColorSettings extractPlanetColorSettings(PlanetSerializableDataWrapper planetWrapper)

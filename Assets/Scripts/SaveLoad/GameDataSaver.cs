@@ -8,10 +8,12 @@ using Newtonsoft.Json;
 public class GameDataSaver : MonoBehaviour
 {
     private ChunkSystem galaxyChunkSystem;
+    private StarshipPosition starshipPosition;
 
     void Start()
     {
         galaxyChunkSystem = GameManagers.chunkSystem;
+        starshipPosition = GameManagers.starshipPosition;
     }
 
     public void saveGameData()
@@ -133,20 +135,30 @@ public class GameDataSaver : MonoBehaviour
                                 planet.GetComponent<Orbit>().rotationSpeed));
                         }
                     }
+
+                    StarSystem starSystemScript = starSystem.GetComponent<StarSystem>();
+
                     serializableStarSystems.Add(new StarSystemSerializableDataWrapper(
                             starSystem.transform.localPosition.x,
                             starSystem.transform.localPosition.y,
                             starSystem.transform.localPosition.z,
                             StarClassParser.starClassToString(starClass),
                             starSystemName,
-                            starSystem.GetComponent<StarSystem>().isHomeworld,
+                            starSystemScript.isHomeworld,
+                            starSystemScript.index,
                             serializablePlanets));
                 }
             }
         }
 
+        Transform currentStarshipPosition = starshipPosition.getStarshipTransform();
+
         // C# default json serialization
-        GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(serializableStarSystems);
+        GameDataSerializableWrapper gameData = new GameDataSerializableWrapper(
+            currentStarshipPosition.position.x,
+            currentStarshipPosition.position.y,
+            currentStarshipPosition.position.z,
+            serializableStarSystems);
         Debug.Log("Star systems serialized:" + serializableStarSystems.Count());
         saveJsonToFile(Application.dataPath + "/SavedGameData.json", JsonConvert.SerializeObject(gameData));
     }
