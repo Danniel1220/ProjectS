@@ -92,6 +92,7 @@ public class StarshipPosition : MonoBehaviour
 
         planetInfoPanel.gameObject.SetActive(true);
         planetInfoPanel.setNameText(target.name);
+        planetInfoPanel.setInformationText(target.GetComponent<Planet>().planetInfo);
     }
 
     public void enterStarSystemView()

@@ -307,7 +307,7 @@ public class PlanetFactory : MonoBehaviour
         // incrementing the planet index so that each planet generated has an unique index
         planetIndexCount++;
 
-        addResourcesToPlanet(planetScript);
+        planetScript.init();
 
         return planet;
     }
@@ -351,7 +351,7 @@ public class PlanetFactory : MonoBehaviour
         // incrementing the planet index so that each planet generated has an unique index
         planetIndexCount++;
 
-        addResourcesToPlanet(planetScript);
+        planetScript.init();
 
         return planet;
     }
@@ -426,22 +426,5 @@ public class PlanetFactory : MonoBehaviour
     public float getMaxPlanetRadius()
     {
         return MAX_PLANET_RADIUS;
-    }
-
-    public void addResourcesToPlanet(Planet planet)
-    {
-        List<Resource> resources = new List<Resource>();
-
-        resources.Add(new Resource("Iron", "Fe", 0.321f));
-        resources.Add(new Resource("Oxygen", "O", 0.301f));
-        resources.Add(new Resource("Sillicon", "Si", 0.151f));
-        resources.Add(new Resource("Magnesium", "Mg", 0.139f));
-        resources.Add(new Resource("Sulfur", "S", 0.029f));
-        resources.Add(new Resource("Nickel", "Ni", 0.018f));
-        resources.Add(new Resource("Calcium", "Fe", 0.015f));
-        resources.Add(new Resource("Aluminum", "Fe", 0.014f));
-        resources.Add(new Resource("Trace Elements", "Trace", 0.012f));
-
-        planet.resources = resources;
     }
 }
