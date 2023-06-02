@@ -32,6 +32,35 @@ public class GalaxyFactory : MonoBehaviour
     [SerializeField] private GameObject testCubePrefabRed;
     [SerializeField] private GameObject testCubePrefabGreen;
 
+    PointsOnDiskSettings primaryDiskSettings;
+    PointsOnDiskSettings secondaryDiskSettings;
+
+    struct PointsOnDiskSettings
+    {
+        public int numberOfPoints;
+        public float turnFraction;
+        public float distanceFactor;
+        public float locationNoiseXZ;
+        public float locationNoiseY;
+        public float minLocationNoiseXZ;
+        public bool decreaseXNoiseByDistance;
+        public bool decreaseYNoiseByDistance;
+        public bool decreaseZNoiseByDistance;
+
+        public PointsOnDiskSettings(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ, bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance)
+        {
+            this.numberOfPoints = numberOfPoints;
+            this.turnFraction = turnFraction;
+            this.distanceFactor = distanceFactor;
+            this.locationNoiseXZ = locationNoiseXZ;
+            this.locationNoiseY = locationNoiseY;
+            this.minLocationNoiseXZ = minLocationNoiseXZ;
+            this.decreaseXNoiseByDistance = decreaseXNoiseByDistance;
+            this.decreaseYNoiseByDistance = decreaseYNoiseByDistance;
+            this.decreaseZNoiseByDistance = decreaseZNoiseByDistance;
+        }
+    }
+
     public Text UIText;
 
     void Start()
@@ -39,6 +68,27 @@ public class GalaxyFactory : MonoBehaviour
         galaxyChunkSystem = GameManagers.chunkSystem;
         starFactory = GameManagers.starFactory;
         homeworldDesignator = GameManagers.homeworldDesignator;
+
+
+        // i create these structs that hold the settings i need to pass to the disc creating functions
+        // because sending in a million parameters is just horrible
+        primaryDiskSettings = new PointsOnDiskSettings(
+            primaryNumberOfPoints, 
+            primaryTurnFraction, 
+            primaryDistanceFactor, 
+            primaryLocationNoiseXZ, 
+            primaryLocationNoiseY, 
+            primaryMinLocationNoiseXZ,
+            true, true, true);
+
+        secondaryDiskSettings = new PointsOnDiskSettings(
+            secondaryNumberOfPoints,
+            secondaryTurnFraction,
+            secondaryDistanceFactor,
+            secondaryLocationNoiseXZ,
+            secondaryLocationNoiseY,
+            secondaryMinLocationNoiseXZ,
+            false, true, false);
 
         // if the main menu tells us the game started via pressing new game then create a new galaxy
         if (MainMenu.gameStartState == MainMenu.GameStartState.NewGame)
@@ -50,11 +100,9 @@ public class GalaxyFactory : MonoBehaviour
     public void generateGalaxy()
     {
         // primary formation
-        createPointsOnDisk(primaryNumberOfPoints, primaryTurnFraction, primaryDistanceFactor, primaryLocationNoiseXZ, primaryLocationNoiseY, primaryMinLocationNoiseXZ,
-            true, true, true);
+        createPointsOnDisk(primaryDiskSettings);
         // secondary formation
-        createPointsOnDisk(secondaryNumberOfPoints, secondaryTurnFraction, secondaryDistanceFactor, secondaryLocationNoiseXZ, secondaryLocationNoiseY, secondaryMinLocationNoiseXZ,
-            false, true, false);
+        createPointsOnDisk(secondaryDiskSettings);
 
         // remove overlapped points caused by location noise rng
         removeOverlappedStarSystems(minDistanceBetweenPoints);
@@ -63,18 +111,17 @@ public class GalaxyFactory : MonoBehaviour
         homeworldDesignator.designateHomeworld();
     }
 
-    private void createPointsOnDisk(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ,
-        bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance)
+    private void createPointsOnDisk(PointsOnDiskSettings diskSettings)
     {
-        for (int i = 0; i < numberOfPoints; i++)
+        for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
             // computing points on a circle with a specific turn fraction that forms a galaxy shape
-            float distance = i / (numberOfPoints - 1f);
-            float angle = 2 * Mathf.PI * turnFraction * i;
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
 
-            float pointX = distance * Mathf.Cos(angle) * distanceFactor;
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
             float pointY = 0;
-            float pointZ = distance * Mathf.Sin(angle) * distanceFactor;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
 
             float noiseX;
             float noiseY;
@@ -85,21 +132,21 @@ public class GalaxyFactory : MonoBehaviour
             // we can potentially decrease the location noise if required,
             // on any of the 3 axis
             float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
-            float mapInput = Mathf.InverseLerp(distanceFactor, 0, distanceToCenter);
-            float mapOutputXZ = Mathf.Lerp(0, locationNoiseXZ, mapInput);
-            float mapOutputY = Mathf.Lerp(0, locationNoiseY, mapInput);
+            float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+            float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+            float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
 
-            // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (creates bad looking straight line point formations)
-            if (mapOutputXZ < minLocationNoiseXZ) mapOutputXZ = minLocationNoiseXZ;
+            // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
+            if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
 
-            if (decreaseXNoiseByDistance) noiseX = Random.Range(-mapOutputXZ, mapOutputXZ);
-            else noiseX = Random.Range(-locationNoiseXZ, locationNoiseXZ);
+            if (diskSettings.decreaseXNoiseByDistance) noiseX = Random.Range(-mapOutputXZ, mapOutputXZ);
+            else noiseX = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
 
-            if (decreaseYNoiseByDistance) noiseY = Random.Range(-mapOutputY, mapOutputY);
-            else noiseY = Random.Range(-locationNoiseY, locationNoiseY);
+            if (diskSettings.decreaseYNoiseByDistance) noiseY = Random.Range(-mapOutputY, mapOutputY);
+            else noiseY = Random.Range(-diskSettings.locationNoiseY, diskSettings.locationNoiseY);
 
-            if (decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
-            else noiseZ = Random.Range(-locationNoiseXZ, locationNoiseXZ);
+            if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
+            else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
 
             float pointXAfterNoise = pointX + noiseX;
             float pointYAfterNoise = pointY + noiseY;
