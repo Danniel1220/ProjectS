@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StarshipPosition : MonoBehaviour
 {
+    private GameObject starshipGameObject;
     private Transform starshipTransform;
     private HomeworldDesignator homeworldDesignator;
     private ChunkSystem chunkSystem;
@@ -19,6 +20,7 @@ public class StarshipPosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        starshipGameObject = this.gameObject;
         // refference to the transform of the whole starship gameobject
         starshipTransform = this.transform.Find("Body").transform;
         starFactory = GameManagers.starFactory;
@@ -32,7 +34,7 @@ public class StarshipPosition : MonoBehaviour
         if (targetObject != null)
         {
             Vector3 targetPosition = new Vector3(targetObject.transform.position.x, targetObject.transform.position.y + floatDistanceAboveTarget, targetObject.transform.position.z);
-            starshipTransform.position = Vector3.Lerp(starshipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
+            starshipGameObject.transform.position = Vector3.Lerp(starshipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
             targetPosition.x = 0f;
         }
     }
