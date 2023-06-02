@@ -93,7 +93,7 @@ public class StarshipPosition : MonoBehaviour
         targetPlanetIndex = planetScript.index;
 
         planetInfoPanel.gameObject.SetActive(true);
-        planetInfoPanel.updatePlanetInfoPanel(name, planetScript.planetInfo, planetScript.isColonized);
+        planetInfoPanel.updatePlanetInfoPanel(target.name, planetScript.planetInfo, planetScript.isColonized);
     }
 
     public void enterStarSystemView()

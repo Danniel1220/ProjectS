@@ -26,6 +26,8 @@ public class PlanetInfoPanel : MonoBehaviour
 
         colonizeButton = this.gameObject.transform.Find("ColonizeButton").GetComponent<Button>();
         openPlanetMenuButton = this.gameObject.transform.Find("OpenPlanetMenuButton").GetComponent<Button>();
+
+        this.gameObject.SetActive(false);
     }
 
     public void updatePlanetInfoPanel(string name, string information, bool isColonized)
