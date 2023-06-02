@@ -84,4 +84,9 @@ public class Planet : MonoBehaviour
 
         this.resources = resources;
     }
+
+    public void colonize()
+    {
+        isColonized = true;
+    }
 }

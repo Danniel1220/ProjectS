@@ -84,8 +84,13 @@ public class StarshipPosition : MonoBehaviour
     public void setTargetPositionViaPlanet(GameObject target)
     {
         // if we move to a planet, we should cache the previous target too (the star's game object refference)
-        // so that when we exit star system view we can set the target back to it without having to find it by index
-        cachedTargetObject = targetObject;
+        // so that when we exit star system view we can set the target back to it without having to find it by index,
+        // also this should only happen if the previous target was a star system (this is to prevent caching a planet when moving
+        // from planet to planet)
+        if (targetObject.tag == "Star System")
+        {
+            cachedTargetObject = targetObject;
+        }
 
         Planet planetScript = target.GetComponent<Planet>();
 
@@ -93,7 +98,7 @@ public class StarshipPosition : MonoBehaviour
         targetPlanetIndex = planetScript.index;
 
         planetInfoPanel.gameObject.SetActive(true);
-        planetInfoPanel.updatePlanetInfoPanel(target.name, planetScript.planetInfo, planetScript.isColonized);
+        planetInfoPanel.updatePlanetInfoPanel(planetScript);
     }
 
     public void enterStarSystemView()
@@ -127,7 +132,7 @@ public class StarshipPosition : MonoBehaviour
         //starFactory.moveStarSystemsRelativeToPoint(targetObject, false);
     }
 
-    public GameObject getTargetStarSystem()
+    public GameObject getTargetObject()
     {
         return targetObject;
     }

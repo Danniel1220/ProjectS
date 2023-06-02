@@ -16,8 +16,8 @@ public class StarSystemViewManager : MonoBehaviour
 
     public void enterStarSystemView()
     {
-        starFactory.disableAllStarSystemsButOne(starshipPosition.getTargetStarSystem());
-        starSystemCurrentlyInView = starshipPosition.getTargetStarSystem();
+        starFactory.disableAllStarSystemsButOne(starshipPosition.getTargetObject());
+        starSystemCurrentlyInView = starshipPosition.getTargetObject();
     }
 
     public void exitStarSystemView()
