@@ -104,10 +104,10 @@ public class PlanetFactory : MonoBehaviour
     private const float MIN_DISTANCE_BETWEEN_PLANET_ORBITS = 32f;
 
     private const float MIN_PLANET_SPIN = 5f;
-    private const float MAX_PLANET_SPIN = 30f;
+    private const float MAX_PLANET_SPIN = 20f;
 
     private const float MIN_ORBITAL_SPEED = 10f;
-    private const float MAX_ORBITAL_SPEED = 40f;
+    private const float MAX_ORBITAL_SPEED = 2f;
 
     private const float CLASS_M_STAR_ROCHE_LIMIT = 8f;
     private const float CLASS_K_STAR_ROCHE_LIMIT = 9f;

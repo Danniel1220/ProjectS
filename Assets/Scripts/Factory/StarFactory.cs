@@ -158,6 +158,7 @@ public class StarFactory : MonoBehaviour
         int numberOfPlanets = Random.Range(MIN_PLANET_AMOUNT, MAX_PLANET_AMOUNT);
         if (numberOfPlanets > 0)
         {
+            // TODO: stop using only the orbital distances for class O stars, it works for now but.. u know
             List<float> planetOrbitalDistances = new List<float>(classOStarOrbitalDistances);
             for (int i = 0; i < numberOfPlanets; i++)
             {

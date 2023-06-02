@@ -12,9 +12,9 @@ public class Trail : MonoBehaviour
     void Start()
     {
         trailColor = Color.red;
-        trailTime = 5f;
+        trailTime = 10f;
         trailRenderer = GetComponent<TrailRenderer>();
-        trailRenderer.colorGradient = ParseColorIntoColorGradient(trailColor);
+        trailRenderer.colorGradient = parseColorIntoColorGradient(trailColor);
         trailRenderer.time = trailTime;
 
         // this line below just grabs the material Default-Line, see here why
@@ -23,12 +23,7 @@ public class Trail : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private Gradient ParseColorIntoColorGradient(Color color)
+    private Gradient parseColorIntoColorGradient(Color color)
     {
         Gradient gradient = new Gradient();
         gradient.SetKeys(
@@ -37,5 +32,10 @@ public class Trail : MonoBehaviour
             new GradientAlphaKey[] {
                 new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(1f, 0.3f), new GradientAlphaKey(1f, 0.5f), new GradientAlphaKey(0.8f, 0.6f), new GradientAlphaKey(0f, 1f) });
         return gradient;
+    }
+
+    public void setTrailColor(Color color)
+    {
+        trailRenderer.colorGradient = parseColorIntoColorGradient(color);
     }
 }

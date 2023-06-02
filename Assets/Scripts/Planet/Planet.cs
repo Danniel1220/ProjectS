@@ -88,5 +88,8 @@ public class Planet : MonoBehaviour
     public void colonize()
     {
         isColonized = true;
+
+        // make the trail green for colonized planets
+        this.gameObject.GetComponent<Trail>().setTrailColor(Color.green);
     }
 }
