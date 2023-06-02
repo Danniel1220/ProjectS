@@ -11,6 +11,7 @@ public class StarFactory : MonoBehaviour
 
     private ChunkSystem galaxyChunkSystem;
     private PlanetFactory planetFactory;
+    private NameGenerator nameGenerator;
 
     [SerializeField] private GameObject classMStarPrefab;
     [SerializeField] private GameObject classKStarPrefab;
@@ -28,12 +29,6 @@ public class StarFactory : MonoBehaviour
     [SerializeField] private int classBStarAmount = 0;
     [SerializeField] private int classOStarAmount = 0;
     [SerializeField] private int defaultedStars = 0;
-
-    private const string lowerCaseVowels = "aeiou";
-    private const string upperCaseVowels = "AEIOU";
-
-    private const string lowerCaseConsonants = "bcdfghjklmnpqrstvwxyz";
-    private const string upperCaseConsonants = "BCDFGHJKLMNPQRSTVWXYZ";
 
     private const int MIN_PLANET_AMOUNT = 0;
     private const int MAX_PLANET_AMOUNT = 8;
@@ -64,6 +59,7 @@ public class StarFactory : MonoBehaviour
 
         galaxyChunkSystem = GameManagers.chunkSystem;
         planetFactory = GameManagers.planetFactory;
+        nameGenerator = GameManagers.nameGenerator;
 
         float maxPlanetRadius = planetFactory.getMaxPlanetRadius();
 
@@ -107,7 +103,7 @@ public class StarFactory : MonoBehaviour
         // assume that, by default, the star system is not a homeworld
         starSystemScript.isHomeworld = false;
 
-        string starSystemName = generateRandomName();
+        string starSystemName = nameGenerator.generateRandomName();
 
         starSystemContainer.transform.position = locationInSpace;
         starSystemContainer.name = starSystemName + " System";
@@ -257,47 +253,6 @@ public class StarFactory : MonoBehaviour
         else if (starClassRNG == 99) return StarClass.O; // O class 1%
         Debug.LogWarning("Star class RNG error in getWeightedRandomStarClass()... defaulting to class M");
         return StarClass.M;
-    }
-
-    public string generateRandomName()
-    {
-        string name;
-        int nameLenght = Random.Range(4, 9);
-
-        // 50/50 chance of the name starting with a vowel or consonant
-        if (Random.Range(0, 2) == 0)
-        {
-            name = upperCaseVowels[Random.Range(0, upperCaseVowels.Length)].ToString();
-            for (int i = 1; i < nameLenght; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    name += lowerCaseVowels[Random.Range(0, lowerCaseVowels.Length)].ToString();
-
-                }
-                else
-                {
-                    name += lowerCaseConsonants[Random.Range(0, lowerCaseConsonants.Length)].ToString();
-                }
-            }
-        }
-        else
-        {
-            name = upperCaseConsonants[Random.Range(0, upperCaseConsonants.Length)].ToString();
-            for (int i = 1; i < nameLenght; i++)
-            {
-                if (i % 2 == 1)
-                {
-                    name += lowerCaseVowels[Random.Range(0, lowerCaseVowels.Length)].ToString();
-
-                }
-                else
-                {
-                    name += lowerCaseConsonants[Random.Range(0, lowerCaseConsonants.Length)].ToString();
-                }
-            }
-        }
-        return name;
     }
 
     public void disableAllStarSystemsButOne(GameObject starSystemToNotDisable)

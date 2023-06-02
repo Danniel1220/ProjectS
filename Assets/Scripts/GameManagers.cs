@@ -18,6 +18,8 @@ public class GameManagers: MonoBehaviour
 
     public static HomeworldDesignator homeworldDesignator;
 
+    public static NameGenerator nameGenerator;
+
     void Awake()
     {
         chunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
@@ -33,5 +35,7 @@ public class GameManagers: MonoBehaviour
         starshipPosition = GameObject.Find("Starship").GetComponent<StarshipPosition>();
 
         homeworldDesignator = GameObject.Find("GameManager").GetComponent<HomeworldDesignator>();
+
+        nameGenerator = GameObject.Find("GameManager").GetComponent<NameGenerator>();
     }
 }
