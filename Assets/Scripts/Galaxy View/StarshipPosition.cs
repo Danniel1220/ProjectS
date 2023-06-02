@@ -10,9 +10,13 @@ public class StarshipPosition : MonoBehaviour
     private HomeworldDesignator homeworldDesignator;
     private ChunkSystem chunkSystem;
 
+    private PlanetInfoPanel planetInfoPanel;
+
     [SerializeField] private GameObject targetObject;
     [SerializeField] private GameObject cachedTargetObject;
     [SerializeField] private int targetStarIndex;
+    // this integer is equal to the planet index we are currently covering over
+    // but it is equal to -1 if we are not currently hovering over a planet
     [SerializeField] private int targetPlanetIndex;
 
     float shipSpeed = 2f;
@@ -29,6 +33,8 @@ public class StarshipPosition : MonoBehaviour
         starFactory = GameManagers.starFactory;
         homeworldDesignator = GameManagers.homeworldDesignator;
         chunkSystem = GameManagers.chunkSystem;
+
+        planetInfoPanel = UIManagers.planetInfoPanel;
     }
 
     // Update is called once per frame
@@ -61,6 +67,8 @@ public class StarshipPosition : MonoBehaviour
         targetPlanetIndex = -1;
         // we're hovering a star so we dont need to cache anything
         cachedTargetObject = null;
+
+        planetInfoPanel.gameObject.SetActive(false);
     }
 
     // this isn't particularly efficient so it is only used when loading the save file
@@ -81,6 +89,9 @@ public class StarshipPosition : MonoBehaviour
 
         targetObject = target;
         targetPlanetIndex = target.GetComponent<Planet>().index;
+
+        planetInfoPanel.gameObject.SetActive(true);
+        planetInfoPanel.setNameText(target.name);
     }
 
     public void enterStarSystemView()
@@ -100,12 +111,14 @@ public class StarshipPosition : MonoBehaviour
             cachedTargetObject = null;
             // signal that we are no longer hovering over a planet
             targetPlanetIndex = -1;
+
+            // also disabling the planet info panel if we are not hovering over one
+            planetInfoPanel.gameObject.SetActive(false);
         }
         // not hovering over a planet, so just exit the star system view as usual
         else
         {
             starFactory.moveStarSystemsRelativeToPoint(targetObject, false);
-
         }
 
         // TODO: make moving stars relative to point to work properly
