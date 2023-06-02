@@ -139,6 +139,7 @@ public class GameDataSaver : MonoBehaviour
                             starSystem.transform.localPosition.z,
                             StarClassParser.starClassToString(starClass),
                             starSystemName,
+                            starSystem.GetComponent<StarSystem>().isHomeworld,
                             serializablePlanets));
                 }
             }

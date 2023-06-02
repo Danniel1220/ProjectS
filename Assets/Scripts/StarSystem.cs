@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class StarSystem : MonoBehaviour
 {
-    public bool isHomeWorldSystem;
+    public bool isHomeworld;
 
     public void makeHomeWorld()
     {
-        isHomeWorldSystem = true;
+        isHomeworld = true;
     }
 }

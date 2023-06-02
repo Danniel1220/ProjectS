@@ -9,28 +9,13 @@ public class GameDataLoader : MonoBehaviour
 {
     private StarFactory starFactory;
     private PlanetFactory planetFactory;
-
-    // caching the star prefab refferences
-    private GameObject classMStarPrefab;
-    private GameObject classKStarPrefab;
-    private GameObject classGStarPrefab;
-    private GameObject classFStarPrefab;
-    private GameObject classAStarPrefab;
-    private GameObject classBStarPrefab;
-    private GameObject classOStarPrefab;
+    private StarshipPosition starshipPosition;
 
     void Start()
     {
         starFactory = GameManagers.starFactory;
         planetFactory = GameManagers.planetFactory;
-
-        classMStarPrefab = StarPrefabs.classMStar;
-        classKStarPrefab = StarPrefabs.classKStar;
-        classGStarPrefab = StarPrefabs.classGStar;
-        classFStarPrefab = StarPrefabs.classFStar;
-        classAStarPrefab = StarPrefabs.classAStar;
-        classBStarPrefab = StarPrefabs.classBStar;
-        classOStarPrefab = StarPrefabs.classOStar;
+        starshipPosition = GameManagers.starshipPosition;
 
         // if the main menu tells us the game started via pressing load game then load the save file
         if (MainMenu.gameStartState == MainMenu.GameStartState.LoadGame)
@@ -49,7 +34,7 @@ public class GameDataLoader : MonoBehaviour
         {
             Vector3 starSystemLocation = new Vector3(starSystemWrapper.transformX, starSystemWrapper.transformY, starSystemWrapper.transformZ);
 
-            GameObject starSystemGameObject = starFactory.createStarSystem(starSystemLocation, StarClassParser.stringToStarClass(starSystemWrapper.starClass));
+            GameObject starSystemGameObject = starFactory.createStarSystem(starSystemLocation, StarClassParser.stringToStarClass(starSystemWrapper.starClass), starSystemWrapper.isHomeworld);
 
             // for each planet deserialized in the current star system we iterate through
             foreach (PlanetSerializableDataWrapper planetWrapper in starSystemWrapper.planets)

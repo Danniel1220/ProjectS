@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class HomeworldDesignator : MonoBehaviour
 {
-    ChunkSystem chunkSystem;
-    StarshipPosition starshipPosition;
+    private ChunkSystem chunkSystem;
+    private StarshipPosition starshipPosition;
 
-    GameObject homeworldStarSystem;
+    private GameObject homeworldStarSystem;
 
     void Start()
     {
@@ -73,5 +73,10 @@ public class HomeworldDesignator : MonoBehaviour
     {
         starshipPosition.transform.position = homeworldStarSystem.transform.position;
         starshipPosition.setTargetPositionViaStarSystem(homeworldStarSystem);
+    }
+
+    public GameObject getHomeworldStarSystem()
+    {
+        return homeworldStarSystem;
     }
 }

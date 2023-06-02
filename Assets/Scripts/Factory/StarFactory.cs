@@ -91,12 +91,14 @@ public class StarFactory : MonoBehaviour
         }
     }
 
+    // this function is used when creating a fully random star when generating a new galaxy
+    // no need for any arguments but the location calculated when creating the points
     public GameObject createStarSystem(Vector3 locationInSpace)
     {
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
         StarSystem starSystemScript = starSystemContainer.AddComponent<StarSystem>();
-        starSystemScript.isHomeWorldSystem = false;
+        starSystemScript.isHomeworld = false;
 
         string starSystemName = generateRandomName();
 
@@ -169,12 +171,14 @@ public class StarFactory : MonoBehaviour
         return starSystemContainer;
     }
 
-    public GameObject createStarSystem(Vector3 locationInSpace, StarClass starClass)
+    // this function is used when creating a star system loaded from a save file
+    // since we need to create a specific type of star more arguments are required
+    public GameObject createStarSystem(Vector3 locationInSpace, StarClass starClass, bool isHomeworld)
     {
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
         StarSystem starSystemScript = starSystemContainer.AddComponent<StarSystem>();
-        starSystemScript.isHomeWorldSystem = false;
+        starSystemScript.isHomeworld = isHomeworld;
 
         string starSystemName = generateRandomName();
 

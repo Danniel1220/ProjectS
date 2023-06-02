@@ -6,6 +6,7 @@ public class StarshipPosition : MonoBehaviour
 {
     private GameObject starShipGameObject;
     private Transform shipTransform;
+    private HomeworldDesignator homeworldDesignator;
 
     [SerializeField] private GameObject targetObject;
 
@@ -21,6 +22,7 @@ public class StarshipPosition : MonoBehaviour
         shipTransform = this.transform.Find("Body").transform;
         starFactory = GameManagers.starFactory;
         targetObject = GameObject.Find("Star Systems Container").transform.GetChild(0).gameObject;
+        homeworldDesignator = GameManagers.homeworldDesignator;
     }
 
     // Update is called once per frame
@@ -62,5 +64,11 @@ public class StarshipPosition : MonoBehaviour
     public GameObject getTargetStarSystem()
     {
         return targetObject;
+    }
+
+    public void setTargetToHomeworldSystem()
+    {
+        shipTransform.position = homeworldDesignator.getHomeworldStarSystem().transform.position;
+        setTargetPositionViaStarSystem(homeworldDesignator.getHomeworldStarSystem());
     }
 }
