@@ -51,85 +51,85 @@ public class GameDataSaver : MonoBehaviour
                         // if the object on the current iteration is actually a planet
                         if (planet.tag == "Planet")
                         {
-                            PlanetGenerationSettings planetScript = planet.GetComponent<PlanetGenerationSettings>();
+                            PlanetGenerationSettings planetGenerationSettings = planet.GetComponent<PlanetGenerationSettings>();
 
                             // grabbing all the noise layers that make up the planet's shape and placing them in serializable wrappers
-                            PlanetSerializableDataWrapper.ShapeNoise[] shapeNoiseLayers = new PlanetSerializableDataWrapper.ShapeNoise[planetScript.shapeSettings.noiseLayers.Length];
-                            for (int i = 0; i < planetScript.shapeSettings.noiseLayers.Length; i++)
+                            PlanetSerializableDataWrapper.ShapeNoise[] shapeNoiseLayers = new PlanetSerializableDataWrapper.ShapeNoise[planetGenerationSettings.shapeSettings.noiseLayers.Length];
+                            for (int i = 0; i < planetGenerationSettings.shapeSettings.noiseLayers.Length; i++)
                             {
-                                switch (planetScript.shapeSettings.noiseLayers[i].noiseSettings.filterType)
+                                switch (planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.filterType)
                                 {
                                     case NoiseSettings.FilterType.Simple:
                                         shapeNoiseLayers[i] = new PlanetSerializableDataWrapper.ShapeNoise(
-                                    planetScript.shapeSettings.noiseLayers[i].enabled,
-                                    planetScript.shapeSettings.noiseLayers[i].useFirstLayerAsMask,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.filterType,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.strenght,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.numberOfLayers,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.baseRoughness,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.roughness,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.persistence,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.x,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.y,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.z,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.minValue,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].enabled,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].useFirstLayerAsMask,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.filterType,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.strenght,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.numberOfLayers,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.baseRoughness,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.roughness,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.persistence,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.x,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.y,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.centre.z,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.simpleNoiseSettings.minValue,
                                     -1f);
                                         break;
                                     case NoiseSettings.FilterType.Rigid:
                                         shapeNoiseLayers[i] = new PlanetSerializableDataWrapper.ShapeNoise(
-                                    planetScript.shapeSettings.noiseLayers[i].enabled,
-                                    planetScript.shapeSettings.noiseLayers[i].useFirstLayerAsMask,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.filterType,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.strenght,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.numberOfLayers,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.baseRoughness,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.roughness,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.persistence,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.x,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.y,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.z,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.minValue,
-                                    planetScript.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.weightMultiplier);
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].enabled,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].useFirstLayerAsMask,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.filterType,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.strenght,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.numberOfLayers,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.baseRoughness,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.roughness,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.persistence,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.x,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.y,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.centre.z,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.minValue,
+                                    planetGenerationSettings.shapeSettings.noiseLayers[i].noiseSettings.rigidNoiseSettings.weightMultiplier);
                                         break;
                                 }
                             }
 
                             // grabbind the color noise and placing it in a serializable layer
                             PlanetSerializableDataWrapper.ColorNoise colorNoise = new PlanetSerializableDataWrapper.ColorNoise(
-                                planetScript.colorSettings.biomeColorSettings.noiseOffset,
-                                planetScript.colorSettings.biomeColorSettings.noiseStenght,
-                                planetScript.colorSettings.biomeColorSettings.blendAmount,
-                                planetScript.colorSettings.biomeColorSettings.noise.filterType,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.strenght,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.numberOfLayers,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.baseRoughness,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.roughness,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.persistence,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.x,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.y,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.z,
-                                planetScript.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.minValue);
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noiseOffset,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noiseStenght,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.blendAmount,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.filterType,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.strenght,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.numberOfLayers,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.baseRoughness,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.roughness,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.persistence,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.x,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.y,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.centre.z,
+                                planetGenerationSettings.colorSettings.biomeColorSettings.noise.simpleNoiseSettings.minValue);
 
 
-                            PlanetSerializableDataWrapper.Biome[] biomes = new PlanetSerializableDataWrapper.Biome[planetScript.colorSettings.biomeColorSettings.biomes.Count()];
-                            for (int i = 0; i < planetScript.colorSettings.biomeColorSettings.biomes.Count(); i++)
+                            PlanetSerializableDataWrapper.Biome[] biomes = new PlanetSerializableDataWrapper.Biome[planetGenerationSettings.colorSettings.biomeColorSettings.biomes.Count()];
+                            for (int i = 0; i < planetGenerationSettings.colorSettings.biomeColorSettings.biomes.Count(); i++)
                             {
                                 biomes[i] = new PlanetSerializableDataWrapper.Biome(
-                                    new PlanetSerializableDataWrapper.Gradient(planetScript.colorSettings.biomeColorSettings.biomes[i].gradient),
-                                    new PlanetSerializableDataWrapper.Color(planetScript.colorSettings.biomeColorSettings.biomes[i].tint),
-                                    planetScript.colorSettings.biomeColorSettings.biomes[i].startHeight,
-                                    planetScript.colorSettings.biomeColorSettings.biomes[i].tintPercent);
+                                    new PlanetSerializableDataWrapper.Gradient(planetGenerationSettings.colorSettings.biomeColorSettings.biomes[i].gradient),
+                                    new PlanetSerializableDataWrapper.Color(planetGenerationSettings.colorSettings.biomeColorSettings.biomes[i].tint),
+                                    planetGenerationSettings.colorSettings.biomeColorSettings.biomes[i].startHeight,
+                                    planetGenerationSettings.colorSettings.biomeColorSettings.biomes[i].tintPercent);
                             }
 
                             serializablePlanets.Add(new PlanetSerializableDataWrapper(
                                 planet.name,
-                                planetScript.shapeSettings.planetRadius,
-                                planetScript.shapeSettings.noiseLayers.Length,
+                                planetGenerationSettings.shapeSettings.planetRadius,
+                                planetGenerationSettings.shapeSettings.noiseLayers.Length,
                                 shapeNoiseLayers,
                                 colorNoise,
-                                planetScript.colorSettings.biomeColorSettings.biomes.Count(),
+                                planetGenerationSettings.colorSettings.biomeColorSettings.biomes.Count(),
                                 biomes,
-                                new PlanetSerializableDataWrapper.Gradient(planetScript.colorSettings.oceanColor),
+                                new PlanetSerializableDataWrapper.Gradient(planetGenerationSettings.colorSettings.oceanColor),
                                 planet.GetComponent<Orbit>().orbitDistance,
                                 planet.GetComponent<Orbit>().orbitSpeed,
                                 planet.GetComponent<Orbit>().rotationSpeed));

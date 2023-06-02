@@ -7,6 +7,8 @@ using static PlanetShapeSettings;
 
 public class PlanetFactory : MonoBehaviour
 {
+    private NameGenerator nameGenerator;
+
     private const int DEFAULT_RESOLUTION = 40;
     private const int DEFAULT_NUMBER_OF_LAYERS = 5;
 
@@ -123,8 +125,12 @@ public class PlanetFactory : MonoBehaviour
     private List<float> classBStarOrbitalDistances = new List<float>();
     private List<float> classOStarOrbitalDistances = new List<float>();
 
+    private int planetIndexCount = 0;
+
     void Start()
     {
+        nameGenerator = GameManagers.nameGenerator;
+
         for (int i = 0; i < MAX_PLANET_AMOUNT; i++)
         {
             // first orbit should be equal to the star's roche limit + half of the maximum planet radius
@@ -151,6 +157,9 @@ public class PlanetFactory : MonoBehaviour
         }
     }
 
+    // this function is used to generate a completely random planet given a parent/target transform and an orbital distance
+    // the reason why we receive that orbital distance and not generate it here is because i need to keep track of
+    // the other planets in a given system to not overlap them and it'd be overly complicated to implement that here
     public GameObject generatePlanet(Transform targetTransform, float orbitDistance)
     {
         #region Shape Noise Layers Random Value Assignments
@@ -264,16 +273,16 @@ public class PlanetFactory : MonoBehaviour
         // creating the planet game object
         GameObject planet = new GameObject();
         
-        planet.name = "Auto Generated Planet";
+        planet.name = nameGenerator.generateRandomName();
         planet.tag = "Planet";
 
         // set the planet's parent to the star system
         planet.transform.parent = targetTransform;
 
-        PlanetGenerationSettings planetScript = planet.AddComponent<PlanetGenerationSettings>();
-        planetScript.resolution = DEFAULT_RESOLUTION;
-        planetScript.shapeSettings = planetShapeSettings;
-        planetScript.colorSettings = planetColorSettings;
+        PlanetGenerationSettings planetGenerationSettings = planet.AddComponent<PlanetGenerationSettings>();
+        planetGenerationSettings.resolution = DEFAULT_RESOLUTION;
+        planetGenerationSettings.shapeSettings = planetShapeSettings;
+        planetGenerationSettings.colorSettings = planetColorSettings;
 
         addLightningToPlanet(planet);
         
@@ -286,9 +295,22 @@ public class PlanetFactory : MonoBehaviour
         // the planet should be inactive by default because it shouldnt be visible when we first start the game, only when we zoom in on a star
         planet.SetActive(false);
 
+        // setting up click detection for the planet
+        MouseClickDetection mouseClickDetectionScript = planet.AddComponent<MouseClickDetection>();
+        SphereCollider planetCollider = planet.AddComponent<SphereCollider>();
+        planetCollider.center = Vector3.zero;
+        planetCollider.radius = 6f;
+
+        // assigning the planet script to the planet
+        Planet planetScript = planet.AddComponent<Planet>();
+        planetScript.index = planetIndexCount;
+        // incrementing the planet index so that each planet generated has an unique index
+        planetIndexCount++;
+
         return planet;
     }
 
+    // this function is more specific and used to generate planets taken from a save file
     public GameObject generatePlanet(Transform targetTransform, PlanetShapeSettings planetshapeSettings, PlanetColorSettings planetColorSettings, string name, float orbitDistance)
     {
         GameObject planet = new GameObject();
@@ -298,10 +320,10 @@ public class PlanetFactory : MonoBehaviour
         // set the planet's parent to the star system
         planet.transform.parent = targetTransform;
 
-        PlanetGenerationSettings planetScript = planet.AddComponent<PlanetGenerationSettings>();
-        planetScript.resolution = DEFAULT_RESOLUTION;
-        planetScript.shapeSettings = planetshapeSettings;
-        planetScript.colorSettings = planetColorSettings;
+        PlanetGenerationSettings planetGenerationSettings = planet.AddComponent<PlanetGenerationSettings>();
+        planetGenerationSettings.resolution = DEFAULT_RESOLUTION;
+        planetGenerationSettings.shapeSettings = planetshapeSettings;
+        planetGenerationSettings.colorSettings = planetColorSettings;
 
         addLightningToPlanet(planet);
 
@@ -314,6 +336,18 @@ public class PlanetFactory : MonoBehaviour
 
         // the planet should be inactive by default because it shouldnt be visible when we first start the game, only when we zoom in on a star
         planet.SetActive(false);
+
+        // setting up click detection for the planet
+        MouseClickDetection mouseClickDetectionScript = planet.AddComponent<MouseClickDetection>();
+        SphereCollider planetCollider = planet.AddComponent<SphereCollider>();
+        planetCollider.center = Vector3.zero;
+        planetCollider.radius = 6f;
+
+        // assigning the planet script to the planet
+        Planet planetScript = planet.AddComponent<Planet>();
+        planetScript.index = planetIndexCount;
+        // incrementing the planet index so that each planet generated has an unique index
+        planetIndexCount++;
 
         return planet;
     }

@@ -11,7 +11,8 @@ public class StarshipPosition : MonoBehaviour
     private ChunkSystem chunkSystem;
 
     [SerializeField] private GameObject targetObject;
-    [SerializeField] private int targetIndex;
+    [SerializeField] private int targetStarIndex;
+    [SerializeField] private int targetPlanetIndex;
 
     float shipSpeed = 2f;
     [SerializeField] private float floatDistanceAboveTarget = 20f;
@@ -49,14 +50,14 @@ public class StarshipPosition : MonoBehaviour
         GameObject starSystemGameObject = target.transform.parent.gameObject.transform.parent.gameObject;
 
         targetObject = starSystemGameObject;
-        targetIndex = starSystemGameObject.GetComponent<StarSystem>().index;
+        targetStarIndex = starSystemGameObject.GetComponent<StarSystem>().index;
     }
 
     public void setTargetPositionViaStarSystem(GameObject target)
     {
         // since we receive the star system game object right away, no need for a horrible mess of parenting logic, great
         targetObject = target;
-        targetIndex = target.GetComponent<StarSystem>().index;
+        targetStarIndex = target.GetComponent<StarSystem>().index;
     }
 
     // this isn't particularly efficient so it is only used when loading the save file
@@ -64,6 +65,15 @@ public class StarshipPosition : MonoBehaviour
     public void setTargetViaStarSystemIndex(int index)
     {
         setTargetPositionViaStarSystem(chunkSystem.getStarSystemViaIndex(index));
+    }
+
+    // if we received a command to set the target to a planet then it should mean we already have a target solar system to our ship
+    // so we should also keep track of the system in the background so that when we exit the star system view we bind the transform
+    // back to the star itself rather than the planet
+    public void setTargetPositionViaPlanet(GameObject target)
+    {
+        targetObject = target;
+        targetPlanetIndex = target.GetComponent<Planet>().index;
     }
 
     public void enterStarView()
@@ -94,6 +104,6 @@ public class StarshipPosition : MonoBehaviour
 
     public int getTargetIndex()
     {
-        return targetIndex;
+        return targetStarIndex;
     }
 }
