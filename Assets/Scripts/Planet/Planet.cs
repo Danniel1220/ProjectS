@@ -10,10 +10,13 @@ public class Planet : MonoBehaviour
     public string planetInfo;
     public bool isColonized;
 
+    public int numberOfSolarPanels;
+    public float powerOutput;
+
     public void init()
     {
-        initPlanetInfo();
         initResources();
+        initPlanetInfo();
     }
 
     private void initPlanetInfo()
@@ -36,7 +39,6 @@ public class Planet : MonoBehaviour
         float ironMin = 0.3f;
         float ironMax = 0.35f;
         float iron = Mathf.Round(Random.Range(ironMin, ironMax) * 10000) / 10000f;
-        Debug.Log(iron);
 
         float oxygenMin = 0.28f;
         float oxygenMax = 0.32f;

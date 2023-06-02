@@ -87,12 +87,13 @@ public class StarshipPosition : MonoBehaviour
         // so that when we exit star system view we can set the target back to it without having to find it by index
         cachedTargetObject = targetObject;
 
+        Planet planetScript = target.GetComponent<Planet>();
+
         targetObject = target;
-        targetPlanetIndex = target.GetComponent<Planet>().index;
+        targetPlanetIndex = planetScript.index;
 
         planetInfoPanel.gameObject.SetActive(true);
-        planetInfoPanel.setNameText(target.name);
-        planetInfoPanel.setInformationText(target.GetComponent<Planet>().planetInfo);
+        planetInfoPanel.updatePlanetInfoPanel(name, planetScript.planetInfo, planetScript.isColonized);
     }
 
     public void enterStarSystemView()
