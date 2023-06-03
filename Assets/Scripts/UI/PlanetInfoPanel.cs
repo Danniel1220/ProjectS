@@ -10,6 +10,8 @@ public class PlanetInfoPanel : MonoBehaviour
     private Inventory starshipInventory;
     private StarshipPosition starshipPosition;
 
+    private PlanetMenuPanel planetMenuPanel;
+
     private TextMeshProUGUI nameText;
     private TextMeshProUGUI informationText;
     private TextMeshProUGUI colonyPacksAvailableText;
@@ -21,6 +23,8 @@ public class PlanetInfoPanel : MonoBehaviour
     {
         starshipInventory = GameManagers.starshipInventory;
         starshipPosition = GameManagers.starshipPosition;
+
+        planetMenuPanel = UIManagers.planetMenuPanel;
 
         nameText = this.gameObject.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
         informationText = this.gameObject.transform.Find("InformationText").GetComponent<TextMeshProUGUI>();
@@ -70,5 +74,10 @@ public class PlanetInfoPanel : MonoBehaviour
             // updating the info panel again to reflect the change
             updatePlanetInfoPanel(planetScript);
         }
+    }
+
+    public void openPlanetMenu()
+    {
+
     }
 }

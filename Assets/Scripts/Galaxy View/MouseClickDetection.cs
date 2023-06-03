@@ -51,7 +51,7 @@ public class MouseClickDetection : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("AAAAAAAAAA");
+            Debug.LogWarning("Prevented click from going through to a star or planet!");
         }
         
     }
