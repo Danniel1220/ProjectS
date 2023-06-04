@@ -112,37 +112,37 @@ public class PlanetMenuPanel : MonoBehaviour
                 case Sector.SectorType.Habitat:
                     habitatEnabled = true;
                     habitatBuildings = sector.habitatBuildings;
-                    habitatProgressBarValue = sector.habitatBuildings.Count / sector.maxBuildings;
+                    habitatProgressBarValue = (float)sector.habitatBuildings.Count / sector.maxBuildings;
                     habitatSector.setObjectAlpha(enabledIconAlphaValue);
                     break;
                 case Sector.SectorType.Storage:
                     storageEnabled = true;
                     storageBuildings = sector.storageBuildings;
-                    storageProgressBarValue = sector.storageBuildings.Count / sector.maxBuildings;
+                    storageProgressBarValue = (float)sector.storageBuildings.Count / sector.maxBuildings;
                     storageSector.setObjectAlpha(enabledIconAlphaValue);
                     break;
                 case Sector.SectorType.Energy:
                     energyEnabled = true;
                     energyBuildings = sector.energyBuildings;
-                    energyProgressBarValue = sector.energyBuildings.Count / sector.maxBuildings;
+                    energyProgressBarValue = (float)sector.energyBuildings.Count / sector.maxBuildings;
                     energySector.setObjectAlpha(enabledIconAlphaValue);
                     break;
                 case Sector.SectorType.Mining:
                     miningEnabled = true;
                     miningBuildings = sector.miningBuildings;
-                    miningProgressBarValue = sector.miningBuildings.Count / sector.maxBuildings;
+                    miningProgressBarValue = (float)sector.miningBuildings.Count / sector.maxBuildings;
                     miningSector.setObjectAlpha(enabledIconAlphaValue);
                     break;
                 case Sector.SectorType.Production:
                     productionEnabled = true;
                     productionBuildings = sector.productionBuildings;
-                    productionProgressBarValue = sector.productionBuildings.Count / sector.maxBuildings;
+                    productionProgressBarValue = (float)sector.productionBuildings.Count / sector.maxBuildings;
                     productionSector.setObjectAlpha(enabledIconAlphaValue);
                     break;
                 case Sector.SectorType.Science:
                     scienceEnabled = true;
                     scienceBuildings = sector.scienceBuildings;
-                    scienceProgressBarValue = sector.scienceBuildings.Count / sector.maxBuildings;
+                    scienceProgressBarValue = (float)sector.scienceBuildings.Count / sector.maxBuildings;
                     scienceSector.setObjectAlpha(enabledIconAlphaValue);
                     break;
             }
