@@ -7,7 +7,6 @@ public class UIManagers : MonoBehaviour
     public static PlanetInfoPanel planetInfoPanel;
     public static PlanetMenuPanel planetMenuPanel;
 
-
     void Awake()
     {
         planetInfoPanel = GameObject.Find("Canvas").transform.Find("PlanetInfo").GetComponent<PlanetInfoPanel>();

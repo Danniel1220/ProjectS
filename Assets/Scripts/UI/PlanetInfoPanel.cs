@@ -17,7 +17,7 @@ public class PlanetInfoPanel : MonoBehaviour
     private TextMeshProUGUI colonyPacksAvailableText;
 
     private Button colonizeButton;
-    private Button openPlanetMenuButton;
+    public Button openPlanetMenuButton;
 
     void Start()
     {
@@ -78,6 +78,7 @@ public class PlanetInfoPanel : MonoBehaviour
 
     public void openPlanetMenu()
     {
-
+        planetMenuPanel.gameObject.SetActive(true);
+        openPlanetMenuButton.enabled = false;
     }
 }
