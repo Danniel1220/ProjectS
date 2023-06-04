@@ -19,11 +19,12 @@ public class Sector
     public Sector(SectorType type)
     {
         this.type = type;
-        
+        maxBuildings = 4;
         switch (type)
         {
             case SectorType.Habitat:
                 habitatBuildings = new List<HabitatBuilding>();
+                habitatBuildings.Add(new HabitatBuilding(HabitatBuilding.HabitatBuildingType.SmallSettlement, 2));
                 break;
             case SectorType.Storage:
                 storageBuildings = new List<StorageBuilding>();

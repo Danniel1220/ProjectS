@@ -79,6 +79,9 @@ public class PlanetInfoPanel : MonoBehaviour
     public void openPlanetMenu()
     {
         planetMenuPanel.gameObject.SetActive(true);
+        planetMenuPanel.updateInformation();
+        // when the planet menu is first opened, habitat is the default sector shown
+        planetMenuPanel.displayHabitatBuildings();
         openPlanetMenuButton.enabled = false;
     }
 
