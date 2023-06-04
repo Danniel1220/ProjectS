@@ -5,6 +5,8 @@ using UnityEngine;
 public class Sector
 {
     public SectorType type;
+    public int currentBuildings;
+    public int maxBuildings;
     public List<HabitatBuilding> habitatBuildings;
     public List<StorageBuilding> storageBuildings;
     public List<EnergyBuilding> energyBuildings;

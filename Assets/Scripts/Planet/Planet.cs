@@ -111,4 +111,10 @@ public class Planet : MonoBehaviour
         initSector(Sector.SectorType.Habitat);
         initSector(Sector.SectorType.Storage);
     }
+
+    // this function is used to retreive all the relevant data for the planet menu panel
+    public List<Sector> getSectorList()
+    {
+        return sectors;
+    }
 }
