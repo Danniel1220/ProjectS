@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HabitatSectorBuilding
+public class HabitatBuilding
 {
     public HabitatBuildingType buildingType;
     public int currentBuildingPopulation;
@@ -10,7 +10,7 @@ public class HabitatSectorBuilding
 
     public enum HabitatBuildingType { SmallSettlement, Base, City };
 
-    public HabitatSectorBuilding(HabitatBuildingType buildingType, int currentBuildingPopulation)
+    public HabitatBuilding(HabitatBuildingType buildingType, int currentBuildingPopulation)
     {
         this.buildingType = buildingType;
         this.currentBuildingPopulation = currentBuildingPopulation;

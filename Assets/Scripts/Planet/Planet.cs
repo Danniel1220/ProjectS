@@ -10,13 +10,26 @@ public class Planet : MonoBehaviour
     public string planetInfo;
     public bool isColonized;
 
-    public int numberOfSolarPanels;
-    public float powerOutput;
+    public bool hasHabitatSector;
+    public bool hasStorageSector;
+    public bool hasEnergySector;
+    public bool hasMiningSector;
+    public bool hasProductionSector;
+    public bool hasScienceSector;
+
+    public List<Sector> sectors;
 
     public void init()
     {
         initResources();
         initPlanetInfo();
+
+        sectors = new List<Sector>();
+    }
+
+    public void initSector(Sector.SectorType sectorType)
+    {
+        sectors.Add(new Sector(sectorType));
     }
 
     private void initPlanetInfo()
@@ -91,5 +104,9 @@ public class Planet : MonoBehaviour
 
         // make the trail green for colonized planets
         this.gameObject.GetComponent<Trail>().setTrailColor(Color.green);
+
+        // all the planets, by default, will have a habitat and storage sector created when they are colonized
+        initSector(Sector.SectorType.Habitat);
+        initSector(Sector.SectorType.Storage);
     }
 }
