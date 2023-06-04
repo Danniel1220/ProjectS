@@ -100,6 +100,11 @@ public class StarshipPosition : MonoBehaviour
         targetObject = target;
         targetPlanetIndex = planetScript.index;
 
+        // the reason i call to close this window is because it is possible that the starship is already
+        // hovering over a planet, in which case i want to close the window because the ship moved
+        // and the information inside isnt relevant anymore anyways
+        planetMenuPanel.closeWindow();
+
         planetInfoPanel.openWindow();
         planetInfoPanel.updateInformation(planetScript);
     }

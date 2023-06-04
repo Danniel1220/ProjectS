@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
+    public string planetName;
+
     public int index;
     public List<Resource> resources;
     public string planetInfo;
