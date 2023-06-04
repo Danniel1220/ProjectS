@@ -11,6 +11,7 @@ public class StarshipPosition : MonoBehaviour
     private ChunkSystem chunkSystem;
 
     private PlanetInfoPanel planetInfoPanel;
+    private PlanetMenuPanel planetMenuPanel;
 
     [SerializeField] private GameObject targetObject;
     [SerializeField] private GameObject cachedTargetObject;
@@ -35,6 +36,7 @@ public class StarshipPosition : MonoBehaviour
         chunkSystem = GameManagers.chunkSystem;
 
         planetInfoPanel = UIManagers.planetInfoPanel;
+        planetMenuPanel = UIManagers.planetMenuPanel;
     }
 
     // Update is called once per frame
@@ -68,7 +70,8 @@ public class StarshipPosition : MonoBehaviour
         // we're hovering a star so we dont need to cache anything
         cachedTargetObject = null;
 
-        planetInfoPanel.gameObject.SetActive(false);
+        planetInfoPanel.closeWindow();
+        planetMenuPanel.closeWindow();
     }
 
     // this isn't particularly efficient so it is only used when loading the save file
@@ -97,8 +100,8 @@ public class StarshipPosition : MonoBehaviour
         targetObject = target;
         targetPlanetIndex = planetScript.index;
 
-        planetInfoPanel.gameObject.SetActive(true);
-        planetInfoPanel.updatePlanetInfoPanel(planetScript);
+        planetInfoPanel.openWindow();
+        planetInfoPanel.updateInformation(planetScript);
     }
 
     public void enterStarSystemView()
@@ -119,8 +122,10 @@ public class StarshipPosition : MonoBehaviour
             // signal that we are no longer hovering over a planet
             targetPlanetIndex = -1;
 
-            // also disabling the planet info panel if we are not hovering over one
+            // also disabling the relevant UI object since we know we no longer hover over anything
+            // that we need a special panel for
             planetInfoPanel.gameObject.SetActive(false);
+            planetMenuPanel.closeWindow();
         }
         // not hovering over a planet, so just exit the star system view as usual
         else

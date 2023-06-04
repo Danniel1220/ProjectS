@@ -36,7 +36,7 @@ public class PlanetInfoPanel : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void updatePlanetInfoPanel(Planet planetScript)
+    public void updateInformation(Planet planetScript)
     {
         nameText.text = planetScript.gameObject.name;
         informationText.text = planetScript.planetInfo;
@@ -72,7 +72,7 @@ public class PlanetInfoPanel : MonoBehaviour
             // use one colony pack from the inventory
             starshipInventory.useColonyPack();
             // updating the info panel again to reflect the change
-            updatePlanetInfoPanel(planetScript);
+            updateInformation(planetScript);
         }
     }
 
@@ -80,5 +80,15 @@ public class PlanetInfoPanel : MonoBehaviour
     {
         planetMenuPanel.gameObject.SetActive(true);
         openPlanetMenuButton.enabled = false;
+    }
+
+    public void openWindow()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    public void closeWindow()
+    {
+        this.gameObject.SetActive(false);
     }
 }
