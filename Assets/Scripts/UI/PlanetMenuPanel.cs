@@ -80,6 +80,7 @@ public class PlanetMenuPanel : MonoBehaviour
 
     public void closeWindow()
     {
+        clearBuildingsGrid();
         this.gameObject.SetActive(false);
         planetInfoPanel.openPlanetMenuButton.enabled = true;
     }
