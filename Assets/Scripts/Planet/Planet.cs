@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Planet : MonoBehaviour
 {
@@ -29,9 +31,49 @@ public class Planet : MonoBehaviour
         sectors = new List<Sector>();
     }
 
-    public void initSector(Sector.SectorType sectorType)
+    public void addSector(Sector.SectorType sectorType)
     {
         sectors.Add(new Sector(sectorType));
+    }
+
+    public void addBuilding(Sector.SectorType sectorType, string buildingName)
+    {
+        switch (sectorType)
+        {
+            case Sector.SectorType.Habitat:
+                HabitatBuilding.HabitatBuildingType buildingType;
+                if (Enum.TryParse(buildingName, out buildingType))
+                {
+                    foreach (Sector sector in sectors)
+                    {
+                        if (sector.type == sectorType)
+                        {
+                            sector.addHabitatBuilding(buildingType);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Enum parsing of string " + buildingName + " to HabitatBuildingType failed...");
+                }
+                break;
+            case Sector.SectorType.Storage:
+
+                break;
+            case Sector.SectorType.Energy:
+
+                break;
+            case Sector.SectorType.Mining:
+
+                break;
+            case Sector.SectorType.Production:
+
+                break;
+            case Sector.SectorType.Science:
+
+                break;
+        }
     }
 
     private void initPlanetInfo()
@@ -108,8 +150,8 @@ public class Planet : MonoBehaviour
         this.gameObject.GetComponent<Trail>().setTrailColor(Color.green);
 
         // all the planets, by default, will have a habitat and storage sector created when they are colonized
-        initSector(Sector.SectorType.Habitat);
-        initSector(Sector.SectorType.Storage);
+        addSector(Sector.SectorType.Habitat);
+        addSector(Sector.SectorType.Storage);
     }
 
     // this function is used to retreive all the relevant data for the planet menu panel

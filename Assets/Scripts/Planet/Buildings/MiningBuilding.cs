@@ -5,15 +5,14 @@ using UnityEngine;
 public class MiningBuilding
 {
     public MiningBuildingType buildingType;
-    public string resourceMined;
+    public string resourceMined; // TODO: implement the mining of different resources
     public int resourceOutput;
 
     public enum MiningBuildingType { Mine, ExcavationFacility };
 
-    public MiningBuilding(MiningBuildingType buildingType, string resourceMined)
+    public MiningBuilding(MiningBuildingType buildingType)
     {
         this.buildingType = buildingType;
-        this.resourceMined = resourceMined;
 
         // assigning the resource output depending on what type of mining building this is
         switch (buildingType)
@@ -22,10 +21,8 @@ public class MiningBuilding
                 resourceOutput = 10;
                 break;
             case MiningBuildingType.ExcavationFacility:
-                resourceOutput = 20;
+                resourceOutput = 40;
                 break;
         }
-
-        this.resourceMined = resourceMined;
     }
 }

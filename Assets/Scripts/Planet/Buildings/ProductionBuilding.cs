@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class ProductionBuilding
 {
-    public MiningBuildingType buildingType;
+    public ProductionBuildingType buildingType;
     public int craftingSpeed;
 
-    public enum MiningBuildingType { AssemblyMachine, ProductionFacility, Factory };
+    public enum ProductionBuildingType { AssemblyMachine, ProductionFacility, Factory };
 
-    public ProductionBuilding(MiningBuildingType buildingType)
+    public ProductionBuilding(ProductionBuildingType buildingType)
     {
         this.buildingType = buildingType;
 
         // assigning the storage slots depending on what type of habitat building this is
         switch (buildingType)
         {
-            case MiningBuildingType.AssemblyMachine:
+            case ProductionBuildingType.AssemblyMachine:
                 craftingSpeed = 1;
                 break;
-            case MiningBuildingType.ProductionFacility:
+            case ProductionBuildingType.ProductionFacility:
                 craftingSpeed = 5;
                 break;
-            case MiningBuildingType.Factory:
+            case ProductionBuildingType.Factory:
                 craftingSpeed = 10;
                 break;
         }

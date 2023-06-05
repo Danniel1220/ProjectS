@@ -24,7 +24,8 @@ public class Sector
         {
             case SectorType.Habitat:
                 habitatBuildings = new List<HabitatBuilding>();
-                habitatBuildings.Add(new HabitatBuilding(HabitatBuilding.HabitatBuildingType.SmallSettlement, 2));
+                // every colonized planet will start out with a small settlement of 2 people
+                habitatBuildings.Add(new HabitatBuilding(HabitatBuilding.HabitatBuildingType.SmallSettlement));
                 break;
             case SectorType.Storage:
                 storageBuildings = new List<StorageBuilding>();
@@ -42,5 +43,35 @@ public class Sector
                 storageBuildings = new List<StorageBuilding>();
                 break;
         }
+    }
+
+    public void addHabitatBuilding(HabitatBuilding.HabitatBuildingType buildingType)
+    {
+        habitatBuildings.Add(new HabitatBuilding(buildingType));
+    }
+
+    public void addStorageBuilding(StorageBuilding.StorageBuildingType buildingType)
+    {
+        storageBuildings.Add(new StorageBuilding(buildingType));
+    }
+
+    public void addEnergyBuilding(EnergyBuilding.EnergyBuildingType buildingType)
+    {
+        energyBuildings.Add(new EnergyBuilding(buildingType));
+    }
+
+    public void addMiningBuilding(MiningBuilding.MiningBuildingType buildingType)
+    {
+        miningBuildings.Add(new MiningBuilding(buildingType));
+    }
+
+    public void addProductionBuilding(ProductionBuilding.ProductionBuildingType buildingType)
+    {
+        productionBuildings.Add(new ProductionBuilding(buildingType));
+    }
+
+    public void addScienceBuilding(ScienceBuilding.ScienceBuildingType buildingType)
+    {
+        scienceBuildings.Add(new ScienceBuilding(buildingType));
     }
 }

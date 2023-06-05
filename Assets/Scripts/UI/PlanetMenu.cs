@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -87,6 +88,8 @@ public class PlanetMenu : MonoBehaviour
         clearBuildingsGrid();
         this.gameObject.SetActive(false);
         planetInfoPanel.openPlanetMenuButton.enabled = true;
+
+        newBuildingPanel.closePanel();
     }
 
     public void updateInformation()
@@ -253,12 +256,25 @@ public class PlanetMenu : MonoBehaviour
         // this function clears all the children inside the buildings grid to make room for new ones
         foreach (Transform child in buildingsGrid.transform)
         {
-            GameObject.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 
     public void newBuildingButtonOnClick()
     {
         newBuildingPanel.openPanel(sectorSelected);
+    }
+
+    public void addBuildingToPlanet(Sector.SectorType sectorType, string buildingName)
+    {
+        Planet targetPlanetScript = starshipPosition.getTargetObject().GetComponent<Planet>();
+        if (targetPlanetScript == null)
+        {
+            Debug.LogError("Failed to get Planet component from object " + starshipPosition.getTargetObject() + 
+                "\nThis probably means the target object wasnt a planet" +
+                "\nTarget name: " + starshipPosition.getTargetObject().name);
+        }
+
+        targetPlanetScript.addBuilding(sectorType, buildingName);
     }
 }
