@@ -6,15 +6,21 @@ using UnityEngine.UI;
 
 public class SectorIcon : MonoBehaviour
 {
-    private Image iconBackground;
+    PlanetMenuPanel planetMenuPanel;
+
+    private Button button;
+    private Image buttonImage;
     private TextMeshProUGUI text;
     private Image progressBarBackground;
     private Image progressBarFill;
 
     void Start()
     {
-        iconBackground = this.transform.Find("Background").GetComponent<Image>();
-        text = this.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        planetMenuPanel = UIManagers.planetMenuPanel;
+
+        button = this.transform.Find("Button").GetComponent<Button>();
+        buttonImage = this.transform.Find("Button").GetComponent<Image>();
+        text = this.transform.Find("Button").Find("Text").GetComponent<TextMeshProUGUI>();
         progressBarBackground = this.transform.Find("ProgressBar").transform.Find("Background").GetComponent<Image>();
         progressBarFill = this.transform.Find("ProgressBar").transform.Find("Fill").GetComponent<Image>();
     }
@@ -24,10 +30,11 @@ public class SectorIcon : MonoBehaviour
         // replaces all the colors with identical ones with the given argument alpha
         // the reason why i have to create new colors is because i cant just change the alpha value
         // because it is read-only
-        iconBackground.color = new Color(
-            iconBackground.color.r,
-            iconBackground.color.g,
-            iconBackground.color.b,
+
+        buttonImage.color = new Color(
+            buttonImage.color.r,
+            buttonImage.color.g,
+            buttonImage.color.b,
             alpha);
         text.color = new Color(
             text.color.r,
@@ -49,5 +56,34 @@ public class SectorIcon : MonoBehaviour
     public void setProgressBarValue(float value)
     {
         progressBarFill.fillAmount = value;
+    }
+
+    public void selectSector()
+    {
+        planetMenuPanel.clearBuildingsGrid();
+
+        // every sector icon button calls this function, and depending on the parent's name (the object this was called from)
+        // the appropiate sector's display function gets called
+        switch (this.gameObject.name)
+        {
+            case "Habitat":
+                planetMenuPanel.displayHabitatBuildings();
+                break;
+            case "Storage":
+                planetMenuPanel.displayStorageBuildings();
+                break;
+            case "Energy":
+                planetMenuPanel.displayEnergyBuildings();
+                break;
+            case "Mining":
+                planetMenuPanel.displayMiningBuildings();
+                break;
+            case "Production":
+                planetMenuPanel.displayProductionBuildings();
+                break;
+            case "Science":
+                planetMenuPanel.displayScienceBuildings();
+                break;
+        }
     }
 }

@@ -27,11 +27,12 @@ public class PlanetMenuPanel : MonoBehaviour
     private List<ProductionBuilding> productionBuildings;
     private List<ScienceBuilding> scienceBuildings;
 
-    private GameObject buildingsGridList;
+    private GameObject buildingsGrid;
 
     private Button closeWindowButton;
 
     private GameObject buildingIconPrefab;
+    private GameObject addBuildingIconPrefab;
 
     private bool habitatEnabled;
     private bool storageEnabled;
@@ -68,9 +69,10 @@ public class PlanetMenuPanel : MonoBehaviour
         scienceSector = this.transform.Find("Sectors").Find("Science").GetComponent<SectorIcon>();
 
         // this is the gameobject where i have to place the building icons
-        buildingsGridList = this.transform.Find("Buildings").Find("Scroll View").Find("Viewport").Find("Content").gameObject;
+        buildingsGrid = this.transform.Find("Buildings").Find("Scroll View").Find("Viewport").Find("Content").gameObject;
 
         buildingIconPrefab = Resources.Load("Prefabs/BuildingIcon") as GameObject;
+        addBuildingIconPrefab = Resources.Load("Prefabs/NewBuildingIcon") as GameObject;
 
         // disable the panel once we cache all the required refferences
         this.gameObject.SetActive(false);
@@ -169,52 +171,77 @@ public class PlanetMenuPanel : MonoBehaviour
     {
         foreach(HabitatBuilding building in habitatBuildings)
         {
-            GameObject buildingIcon = Instantiate(buildingIconPrefab);
-            // worldPositionStays argument set to false
-            // this will retain local orientation and scale rather than world orientation and scale
-            // which is what i want for an UI element
-            buildingIcon.transform.SetParent(buildingsGridList.transform, false);
-            BuildingIcon buildingIconScript = buildingIcon.AddComponent<BuildingIcon>();
-            buildingIconScript.init();
-            // text.text because the first text is a refference to the TMP text object named text
-            // and the second one is the text field inside the TMP text object
-            // also, this regex will add spaces inbetween words because the enum name doesnt have any obviously
-            buildingIconScript.text.text = Regex.Replace(building.buildingType.ToString(), "([a-z])([A-Z])", "$1 $2");
-            //buildingIconScript.background.color = Color.green;
+            addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
-        // creating another building icon on top of the ones in the sector that will contain
-        // a plus sign which will be used to add buildings
-        GameObject addBuildingIcon = Instantiate(buildingIconPrefab);
-        addBuildingIcon.transform.SetParent(buildingsGridList.transform, false);
-        BuildingIcon addBuildingIconScript = addBuildingIcon.AddComponent<BuildingIcon>();
-        addBuildingIconScript.init();
-        addBuildingIconScript.text.text = "+";
-        addBuildingIconScript.text.fontSize = 24;
-        addBuildingIconScript.background.color = Color.green;
+        addNewBuildingIconToBuildingsGrid();
     }
 
     public void displayStorageBuildings()
     {
-
+        foreach (StorageBuilding building in storageBuildings)
+        {
+            addBuildingToBuildingsGrid(building.buildingType.ToString());
+        }
+        addNewBuildingIconToBuildingsGrid();
     }
 
     public void displayEnergyBuildings()
     {
-
+        foreach (EnergyBuilding building in energyBuildings)
+        {
+            addBuildingToBuildingsGrid(building.buildingType.ToString());
+        }
+        addNewBuildingIconToBuildingsGrid();
     }
 
     public void displayMiningBuildings()
     {
-
+        foreach (MiningBuilding building in miningBuildings)
+        {
+            addBuildingToBuildingsGrid(building.buildingType.ToString());
+        }
+        addNewBuildingIconToBuildingsGrid();
     }
 
     public void displayProductionBuildings()
     {
-
+        foreach (ProductionBuilding building in productionBuildings)
+        {
+            addBuildingToBuildingsGrid(building.buildingType.ToString());
+        }
+        addNewBuildingIconToBuildingsGrid();
     }
 
     public void displayScienceBuildings()
     {
+        foreach (ScienceBuilding building in scienceBuildings)
+        {
+            addBuildingToBuildingsGrid(building.buildingType.ToString());
+        }
+        addNewBuildingIconToBuildingsGrid();
+    }
 
+    private void addBuildingToBuildingsGrid(string buildingName)
+    {
+        GameObject buildingIcon = Instantiate(buildingIconPrefab);
+        buildingIcon.transform.SetParent(buildingsGrid.transform, false);
+        BuildingIcon buildingIconScript = buildingIcon.AddComponent<BuildingIcon>();
+        buildingIconScript.init();
+        buildingIconScript.text.text = Regex.Replace(buildingName, "([a-z])([A-Z])", "$1 $2");
+    }
+
+    public void addNewBuildingIconToBuildingsGrid()
+    {
+        GameObject newBuildingIcon = Instantiate(addBuildingIconPrefab);
+        newBuildingIcon.transform.SetParent(buildingsGrid.transform, false);
+    }
+
+    public void clearBuildingsGrid()
+    {
+        // this function clears all the children inside the buildings grid to make room for new ones
+        foreach (Transform child in buildingsGrid.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 }
