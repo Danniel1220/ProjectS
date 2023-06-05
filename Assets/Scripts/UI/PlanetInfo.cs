@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
-public class PlanetInfoPanel : MonoBehaviour
+public class PlanetInfo : MonoBehaviour
 {
     private Inventory starshipInventory;
     private StarshipPosition starshipPosition;
 
-    private PlanetMenuPanel planetMenuPanel;
+    private PlanetMenu planetMenuPanel;
 
     private TextMeshProUGUI nameText;
     private TextMeshProUGUI informationText;

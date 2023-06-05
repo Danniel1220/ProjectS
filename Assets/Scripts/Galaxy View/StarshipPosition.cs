@@ -10,8 +10,8 @@ public class StarshipPosition : MonoBehaviour
     private HomeworldDesignator homeworldDesignator;
     private ChunkSystem chunkSystem;
 
-    private PlanetInfoPanel planetInfoPanel;
-    private PlanetMenuPanel planetMenuPanel;
+    private PlanetInfo planetInfoPanel;
+    private PlanetMenu planetMenuPanel;
 
     [SerializeField] private GameObject targetObject;
     [SerializeField] private GameObject cachedTargetObject;

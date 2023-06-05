@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SectorIcon : MonoBehaviour
 {
-    PlanetMenuPanel planetMenuPanel;
+    PlanetMenu planetMenuPanel;
 
     private Button button;
     private Image buttonImage;

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class UIManagers : MonoBehaviour
 {
-    public static PlanetInfoPanel planetInfoPanel;
-    public static PlanetMenuPanel planetMenuPanel;
+    public static PlanetInfo planetInfoPanel;
+    public static PlanetMenu planetMenuPanel;
+    public static NewBuildingMenu newBuildingPanel;
 
     void Awake()
     {
-        planetInfoPanel = GameObject.Find("Canvas").transform.Find("PlanetInfo").GetComponent<PlanetInfoPanel>();
-        planetMenuPanel = GameObject.Find("Canvas").transform.Find("PlanetMenu").GetComponent<PlanetMenuPanel>();
+        planetInfoPanel = GameObject.Find("Canvas").transform.Find("PlanetInfo").GetComponent<PlanetInfo>();
+        planetMenuPanel = GameObject.Find("Canvas").transform.Find("PlanetMenu").GetComponent<PlanetMenu>();
+        newBuildingPanel = GameObject.Find("Canvas").transform.Find("NewBuildingMenu").GetComponent<NewBuildingMenu>();
     }
 }

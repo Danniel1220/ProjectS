@@ -5,11 +5,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlanetMenuPanel : MonoBehaviour
+public class PlanetMenu : MonoBehaviour
 {
     private StarshipPosition starshipPosition;
 
-    private PlanetInfoPanel planetInfoPanel;
+    private PlanetInfo planetInfoPanel;
+    private NewBuildingMenu newBuildingPanel;
 
     private TextMeshProUGUI planetNameText;
 
@@ -48,6 +49,8 @@ public class PlanetMenuPanel : MonoBehaviour
     private float productionProgressBarValue;
     private float scienceProgressBarValue;
 
+    private Sector.SectorType sectorSelected;
+
     private float enabledIconAlphaValue = 1f;
     private float disabledIconAlphaValue = 0.2f;
 
@@ -56,6 +59,7 @@ public class PlanetMenuPanel : MonoBehaviour
         starshipPosition = GameManagers.starshipPosition;
 
         planetInfoPanel = UIManagers.planetInfoPanel;
+        newBuildingPanel = UIManagers.newBuildingPanel;
 
         planetNameText = this.transform.Find("PlanetNameText").GetComponent<TextMeshProUGUI>();
         closeWindowButton = this.transform.Find("CloseWindowButton").GetComponent<Button>();
@@ -175,6 +179,7 @@ public class PlanetMenuPanel : MonoBehaviour
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
         addNewBuildingIconToBuildingsGrid();
+        sectorSelected = Sector.SectorType.Habitat;
     }
 
     public void displayStorageBuildings()
@@ -184,6 +189,7 @@ public class PlanetMenuPanel : MonoBehaviour
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
         addNewBuildingIconToBuildingsGrid();
+        sectorSelected = Sector.SectorType.Storage;
     }
 
     public void displayEnergyBuildings()
@@ -193,6 +199,7 @@ public class PlanetMenuPanel : MonoBehaviour
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
         addNewBuildingIconToBuildingsGrid();
+        sectorSelected = Sector.SectorType.Energy;
     }
 
     public void displayMiningBuildings()
@@ -202,6 +209,7 @@ public class PlanetMenuPanel : MonoBehaviour
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
         addNewBuildingIconToBuildingsGrid();
+        sectorSelected = Sector.SectorType.Mining;
     }
 
     public void displayProductionBuildings()
@@ -211,6 +219,7 @@ public class PlanetMenuPanel : MonoBehaviour
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
         addNewBuildingIconToBuildingsGrid();
+        sectorSelected = Sector.SectorType.Production;
     }
 
     public void displayScienceBuildings()
@@ -220,6 +229,7 @@ public class PlanetMenuPanel : MonoBehaviour
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
         addNewBuildingIconToBuildingsGrid();
+        sectorSelected = Sector.SectorType.Science;
     }
 
     private void addBuildingToBuildingsGrid(string buildingName)
@@ -233,8 +243,9 @@ public class PlanetMenuPanel : MonoBehaviour
 
     public void addNewBuildingIconToBuildingsGrid()
     {
-        GameObject newBuildingIcon = Instantiate(addBuildingIconPrefab);
-        newBuildingIcon.transform.SetParent(buildingsGrid.transform, false);
+        GameObject newBuildingButton = Instantiate(addBuildingIconPrefab);
+        newBuildingButton.transform.SetParent(buildingsGrid.transform, false);
+        newBuildingButton.GetComponent<Button>().onClick.AddListener(() => { newBuildingButtonOnClick(); });
     }
 
     public void clearBuildingsGrid()
@@ -244,5 +255,10 @@ public class PlanetMenuPanel : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+    }
+
+    public void newBuildingButtonOnClick()
+    {
+        newBuildingPanel.openPanel(sectorSelected);
     }
 }
