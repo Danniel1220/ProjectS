@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Sector;
 
 public class PlanetMenu : MonoBehaviour
 {
@@ -31,8 +32,6 @@ public class PlanetMenu : MonoBehaviour
 
     private GameObject buildingsGrid;
 
-    private Button closeWindowButton;
-
     private GameObject buildingIconPrefab;
     private GameObject addBuildingIconPrefab;
 
@@ -50,7 +49,7 @@ public class PlanetMenu : MonoBehaviour
     private float productionProgressBarValue;
     private float scienceProgressBarValue;
 
-    private Sector.SectorType sectorSelected;
+    private Sector.SectorType selectedSector;
 
     private float enabledIconAlphaValue = 1f;
     private float disabledIconAlphaValue = 0.2f;
@@ -63,7 +62,6 @@ public class PlanetMenu : MonoBehaviour
         newBuildingPanel = UIManagers.newBuildingPanel;
 
         planetNameText = this.transform.Find("PlanetNameText").GetComponent<TextMeshProUGUI>();
-        closeWindowButton = this.transform.Find("CloseWindowButton").GetComponent<Button>();
 
         // sector icon parent game objects
         habitatSector = this.transform.Find("Sectors").Find("Habitat").GetComponent<SectorIcon>();
@@ -124,55 +122,61 @@ public class PlanetMenu : MonoBehaviour
                     habitatBuildings = sector.habitatBuildings;
                     habitatProgressBarValue = (float)sector.habitatBuildings.Count / sector.maxBuildings;
                     habitatSector.setObjectAlpha(enabledIconAlphaValue);
+                    habitatSector.isEnabled = true;
                     break;
                 case Sector.SectorType.Storage:
                     storageEnabled = true;
                     storageBuildings = sector.storageBuildings;
                     storageProgressBarValue = (float)sector.storageBuildings.Count / sector.maxBuildings;
                     storageSector.setObjectAlpha(enabledIconAlphaValue);
+                    storageSector.isEnabled = true;
                     break;
                 case Sector.SectorType.Energy:
                     energyEnabled = true;
                     energyBuildings = sector.energyBuildings;
                     energyProgressBarValue = (float)sector.energyBuildings.Count / sector.maxBuildings;
                     energySector.setObjectAlpha(enabledIconAlphaValue);
+                    energySector.isEnabled = true;
                     break;
                 case Sector.SectorType.Mining:
                     miningEnabled = true;
                     miningBuildings = sector.miningBuildings;
                     miningProgressBarValue = (float)sector.miningBuildings.Count / sector.maxBuildings;
                     miningSector.setObjectAlpha(enabledIconAlphaValue);
+                    miningSector.isEnabled = true;
                     break;
                 case Sector.SectorType.Production:
                     productionEnabled = true;
                     productionBuildings = sector.productionBuildings;
                     productionProgressBarValue = (float)sector.productionBuildings.Count / sector.maxBuildings;
                     productionSector.setObjectAlpha(enabledIconAlphaValue);
+                    productionSector.isEnabled = true;
                     break;
                 case Sector.SectorType.Science:
                     scienceEnabled = true;
                     scienceBuildings = sector.scienceBuildings;
                     scienceProgressBarValue = (float)sector.scienceBuildings.Count / sector.maxBuildings;
                     scienceSector.setObjectAlpha(enabledIconAlphaValue);
+                    scienceSector.isEnabled = true;
                     break;
             }
         }
 
         // disable all the icons that weren't present in the sector list
-        if (!habitatEnabled) habitatSector.setObjectAlpha(disabledIconAlphaValue);
-        if (!storageEnabled) storageSector.setObjectAlpha(disabledIconAlphaValue);
-        if (!energyEnabled) energySector.setObjectAlpha(disabledIconAlphaValue);
-        if (!miningEnabled) miningSector.setObjectAlpha(disabledIconAlphaValue);
-        if (!productionEnabled) productionSector.setObjectAlpha(disabledIconAlphaValue);
-        if (!scienceEnabled) scienceSector.setObjectAlpha(disabledIconAlphaValue);
+        if (!habitatEnabled) { habitatSector.setObjectAlpha(disabledIconAlphaValue); habitatSector.isEnabled = false; }
+        if (!storageEnabled) { storageSector.setObjectAlpha(disabledIconAlphaValue); storageSector.isEnabled = false; }
+        if (!energyEnabled) { energySector.setObjectAlpha(disabledIconAlphaValue); energySector.isEnabled = false; }
+        if (!miningEnabled) { miningSector.setObjectAlpha(disabledIconAlphaValue); miningSector.isEnabled = false; }
+        if (!productionEnabled) { productionSector.setObjectAlpha(disabledIconAlphaValue); productionSector.isEnabled = false; }
+        if (!scienceEnabled) { scienceSector.setObjectAlpha(disabledIconAlphaValue); scienceSector.isEnabled = false; }
 
         // update all progress bar values
         habitatSector.setProgressBarValue(habitatProgressBarValue);
         storageSector.setProgressBarValue(storageProgressBarValue);
-        energySector.setProgressBarValue(habitatProgressBarValue);
-        miningSector.setProgressBarValue(habitatProgressBarValue);
-        productionSector.setProgressBarValue(habitatProgressBarValue);
-        scienceSector.setProgressBarValue(habitatProgressBarValue);
+        energySector.setProgressBarValue(energyProgressBarValue);
+        miningSector.setProgressBarValue(miningProgressBarValue);
+        productionSector.setProgressBarValue(productionProgressBarValue);
+        scienceSector.setProgressBarValue(scienceProgressBarValue);
     }
 
     public void displayHabitatBuildings()
@@ -181,8 +185,8 @@ public class PlanetMenu : MonoBehaviour
         {
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
+        selectedSector = Sector.SectorType.Habitat;
         addNewBuildingIconToBuildingsGrid();
-        sectorSelected = Sector.SectorType.Habitat;
     }
 
     public void displayStorageBuildings()
@@ -191,8 +195,8 @@ public class PlanetMenu : MonoBehaviour
         {
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
+        selectedSector = Sector.SectorType.Storage;
         addNewBuildingIconToBuildingsGrid();
-        sectorSelected = Sector.SectorType.Storage;
     }
 
     public void displayEnergyBuildings()
@@ -201,8 +205,8 @@ public class PlanetMenu : MonoBehaviour
         {
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
+        selectedSector = Sector.SectorType.Energy;
         addNewBuildingIconToBuildingsGrid();
-        sectorSelected = Sector.SectorType.Energy;
     }
 
     public void displayMiningBuildings()
@@ -211,8 +215,8 @@ public class PlanetMenu : MonoBehaviour
         {
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
+        selectedSector = Sector.SectorType.Mining;
         addNewBuildingIconToBuildingsGrid();
-        sectorSelected = Sector.SectorType.Mining;
     }
 
     public void displayProductionBuildings()
@@ -221,8 +225,8 @@ public class PlanetMenu : MonoBehaviour
         {
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
+        selectedSector = Sector.SectorType.Production;
         addNewBuildingIconToBuildingsGrid();
-        sectorSelected = Sector.SectorType.Production;
     }
 
     public void displayScienceBuildings()
@@ -231,8 +235,8 @@ public class PlanetMenu : MonoBehaviour
         {
             addBuildingToBuildingsGrid(building.buildingType.ToString());
         }
+        selectedSector = Sector.SectorType.Science;
         addNewBuildingIconToBuildingsGrid();
-        sectorSelected = Sector.SectorType.Science;
     }
 
     private void addBuildingToBuildingsGrid(string buildingName)
@@ -246,9 +250,65 @@ public class PlanetMenu : MonoBehaviour
 
     public void addNewBuildingIconToBuildingsGrid()
     {
-        GameObject newBuildingButton = Instantiate(addBuildingIconPrefab);
-        newBuildingButton.transform.SetParent(buildingsGrid.transform, false);
-        newBuildingButton.GetComponent<Button>().onClick.AddListener(() => { newBuildingButtonOnClick(); });
+        // fetching the target object to see if there are any free slots for that sector
+        // if there aren't, just dont show the button
+        Planet targetPlanetScript = starshipPosition.getTargetObject().GetComponent<Planet>();
+        bool shouldCreateButton = false;
+
+        // iterate through each sector, find the currently selected sector and
+        // check if it has less buildings than the max, if yes, we should create a new building button
+        foreach (Sector sector in targetPlanetScript.sectors)
+        {
+            if (sector.type == selectedSector && 
+                sector.type == Sector.SectorType.Habitat &&
+                sector.habitatBuildings.Count < sector.maxBuildings)
+            {
+                shouldCreateButton = true;
+                break;
+            }
+            if (sector.type == selectedSector &&
+                sector.type == Sector.SectorType.Storage &&
+                sector.storageBuildings.Count < sector.maxBuildings)
+            {
+                shouldCreateButton = true;
+                break;
+            }
+            if (sector.type == selectedSector &&
+                sector.type == Sector.SectorType.Energy &&
+                sector.energyBuildings.Count < sector.maxBuildings)
+            {
+                shouldCreateButton = true;
+                break;
+            }
+            if (sector.type == selectedSector &&
+                sector.type == Sector.SectorType.Mining &&
+                sector.miningBuildings.Count < sector.maxBuildings)
+            {
+                shouldCreateButton = true;
+                break;
+            }
+            if (sector.type == selectedSector &&
+                sector.type == Sector.SectorType.Production &&
+                sector.productionBuildings.Count < sector.maxBuildings)
+            {
+                shouldCreateButton = true;
+                break;
+            }
+            if (sector.type == selectedSector &&
+                sector.type == Sector.SectorType.Science &&
+                sector.scienceBuildings.Count < sector.maxBuildings)
+            {
+                shouldCreateButton = true;
+                break;
+            }
+        }
+        if (shouldCreateButton)
+        {
+            GameObject newBuildingButton = Instantiate(addBuildingIconPrefab);
+            newBuildingButton.transform.SetParent(buildingsGrid.transform, false);
+            newBuildingButton.GetComponent<Button>().onClick.AddListener(() => { newBuildingButtonOnClick(); });
+
+        }
     }
 
     public void clearBuildingsGrid()
@@ -262,19 +322,69 @@ public class PlanetMenu : MonoBehaviour
 
     public void newBuildingButtonOnClick()
     {
-        newBuildingPanel.openPanel(sectorSelected);
+        newBuildingPanel.openPanel(selectedSector);
     }
 
     public void addBuildingToPlanet(Sector.SectorType sectorType, string buildingName)
     {
         Planet targetPlanetScript = starshipPosition.getTargetObject().GetComponent<Planet>();
-        if (targetPlanetScript == null)
+        if (targetPlanetScript != null)
         {
-            Debug.LogError("Failed to get Planet component from object " + starshipPosition.getTargetObject() + 
+            targetPlanetScript.addBuilding(sectorType, buildingName);
+        }
+        else
+        {
+            Debug.LogError("Failed to get Planet component from object " + starshipPosition.getTargetObject() +
                 "\nThis probably means the target object wasnt a planet" +
                 "\nTarget name: " + starshipPosition.getTargetObject().name);
         }
+        
+    }
 
-        targetPlanetScript.addBuilding(sectorType, buildingName);
+    public void addSectorToPlanet(string sectorName)
+    {
+        Planet targetPlanetScript = starshipPosition.getTargetObject().GetComponent<Planet>();
+        if (targetPlanetScript != null)
+        {
+            SectorType sectorType;
+            if (Enum.TryParse(sectorName, out sectorType))
+            {
+                targetPlanetScript.addSector(sectorType);
+                selectedSector = sectorType;
+                updateInformation();
+                clearBuildingsGrid();
+                switch (sectorType)
+                {
+                    case Sector.SectorType.Habitat:
+                        displayHabitatBuildings();
+                        break;
+                    case Sector.SectorType.Storage:
+                        displayEnergyBuildings();
+                        break;
+                    case Sector.SectorType.Energy:
+                        displayEnergyBuildings();
+                        break;
+                    case Sector.SectorType.Mining:
+                        displayMiningBuildings();
+                        break;
+                    case Sector.SectorType.Production:
+                        displayProductionBuildings();
+                        break;
+                    case Sector.SectorType.Science:
+                        displayScienceBuildings();
+                        break;
+                }
+            }
+            else
+            {
+                Debug.LogError("Error while trying to parse sector type with input: " + sectorName);
+            }
+        }
+        else
+        {
+            Debug.LogError("Failed to get Planet component from object " + starshipPosition.getTargetObject() +
+                "\nThis probably means the target object wasnt a planet" +
+                "\nTarget name: " + starshipPosition.getTargetObject().name);
+        }
     }
 }

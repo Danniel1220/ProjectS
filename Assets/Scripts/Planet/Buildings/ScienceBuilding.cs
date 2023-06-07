@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScienceBuilding : MonoBehaviour
+public class ScienceBuilding
 {
     public ScienceBuildingType buildingType;
     public int researchSpeed;

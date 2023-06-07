@@ -14,6 +14,8 @@ public class SectorIcon : MonoBehaviour
     private Image progressBarBackground;
     private Image progressBarFill;
 
+    public bool isEnabled;
+
     void Start()
     {
         planetMenuPanel = UIManagers.planetMenuPanel;
@@ -60,30 +62,38 @@ public class SectorIcon : MonoBehaviour
 
     public void selectSector()
     {
-        planetMenuPanel.clearBuildingsGrid();
-
-        // every sector icon button calls this function, and depending on the parent's name (the object this was called from)
-        // the appropiate sector's display function gets called
-        switch (this.gameObject.name)
+        if (isEnabled)
         {
-            case "Habitat":
-                planetMenuPanel.displayHabitatBuildings();
-                break;
-            case "Storage":
-                planetMenuPanel.displayStorageBuildings();
-                break;
-            case "Energy":
-                planetMenuPanel.displayEnergyBuildings();
-                break;
-            case "Mining":
-                planetMenuPanel.displayMiningBuildings();
-                break;
-            case "Production":
-                planetMenuPanel.displayProductionBuildings();
-                break;
-            case "Science":
-                planetMenuPanel.displayScienceBuildings();
-                break;
+            planetMenuPanel.clearBuildingsGrid();
+
+            // every sector icon button calls this function, and depending on the parent's name (the object this was called from)
+            // the appropiate sector's display function gets called
+            switch (this.gameObject.name)
+            {
+                case "Habitat":
+                    planetMenuPanel.displayHabitatBuildings();
+                    break;
+                case "Storage":
+                    planetMenuPanel.displayStorageBuildings();
+                    break;
+                case "Energy":
+                    planetMenuPanel.displayEnergyBuildings();
+                    break;
+                case "Mining":
+                    planetMenuPanel.displayMiningBuildings();
+                    break;
+                case "Production":
+                    planetMenuPanel.displayProductionBuildings();
+                    break;
+                case "Science":
+                    planetMenuPanel.displayScienceBuildings();
+                    break;
+            }
+        }
+        else
+        {
+            // sending the name of the sector as parameter
+            planetMenuPanel.addSectorToPlanet(this.gameObject.name);
         }
     }
 }

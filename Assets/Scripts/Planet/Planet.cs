@@ -27,13 +27,33 @@ public class Planet : MonoBehaviour
     {
         initResources();
         initPlanetInfo();
-
         sectors = new List<Sector>();
     }
 
     public void addSector(Sector.SectorType sectorType)
     {
         sectors.Add(new Sector(sectorType));
+        switch (sectorType)
+        {
+            case Sector.SectorType.Habitat:
+                hasHabitatSector = true;
+                break;
+            case Sector.SectorType.Storage:
+                hasStorageSector = true;
+                break;
+            case Sector.SectorType.Energy:
+                hasEnergySector = true;
+                break;
+            case Sector.SectorType.Mining:
+                hasMiningSector = true;
+                break;
+            case Sector.SectorType.Production:
+                hasProductionSector = true;
+                break;
+            case Sector.SectorType.Science:
+                hasScienceSector = true;
+                break;
+        }
     }
 
     public void addBuilding(Sector.SectorType sectorType, string buildingName)
@@ -41,38 +61,126 @@ public class Planet : MonoBehaviour
         switch (sectorType)
         {
             case Sector.SectorType.Habitat:
-                HabitatBuilding.HabitatBuildingType buildingType;
-                if (Enum.TryParse(buildingName, out buildingType))
                 {
-                    foreach (Sector sector in sectors)
+                    HabitatBuilding.HabitatBuildingType buildingType;
+                    if (Enum.TryParse(buildingName, out buildingType))
                     {
-                        if (sector.type == sectorType)
+                        foreach (Sector sector in sectors)
                         {
-                            sector.addHabitatBuilding(buildingType);
-                            break;
+                            if (sector.type == sectorType)
+                            {
+                                sector.addHabitatBuilding(buildingType);
+                                break;
+                            }
                         }
                     }
+                    else
+                    {
+                        Debug.LogError("Enum parsing of string " + buildingName + " to HabitatBuildingType failed...");
+                    }
+                    break;
                 }
-                else
-                {
-                    Debug.LogError("Enum parsing of string " + buildingName + " to HabitatBuildingType failed...");
-                }
-                break;
+
             case Sector.SectorType.Storage:
-
-                break;
+                {
+                    StorageBuilding.StorageBuildingType buildingType;
+                    if (Enum.TryParse(buildingName, out buildingType))
+                    {
+                        foreach (Sector sector in sectors)
+                        {
+                            if (sector.type == sectorType)
+                            {
+                                sector.addStorageBuilding(buildingType);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Enum parsing of string " + buildingName + " to StorageBuildingType failed...");
+                    }
+                    break;
+                }
             case Sector.SectorType.Energy:
-
-                break;
+                {
+                    EnergyBuilding.EnergyBuildingType buildingType;
+                    if (Enum.TryParse(buildingName, out buildingType))
+                    {
+                        foreach (Sector sector in sectors)
+                        {
+                            if (sector.type == sectorType)
+                            {
+                                sector.addEnergyBuilding(buildingType);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Enum parsing of string " + buildingName + " to EnergyBuildingType failed...");
+                    }
+                    break;
+                }
             case Sector.SectorType.Mining:
-
-                break;
+                {
+                    MiningBuilding.MiningBuildingType buildingType;
+                    if (Enum.TryParse(buildingName, out buildingType))
+                    {
+                        foreach (Sector sector in sectors)
+                        {
+                            if (sector.type == sectorType)
+                            {
+                                sector.addMiningBuilding(buildingType);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Enum parsing of string " + buildingName + " to MiningBuildingType failed...");
+                    }
+                    break;
+                }
             case Sector.SectorType.Production:
-
-                break;
+                {
+                    ProductionBuilding.ProductionBuildingType buildingType;
+                    if (Enum.TryParse(buildingName, out buildingType))
+                    {
+                        foreach (Sector sector in sectors)
+                        {
+                            if (sector.type == sectorType)
+                            {
+                                sector.addProductionBuilding(buildingType);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Enum parsing of string " + buildingName + " to ProductionBuildingType failed...");
+                    }
+                    break;
+                }
             case Sector.SectorType.Science:
-
-                break;
+                {
+                    ScienceBuilding.ScienceBuildingType buildingType;
+                    if (Enum.TryParse(buildingName, out buildingType))
+                    {
+                        foreach (Sector sector in sectors)
+                        {
+                            if (sector.type == sectorType)
+                            {
+                                sector.addScienceBuilding(buildingType);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Enum parsing of string " + buildingName + " to ScienceBuildingType failed...");
+                    }
+                    break;
+                }
         }
     }
 

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
+using static Sector;
 
 public class NewBuildingMenu : MonoBehaviour
 {
@@ -69,7 +70,33 @@ public class NewBuildingMenu : MonoBehaviour
         // if there is any building selected
         if (buildingButtonSelected != null)
         {
+            // addings the building to the planet script, closing the new building menu, updating the info in planet menu
+            // and also updating the buildings grid by clearing it and then displaying the currently selected sector's buildings
             planetMenuPanel.addBuildingToPlanet(sectorTypeDisplayed, buildingButtonSelected.name);
+            closePanel();
+            planetMenuPanel.updateInformation();
+            planetMenuPanel.clearBuildingsGrid();
+            switch (sectorTypeDisplayed)
+            {
+                case Sector.SectorType.Habitat:
+                    planetMenuPanel.displayHabitatBuildings();
+                    break;
+                case Sector.SectorType.Storage:
+                    planetMenuPanel.displayStorageBuildings();
+                    break;
+                case Sector.SectorType.Energy:
+                    planetMenuPanel.displayEnergyBuildings();
+                    break;
+                case Sector.SectorType.Mining:
+                    planetMenuPanel.displayMiningBuildings();
+                    break;
+                case Sector.SectorType.Production:
+                    planetMenuPanel.displayProductionBuildings();
+                    break;
+                case Sector.SectorType.Science:
+                    planetMenuPanel.displayScienceBuildings();
+                    break;
+            }
         }
         else
         {
