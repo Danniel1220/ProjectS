@@ -6,6 +6,7 @@ public class HabitatBuilding
 {
     public HabitatBuildingType buildingType;
     public int population;
+    public int energyUsage;
 
     public enum HabitatBuildingType { SmallSettlement, Base, City };
 
@@ -18,12 +19,15 @@ public class HabitatBuilding
         {
             case HabitatBuildingType.SmallSettlement:
                 population = 10;
+                energyUsage = 1;
                 break;
             case HabitatBuildingType.Base:
                 population = 100;
+                energyUsage = 5;
                 break;
             case HabitatBuildingType.City:
                 population = 1000;
+                energyUsage = 10;
                 break;
         }
     }

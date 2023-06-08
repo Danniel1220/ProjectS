@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergyBuilding
 {
     public EnergyBuildingType buildingType;
-    public int outputEnergy;
+    public int energyOutput;
 
     public enum EnergyBuildingType { SolarPanel, SolarFarm };
 
@@ -17,10 +17,10 @@ public class EnergyBuilding
         switch (buildingType)
         {
             case EnergyBuildingType.SolarPanel:
-                outputEnergy = 2;
+                energyOutput = 2;
                 break;
             case EnergyBuildingType.SolarFarm:
-                outputEnergy = 200;
+                energyOutput = 200;
                 break;
         }
     }

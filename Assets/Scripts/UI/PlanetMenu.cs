@@ -13,6 +13,7 @@ public class PlanetMenu : MonoBehaviour
 
     private PlanetInfo planetInfoPanel;
     private NewBuildingMenu newBuildingPanel;
+    private StoragePanel storagePanel;
 
     private TextMeshProUGUI planetNameText;
 
@@ -60,6 +61,7 @@ public class PlanetMenu : MonoBehaviour
 
         planetInfoPanel = UIManagers.planetInfoPanel;
         newBuildingPanel = UIManagers.newBuildingPanel;
+        storagePanel = UIManagers.storagePanel;
 
         planetNameText = this.transform.Find("PlanetNameText").GetComponent<TextMeshProUGUI>();
 
@@ -177,6 +179,9 @@ public class PlanetMenu : MonoBehaviour
         miningSector.setProgressBarValue(miningProgressBarValue);
         productionSector.setProgressBarValue(productionProgressBarValue);
         scienceSector.setProgressBarValue(scienceProgressBarValue);
+
+        planetScript.updatePlanetStats();
+        updateStorageUI();
     }
 
     public void displayHabitatBuildings()
@@ -385,6 +390,16 @@ public class PlanetMenu : MonoBehaviour
             Debug.LogError("Failed to get Planet component from object " + starshipPosition.getTargetObject() +
                 "\nThis probably means the target object wasnt a planet" +
                 "\nTarget name: " + starshipPosition.getTargetObject().name);
+        }
+    }
+
+    public void updateStorageUI()
+    {
+        Planet planetScript = starshipPosition.getTargetObject().gameObject.GetComponent<Planet>();
+        storagePanel.clearItems();
+        foreach(Tuple<Item, int> item in planetScript.storageList)
+        {
+            storagePanel.addItem(item.Item1, item.Item2);
         }
     }
 }

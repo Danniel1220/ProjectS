@@ -6,7 +6,7 @@ using static HabitatBuilding;
 public class StorageBuilding
 {
     public StorageBuildingType buildingType;
-    public int maxStorageSlots;
+    public int storageSlots;
 
     public enum StorageBuildingType { Container, Warehouse };
 
@@ -18,10 +18,10 @@ public class StorageBuilding
         switch (buildingType)
         {
             case StorageBuildingType.Container:
-                maxStorageSlots = 10;
+                storageSlots = 10;
                 break;
             case StorageBuildingType.Warehouse:
-                maxStorageSlots = 40; 
+                storageSlots = 40; 
                 break;
         }
     }

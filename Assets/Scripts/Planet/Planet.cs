@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using static UnityEditor.Progress;
 using Random = UnityEngine.Random;
 
 public class Planet : MonoBehaviour
 {
+    private SectorsStats sectorsStats;
+    private PlanetMenu planetMenu;
+
     public string planetName;
 
     public int index;
@@ -23,11 +27,89 @@ public class Planet : MonoBehaviour
 
     public List<Sector> sectors;
 
+    public int population;
+    public int populationUsage;
+    public int storageSlots;
+    public int storageUsage;
+    public int energyOutput;
+    public int energyUsage;
+    public int miningOutput;
+    public int researchSpeed;
+
+    public List<Tuple<Item, int>> storageList;
+
     public void init()
     {
         initResources();
         initPlanetInfo();
         sectors = new List<Sector>();
+        storageList = new List<Tuple<Item, int>>();
+        planetMenu = UIManagers.planetMenuPanel;
+    }
+
+    public void updatePlanetStats()
+    {
+        populationUsage = 0;
+        energyUsage = 0;
+        sectorsStats = UIManagers.sectorStats;
+        foreach(Sector sector in sectors)
+        {
+            if (sector.type == Sector.SectorType.Habitat)
+            {
+                population = 0;
+                foreach(HabitatBuilding habitatBuilding in sector.habitatBuildings)
+                {
+                    population += habitatBuilding.population;
+                    energyUsage += habitatBuilding.energyUsage;
+                }
+            }
+            if (sector.type == Sector.SectorType.Storage)
+            {
+                storageSlots = 0;
+                foreach(StorageBuilding storageBuilding in sector.storageBuildings)
+                {
+                    storageSlots += storageBuilding.storageSlots;
+                }
+            }
+            if (sector.type == Sector.SectorType.Energy)
+            {
+                energyOutput = 0;
+                foreach(EnergyBuilding energyBuilding in sector.energyBuildings)
+                {
+                    energyOutput += energyBuilding.energyOutput;
+                }
+            }
+            if (sector.type == Sector.SectorType.Mining)
+            {
+                miningOutput = 0;
+                foreach(MiningBuilding miningBuilding in sector.miningBuildings)
+                {
+                    miningOutput += miningBuilding.resourceOutput;
+                    populationUsage += miningBuilding.populationUsage;
+                    energyUsage += miningBuilding.energyUsage;
+                }
+            }
+            if (sector.type == Sector.SectorType.Production)
+            {
+                foreach(ProductionBuilding productionBuilding in sector.productionBuildings)
+                {
+                    populationUsage += productionBuilding.populationUsage;
+                    energyUsage += productionBuilding.energyUsage;
+                }
+            }
+            if (sector.type == Sector.SectorType.Science)
+            {
+                researchSpeed = 0;
+                foreach(ScienceBuilding scienceBuilding in sector.scienceBuildings)
+                {
+                    researchSpeed += scienceBuilding.researchSpeed;
+                    populationUsage += scienceBuilding.populationUsage;
+                    energyUsage += scienceBuilding.energyUsage;
+                }
+            }
+        }
+
+        sectorsStats.setStats(population, storageSlots, energyOutput, miningOutput, 0, researchSpeed);
     }
 
     public void addSector(Sector.SectorType sectorType)
@@ -131,6 +213,7 @@ public class Planet : MonoBehaviour
                             if (sector.type == sectorType)
                             {
                                 sector.addMiningBuilding(buildingType);
+                                InvokeRepeating("mineResources", 0f, 1f);
                                 break;
                             }
                         }
@@ -266,5 +349,54 @@ public class Planet : MonoBehaviour
     public List<Sector> getSectorList()
     {
         return sectors;
+    }
+
+    public void addItemToStorage(int id, int amount)
+    {
+        bool itemAlreadyInStorage = false;
+        // first check if that type of item is already in the storage
+        // (the reason why is use a for and not a foreach as usual is because i have to reasign the tuple
+        // since it is immutable, and im not allowed to assign the item i loop over in a foreach)
+        for (int i = 0; i < storageList.Count; i++)
+        {
+            // found the same item in storage
+            if (storageList[i].Item1.id == id)
+            {
+                itemAlreadyInStorage = true;
+                storageList[i] = Tuple.Create(storageList[i].Item1, storageList[i].Item2 + amount);
+            }
+        }
+
+        // if the item isnt already in storage we have to create a new one
+        if (!itemAlreadyInStorage)
+        {
+            storageList.Add(Tuple.Create(ItemObject.getItemById(id), amount));
+        }
+    }
+
+    public void takeItemFromStorage(Item item, int amount)
+    {
+        
+    }
+
+    public void mineResources()
+    {
+        int resourcesMined = 0;
+
+        foreach(Sector sector in sectors)
+        {
+            if (sector.type == Sector.SectorType.Mining)
+            {
+                foreach(MiningBuilding miningBuilding in sector.miningBuildings)
+                {
+                    resourcesMined += miningBuilding.resourceOutput;
+                }
+                break;
+            }
+
+        }
+        addItemToStorage(1, resourcesMined);
+        if (planetMenu.isActiveAndEnabled) planetMenu.updateStorageUI();
+        Debug.Log("Mined " + resourcesMined + " on planet " + planetName);
     }
 }
