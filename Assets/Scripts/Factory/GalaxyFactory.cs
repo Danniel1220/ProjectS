@@ -158,6 +158,7 @@ public class GalaxyFactory : MonoBehaviour
 
     private void removeOverlappedStarSystems(float minDistance)
     {
+        int checksMade = 0;
         // for each chunk
         foreach (Chunk chunk in galaxyChunkSystem.chunkList)
         {
@@ -170,6 +171,7 @@ public class GalaxyFactory : MonoBehaviour
                 // iterate again through every object in the given chunk
                 for (int j = 0; j < chunk.chunkGameObjectList.Count; j++)
                 {
+                    checksMade++;
                     // if the objects are not one and the same and the distance between them is smaller than the minDistance
                     // and if both objects have Star tags
                     if (chunk.chunkGameObjectList[i] != chunk.chunkGameObjectList[j] &&
@@ -196,6 +198,7 @@ public class GalaxyFactory : MonoBehaviour
             }
         }
 
+        Debug.Log("Checks made: " + checksMade);
     }
 
     private void createTestCube(GameObject parent)

@@ -20,7 +20,8 @@ public class StarshipPosition : MonoBehaviour
     // but it is equal to -1 if we are not currently hovering over a planet
     [SerializeField] private int targetPlanetIndex;
 
-    float shipSpeed = 2f;
+    float shipMovementSpeed = 2f;
+    float shipRotationSpeed = 200f;
     [SerializeField] private float floatDistanceAboveTarget = 20f;
 
     StarFactory starFactory;
@@ -45,8 +46,10 @@ public class StarshipPosition : MonoBehaviour
         if (targetObject != null)
         {
             Vector3 targetPosition = new Vector3(targetObject.transform.position.x, targetObject.transform.position.y + floatDistanceAboveTarget, targetObject.transform.position.z);
-            starshipGameObject.transform.position = Vector3.Lerp(starshipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipSpeed * Time.deltaTime));
-            targetPosition.x = 0f;
+            starshipGameObject.transform.position = Vector3.Lerp(starshipTransform.position, targetPosition, Mathf.MoveTowards(0f, 1f, shipMovementSpeed * Time.deltaTime));
+
+            Quaternion targetRotation = Quaternion.LookRotation(starshipTransform.position - targetPosition);
+            starshipTransform.rotation = Quaternion.RotateTowards(starshipTransform.rotation, targetRotation, shipRotationSpeed * Time.deltaTime);
         }
     }
     public void setTargetPositionViaStar(GameObject target)

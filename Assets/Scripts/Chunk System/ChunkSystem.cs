@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ChunkSystem : MonoBehaviour
 {
-    private float chunkSize = 10240f;
+    private float chunkSize = 1024;
     public float ChunkSize { get => chunkSize; }
 
     private Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk>();
@@ -15,11 +15,6 @@ public class ChunkSystem : MonoBehaviour
 
     public Text UIText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
