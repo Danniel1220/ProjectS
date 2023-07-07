@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CameraControl : MonoBehaviour
 {
     float zoomMinDistance = 5f;
-    float zoomMaxDistance = 2000f;
+    public float zoomMaxDistance = 2000f;
     float zoomMultiplier = 100f;
     float zoomSmoothingFactor = 5f;
     float zoomDelta;

@@ -1,0 +1,1015 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EarthLike
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: d439c0548dab647418d96e97b47b9011, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: planetMaterial
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.size
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key0.r
+    value: 0.227451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key0.g
+    value: 0.4431373
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key0.b
+    value: 0.627451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key0.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key1.r
+    value: 0.94117653
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key1.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key1.b
+    value: 0.5137255
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key1.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key2.r
+    value: 0.5411765
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key2.g
+    value: 0.8313726
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key2.b
+    value: 0.16862746
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key2.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key3.r
+    value: 0.5019608
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key3.g
+    value: 0.427451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key3.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key3.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key4.r
+    value: 0.6313726
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key4.g
+    value: 0.3254902
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key4.b
+    value: 0.050980397
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key4.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key5.r
+    value: 0.45098042
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key5.g
+    value: 0.20392159
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key5.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key5.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key6.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key6.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key6.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key6.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key7.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key7.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key7.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.key7.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime1
+    value: 2699
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime2
+    value: 16191
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime3
+    value: 32575
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime4
+    value: 45296
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime5
+    value: 50115
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime6
+    value: 55319
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.ctime7
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime1
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime2
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime3
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime4
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime5
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime6
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.atime7
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.m_Mode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.m_NumColorKeys
+    value: 8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].gradient.m_NumAlphaKeys
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].tint.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].tint.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].tint.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].tint.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].startHeight
+    value: 0.325
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[0].tintPercent
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key0.r
+    value: 0.227451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key0.g
+    value: 0.4431373
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key0.b
+    value: 0.627451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key0.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key1.r
+    value: 0.94117653
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key1.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key1.b
+    value: 0.5137255
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key1.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key2.r
+    value: 0.5411765
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key2.g
+    value: 0.8313726
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key2.b
+    value: 0.16862746
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key2.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key3.r
+    value: 0.5019608
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key3.g
+    value: 0.427451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key3.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key3.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key4.r
+    value: 0.6313726
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key4.g
+    value: 0.3254902
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key4.b
+    value: 0.050980397
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key4.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key5.r
+    value: 0.45098042
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key5.g
+    value: 0.20392159
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key5.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key5.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key6.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key6.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key6.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key6.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key7.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key7.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key7.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.key7.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime1
+    value: 2699
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime2
+    value: 16191
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime3
+    value: 32575
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime4
+    value: 45296
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime5
+    value: 50115
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime6
+    value: 55319
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.ctime7
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime1
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime2
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime3
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime4
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime5
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime6
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.atime7
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.m_Mode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.m_NumColorKeys
+    value: 8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].gradient.m_NumAlphaKeys
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].tint.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].tint.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].tint.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].tint.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].startHeight
+    value: 0.472
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[1].tintPercent
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key0.r
+    value: 0.227451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key0.g
+    value: 0.4431373
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key0.b
+    value: 0.627451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key0.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key1.r
+    value: 0.94117653
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key1.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key1.b
+    value: 0.5137255
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key1.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key2.r
+    value: 0.5411765
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key2.g
+    value: 0.8313726
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key2.b
+    value: 0.16862746
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key2.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key3.r
+    value: 0.5019608
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key3.g
+    value: 0.427451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key3.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key3.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key4.r
+    value: 0.6313726
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key4.g
+    value: 0.3254902
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key4.b
+    value: 0.050980397
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key4.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key5.r
+    value: 0.45098042
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key5.g
+    value: 0.20392159
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key5.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key5.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key6.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key6.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key6.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key6.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key7.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key7.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key7.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.key7.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime1
+    value: 2699
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime2
+    value: 16191
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime3
+    value: 32575
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime4
+    value: 45296
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime5
+    value: 50115
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime6
+    value: 55319
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.ctime7
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime1
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime2
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime3
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime4
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime5
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime6
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.atime7
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.m_Mode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.m_NumColorKeys
+    value: 8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].gradient.m_NumAlphaKeys
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].tint.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].tint.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].tint.b
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].tint.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].startHeight
+    value: 0.888
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.biomes.Array.data[2].tintPercent
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.filterType
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.strenght
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.numberOfLayers
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.baseRoughness
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.roughness
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.persistence
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.centre.x
+    value: -10856
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.centre.y
+    value: -3868
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.centre.z
+    value: 10983
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.simpleNoiseSettings.minValue
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.strenght
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.numberOfLayers
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.baseRoughness
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.roughness
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.persistence
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.centre.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.centre.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.centre.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.minValue
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noise.rigidNoiseSettings.weightMultiplier
+    value: 0.8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noiseOffset
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.noiseStenght
+    value: 0.2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: biomeColorSettings.blendAmount
+    value: 0.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key0.r
+    value: 0.003921569
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key0.g
+    value: 0.08627451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key0.b
+    value: 0.28235295
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key0.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key1.r
+    value: 0.07058824
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key1.g
+    value: 0.17254902
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key1.b
+    value: 0.427451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key1.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key2.r
+    value: 0.0627451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key2.g
+    value: 0.24705884
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key2.b
+    value: 0.5529412
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key2.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key3.r
+    value: 0.03529412
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key3.g
+    value: 0.3372549
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key3.b
+    value: 0.5921569
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key3.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key4.r
+    value: 0.18431373
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key4.g
+    value: 0.5686275
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key4.b
+    value: 0.76470596
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key4.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key5.r
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key5.g
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key5.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key5.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key6.r
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key6.g
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key6.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key6.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key7.r
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key7.g
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key7.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.key7.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime1
+    value: 22937
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime2
+    value: 45296
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime3
+    value: 51079
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime4
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime5
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime6
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.ctime7
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime0
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime1
+    value: 65535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime2
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime3
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime4
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime5
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime6
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.atime7
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.m_Mode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.m_NumColorKeys
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: oceanColor.m_NumAlphaKeys
+    value: 2
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

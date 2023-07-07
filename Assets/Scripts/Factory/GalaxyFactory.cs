@@ -13,14 +13,14 @@ public class GalaxyFactory : MonoBehaviour
     private HomeworldDesignator homeworldDesignator;
 
     [SerializeField] private int primaryNumberOfPoints;
-    [SerializeField] private float primaryTurnFraction;
+    [SerializeField] public float primaryTurnFraction;
     [SerializeField] private float primaryDistanceFactor;
     [SerializeField] private float primaryLocationNoiseXZ;
     [SerializeField] private float primaryMinLocationNoiseXZ;
     [SerializeField] private float primaryLocationNoiseY;
 
     [SerializeField] private int secondaryNumberOfPoints;
-    [SerializeField] private float secondaryTurnFraction;
+    [SerializeField] public float secondaryTurnFraction;
     [SerializeField] private float secondaryDistanceFactor;
     [SerializeField] private float secondaryLocationNoiseXZ;
     [SerializeField] private float secondaryMinLocationNoiseXZ;
@@ -32,10 +32,10 @@ public class GalaxyFactory : MonoBehaviour
     [SerializeField] private GameObject testCubePrefabRed;
     [SerializeField] private GameObject testCubePrefabGreen;
 
-    PointsOnDiskSettings primaryDiskSettings;
-    PointsOnDiskSettings secondaryDiskSettings;
+    public PointsOnDiskSettings primaryDiskSettings;
+    public PointsOnDiskSettings secondaryDiskSettings;
 
-    struct PointsOnDiskSettings
+    public struct PointsOnDiskSettings
     {
         public int numberOfPoints;
         public float turnFraction;
@@ -73,11 +73,11 @@ public class GalaxyFactory : MonoBehaviour
         // i create these structs that hold the settings i need to pass to the disc creating functions
         // because sending in a million parameters is just horrible
         primaryDiskSettings = new PointsOnDiskSettings(
-            primaryNumberOfPoints, 
-            primaryTurnFraction, 
-            primaryDistanceFactor, 
-            primaryLocationNoiseXZ, 
-            primaryLocationNoiseY, 
+            primaryNumberOfPoints,
+            primaryTurnFraction,
+            primaryDistanceFactor,
+            primaryLocationNoiseXZ,
+            primaryLocationNoiseY,
             primaryMinLocationNoiseXZ,
             true, true, true);
 
@@ -89,12 +89,6 @@ public class GalaxyFactory : MonoBehaviour
             secondaryLocationNoiseY,
             secondaryMinLocationNoiseXZ,
             false, true, false);
-
-        // if the main menu tells us the game started via pressing new game then create a new galaxy
-        if (MainMenu.gameStartState == MainMenu.GameStartState.NewGame)
-        {
-            generateGalaxy();
-        }
     }
 
     public void generateGalaxy()
@@ -111,7 +105,7 @@ public class GalaxyFactory : MonoBehaviour
         homeworldDesignator.designateHomeworld();
     }
 
-    private void createPointsOnDisk(PointsOnDiskSettings diskSettings)
+    public void createPointsOnDisk(PointsOnDiskSettings diskSettings)
     {
         for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
@@ -156,7 +150,7 @@ public class GalaxyFactory : MonoBehaviour
         }
     }
 
-    private void removeOverlappedStarSystems(float minDistance)
+    public void removeOverlappedStarSystems(float minDistance)
     {
         int checksMade = 0;
         // for each chunk
@@ -201,10 +195,164 @@ public class GalaxyFactory : MonoBehaviour
         Debug.Log("Checks made: " + checksMade);
     }
 
-    private void createTestCube(GameObject parent)
+    public void createTestCube(GameObject parent, string color, Vector3 position)
     {
         GameObject cube;
-        cube = Instantiate(testCubePrefabBlue, parent.transform.position, Quaternion.identity);
+        if (color == "blue")
+        {
+            cube = Instantiate(testCubePrefabBlue, position, Quaternion.identity);
+        }
+        else if (color == "red")
+        {
+            cube = Instantiate(testCubePrefabRed, position, Quaternion.identity);
+        }
+        else
+        {
+            cube = Instantiate(testCubePrefabGreen, position, Quaternion.identity);
+        }
         cube.transform.parent = parent.transform;
+        cube.transform.localScale = Vector3.one;
+        cube.transform.position = position;
+    }
+
+    public void createTestCubesOnDisk(PointsOnDiskSettings diskSettings, bool noise)
+    {
+        for (int i = 0; i < diskSettings.numberOfPoints; i++)
+        {
+            // computing points on a circle with a specific turn fraction that forms a galaxy shape
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
+
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+
+            if (noise)
+            {
+                float noiseX;
+                float noiseY;
+                float noiseZ;
+
+                // mapping the distance to center to the inverse of maximum location noise,
+                // this way the further away from the center a point is,
+                // we can potentially decrease the location noise if required,
+                // on any of the 3 axis
+                float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+                float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+                float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+                float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+
+                // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
+                if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
+
+                if (diskSettings.decreaseXNoiseByDistance) noiseX = Random.Range(-mapOutputXZ, mapOutputXZ);
+                else noiseX = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
+
+                if (diskSettings.decreaseYNoiseByDistance) noiseY = Random.Range(-mapOutputY, mapOutputY);
+                else noiseY = Random.Range(-diskSettings.locationNoiseY, diskSettings.locationNoiseY);
+
+                if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
+                else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
+
+                float pointXAfterNoise = pointX + noiseX;
+                float pointYAfterNoise = pointY + noiseY;
+                float pointZAfterNoise = pointZ + noiseZ;
+
+                if (i % 2 == 0)
+                {
+                    createTestCube(this.gameObject, "blue", new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
+                }
+                else
+                {
+                    createTestCube(this.gameObject, "red", new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
+                }
+            }
+            else
+            {
+                if (i % 2 == 0)
+                {
+                    createTestCube(this.gameObject, "blue", new Vector3(pointX, pointY, pointZ));
+                }
+                else
+                {
+                    createTestCube(this.gameObject, "red", new Vector3(pointX, pointY, pointZ));
+                }
+            }
+        }
+    }
+
+    public void createTestCubesOnDiskGreen(PointsOnDiskSettings diskSettings, bool noise)
+    {
+        for (int i = 0; i < diskSettings.numberOfPoints; i++)
+        {
+            // computing points on a circle with a specific turn fraction that forms a galaxy shape
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
+
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+
+            if (noise)
+            {
+                float noiseX;
+                float noiseY;
+                float noiseZ;
+
+                // mapping the distance to center to the inverse of maximum location noise,
+                // this way the further away from the center a point is,
+                // we can potentially decrease the location noise if required,
+                // on any of the 3 axis
+                float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+                float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+                float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+                float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+
+                // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
+                if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
+
+                if (diskSettings.decreaseXNoiseByDistance) noiseX = Random.Range(-mapOutputXZ, mapOutputXZ);
+                else noiseX = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
+
+                if (diskSettings.decreaseYNoiseByDistance) noiseY = Random.Range(-mapOutputY, mapOutputY);
+                else noiseY = Random.Range(-diskSettings.locationNoiseY, diskSettings.locationNoiseY);
+
+                if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
+                else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
+
+                float pointXAfterNoise = pointX + noiseX;
+                float pointYAfterNoise = pointY + noiseY;
+                float pointZAfterNoise = pointZ + noiseZ;
+
+                createTestCube(this.gameObject, "green", new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
+            }
+            else
+            {
+                createTestCube(this.gameObject, "green", new Vector3(pointX, pointY, pointZ));
+            }
+        }
+    }
+
+    public void setDiskSettings()
+    {
+        // i create these structs that hold the settings i need to pass to the disc creating functions
+        // because sending in a million parameters is just horrible
+        primaryDiskSettings = new PointsOnDiskSettings(
+            primaryNumberOfPoints,
+            primaryTurnFraction,
+            primaryDistanceFactor,
+            primaryLocationNoiseXZ,
+            primaryLocationNoiseY,
+            primaryMinLocationNoiseXZ,
+            true, true, true);
+
+        secondaryDiskSettings = new PointsOnDiskSettings(
+            secondaryNumberOfPoints,
+            secondaryTurnFraction,
+            secondaryDistanceFactor,
+            secondaryLocationNoiseXZ,
+            secondaryLocationNoiseY,
+            secondaryMinLocationNoiseXZ,
+            false, true, false);
     }
 }

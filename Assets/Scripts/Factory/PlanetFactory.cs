@@ -272,8 +272,10 @@ public class PlanetFactory : MonoBehaviour
 
         // creating the planet game object
         GameObject planet = new GameObject();
-        
-        planet.name = nameGenerator.generateRandomName();
+
+        nameGenerator = GameManagers.nameGenerator;
+        if (nameGenerator != null) planet.name = nameGenerator.generateRandomName();
+        else planet.name = "?CouldNotGeneratePlanetName?";
         planet.tag = "Planet";
 
         // set the planet's parent to the star system

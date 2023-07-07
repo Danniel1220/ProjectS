@@ -40,7 +40,7 @@ public class PlanetInfo : MonoBehaviour
     {
         nameText.text = planetScript.gameObject.name;
         informationText.text = planetScript.planetInfo;
-        colonyPacksAvailableText.text = "(" + starshipInventory.colonyPacks + " Colony Packs available)";
+        colonyPacksAvailableText.text = "(" + starshipInventory.colonyPacks + " Pachete de colonie ramase)";
 
         // planet is colonized so we open the planet info tab accordingly with the planet menu button
         if (planetScript.isColonized) 

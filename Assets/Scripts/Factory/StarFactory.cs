@@ -63,6 +63,13 @@ public class StarFactory : MonoBehaviour
 
         float maxPlanetRadius = planetFactory.getMaxPlanetRadius();
 
+        classMStarOrbitalDistances = new List<float>();
+        classKStarOrbitalDistances = new List<float>();
+        classGStarOrbitalDistances = new List<float>();
+        classFStarOrbitalDistances = new List<float>();
+        classAStarOrbitalDistances = new List<float>();
+        classBStarOrbitalDistances = new List<float>();
+        classOStarOrbitalDistances = new List<float>();
         for (int i = 0; i < MAX_PLANET_AMOUNT; i++)
         {
             // first orbit should be equal to the star's roche limit + half of the maximum planet radius
@@ -93,6 +100,10 @@ public class StarFactory : MonoBehaviour
     // no need for any arguments but the location calculated when creating the points
     public GameObject createStarSystem(Vector3 locationInSpace)
     {
+        // assigning these here as well in case the start function of this class did not have time to run when pressing 'new game'
+        // on the main menu
+        Start();
+
         // creating the new star system's container
         GameObject starSystemContainer = new GameObject();
         StarSystem starSystemScript = starSystemContainer.AddComponent<StarSystem>();

@@ -320,15 +320,15 @@ public class Planet : MonoBehaviour
         float traceMax = 0.014f;
         float trace = Mathf.Round(Random.Range(traceMin, traceMax) * 10000) / 10000;
 
-        resources.Add(new Resource("Iron", "Fe", iron));
-        resources.Add(new Resource("Oxygen", "O", oxygen));
-        resources.Add(new Resource("Sillicon", "Si", sillicon));
-        resources.Add(new Resource("Magnesium", "Mg", magnesium));
-        resources.Add(new Resource("Sulfur", "S", sulfur));
-        resources.Add(new Resource("Nickel", "Ni", nickel));
-        resources.Add(new Resource("Calcium", "Fe", calcium));
-        resources.Add(new Resource("Aluminum", "Fe", aluminum));
-        resources.Add(new Resource("Trace Elements", "Trace", trace));
+        resources.Add(new Resource("Fier", "Fe", iron));
+        resources.Add(new Resource("Oxigen", "O", oxygen));
+        resources.Add(new Resource("Silicon", "Si", sillicon));
+        resources.Add(new Resource("Magneziu", "Mg", magnesium));
+        resources.Add(new Resource("Sulf", "S", sulfur));
+        resources.Add(new Resource("Nichel", "Ni", nickel));
+        resources.Add(new Resource("Calciu", "Ca", calcium));
+        resources.Add(new Resource("Aluminiu", "Al", aluminum));
+        resources.Add(new Resource("Oligoelemente", "Trace", trace));
 
         this.resources = resources;
     }
