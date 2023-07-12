@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: O Class Star
       objectReference: {fileID: 0}
+    - target: {fileID: 3089618042555515988, guid: 05befe62f784bd842910870f48f1c344, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3089618042555515990, guid: 05befe62f784bd842910870f48f1c344, type: 3}
       propertyPath: m_RootOrder
       value: 10

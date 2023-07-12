@@ -343,6 +343,8 @@ public class Planet : MonoBehaviour
         // all the planets, by default, will have a habitat and storage sector created when they are colonized
         addSector(Sector.SectorType.Habitat);
         addSector(Sector.SectorType.Storage);
+
+        GameManagers.highscoreTracker.highscore += 100f;
     }
 
     // this function is used to retreive all the relevant data for the planet menu panel
@@ -390,6 +392,7 @@ public class Planet : MonoBehaviour
                 foreach(MiningBuilding miningBuilding in sector.miningBuildings)
                 {
                     resourcesMined += miningBuilding.resourceOutput;
+                    GameManagers.highscoreTracker.highscore += miningBuilding.resourceOutput / 100f;
                 }
                 break;
             }
