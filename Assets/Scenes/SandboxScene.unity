@@ -130,6 +130,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3089618042362832277, guid: 05befe62f784bd842910870f48f1c344, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089618042362832277, guid: 05befe62f784bd842910870f48f1c344, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089618042362832277, guid: 05befe62f784bd842910870f48f1c344, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 3089618042555515988, guid: 05befe62f784bd842910870f48f1c344, type: 3}
       propertyPath: m_Name
       value: O Class Star
@@ -181,6 +193,10 @@ PrefabInstance:
     - target: {fileID: 3089618042555515990, guid: 05befe62f784bd842910870f48f1c344, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089618042555515991, guid: 05befe62f784bd842910870f48f1c344, type: 3}
+      propertyPath: diameter
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05befe62f784bd842910870f48f1c344, type: 3}
@@ -1843,18 +1859,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec79ddc855ea54d8bb0e3174285bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 700
-  primaryTurnFraction: 0.7501
-  primaryDistanceFactor: 10000
-  primaryLocationNoiseXZ: 2500
-  primaryMinLocationNoiseXZ: 400
-  primaryLocationNoiseY: 500
-  secondaryNumberOfPoints: 300
+  primaryNumberOfPoints: 500
+  primaryTurnFraction: 0
+  primaryDistanceFactor: 100
+  primaryLocationNoiseXZ: 0
+  primaryMinLocationNoiseXZ: 0
+  primaryLocationNoiseY: 0
+  secondaryNumberOfPoints: 500
   secondaryTurnFraction: 1.618034
-  secondaryDistanceFactor: 11000
-  secondaryLocationNoiseXZ: 1000
-  secondaryMinLocationNoiseXZ: 250
-  secondaryLocationNoiseY: 250
+  secondaryDistanceFactor: 100
+  secondaryLocationNoiseXZ: 0
+  secondaryMinLocationNoiseXZ: 0
+  secondaryLocationNoiseY: 0
   minDistanceBetweenPoints: 100
   testCubePrefabBlue: {fileID: 6859995120686295600, guid: 92cd971fa96401a498363df1b3c0877c, type: 3}
   testCubePrefabRed: {fileID: 7639165620773984066, guid: 6e0d5c3dc17077745ad504fd994c47d7, type: 3}
@@ -1880,7 +1896,7 @@ MonoBehaviour:
   runningSecondary: 0
   incrementPrimaryTurnFraction: 0
   incrementSecondaryTurnFraction: 0
-  turnSpeed: 0.0001
+  turnSpeed: 0.001
 --- !u!4 &1986587662
 Transform:
   m_ObjectHideFlags: 0
