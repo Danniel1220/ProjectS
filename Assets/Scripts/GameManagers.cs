@@ -22,8 +22,6 @@ public class GameManagers: MonoBehaviour
 
     public static Inventory starshipInventory;
 
-    public static HighscoreTracker highscoreTracker;
-
     void Awake()
     {
         chunkSystem = GameObject.Find("GameManager").GetComponent<ChunkSystem>();
@@ -43,7 +41,5 @@ public class GameManagers: MonoBehaviour
         nameGenerator = GameObject.Find("GameManager").GetComponent<NameGenerator>();
 
         starshipInventory = GameObject.Find("Starship").GetComponent<Inventory>();
-
-        highscoreTracker = GameObject.Find("GameManager").GetComponent<HighscoreTracker>();
     }
 }

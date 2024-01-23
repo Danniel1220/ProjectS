@@ -309,8 +309,6 @@ public class PlanetFactory : MonoBehaviour
         // incrementing the planet index so that each planet generated has an unique index
         planetIndexCount++;
 
-        planetScript.init();
-
         return planet;
     }
 
@@ -352,8 +350,6 @@ public class PlanetFactory : MonoBehaviour
         planetScript.index = planetIndexCount;
         // incrementing the planet index so that each planet generated has an unique index
         planetIndexCount++;
-
-        planetScript.init();
 
         return planet;
     }

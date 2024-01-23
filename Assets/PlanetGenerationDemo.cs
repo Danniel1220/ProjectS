@@ -416,8 +416,6 @@ public class PlanetGenerationDemo : MonoBehaviour
         Planet planetScript = planet.AddComponent<Planet>();
         planetScript.index = 0;
 
-        planetScript.init();
-
         return planet;
     }
 
@@ -575,8 +573,6 @@ public class PlanetGenerationDemo : MonoBehaviour
         // assigning the planet script to the planet
         Planet planetScript = planet.AddComponent<Planet>();
         planetScript.index = 0;
-
-        planetScript.init();
 
         return planet;
     }
@@ -740,8 +736,6 @@ public class PlanetGenerationDemo : MonoBehaviour
         Planet planetScript = planet.AddComponent<Planet>();
         planetScript.index = 0;
 
-        planetScript.init();
-
         return planet;
     }
 
@@ -904,8 +898,6 @@ public class PlanetGenerationDemo : MonoBehaviour
         Planet planetScript = planet.AddComponent<Planet>();
         planetScript.index = 0;
 
-        planetScript.init();
-
         return planet;
     }
 
@@ -1067,8 +1059,6 @@ public class PlanetGenerationDemo : MonoBehaviour
         // assigning the planet script to the planet
         Planet planetScript = planet.AddComponent<Planet>();
         planetScript.index = 0;
-
-        planetScript.init();
 
         return planet;
     }

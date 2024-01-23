@@ -10,9 +10,6 @@ public class StarshipPosition : MonoBehaviour
     private HomeworldDesignator homeworldDesignator;
     private ChunkSystem chunkSystem;
 
-    private PlanetInfo planetInfoPanel;
-    private PlanetMenu planetMenuPanel;
-
     [SerializeField] private GameObject targetObject;
     [SerializeField] private GameObject cachedTargetObject;
     [SerializeField] private int targetStarIndex;
@@ -35,9 +32,6 @@ public class StarshipPosition : MonoBehaviour
         starFactory = GameManagers.starFactory;
         homeworldDesignator = GameManagers.homeworldDesignator;
         chunkSystem = GameManagers.chunkSystem;
-
-        planetInfoPanel = UIManagers.planetInfoPanel;
-        planetMenuPanel = UIManagers.planetMenuPanel;
     }
 
     // Update is called once per frame
@@ -72,9 +66,6 @@ public class StarshipPosition : MonoBehaviour
         targetPlanetIndex = -1;
         // we're hovering a star so we dont need to cache anything
         cachedTargetObject = null;
-
-        planetInfoPanel.closeWindow();
-        planetMenuPanel.closeWindow();
     }
 
     // this isn't particularly efficient so it is only used when loading the save file
@@ -102,14 +93,6 @@ public class StarshipPosition : MonoBehaviour
 
         targetObject = target;
         targetPlanetIndex = planetScript.index;
-
-        // the reason i call to close this window is because it is possible that the starship is already
-        // hovering over a planet, in which case i want to close the window because the ship moved
-        // and the information inside isnt relevant anymore anyways
-        planetMenuPanel.closeWindow();
-
-        planetInfoPanel.openWindow();
-        planetInfoPanel.updateInformation(planetScript);
     }
 
     public void enterStarSystemView()
@@ -129,11 +112,6 @@ public class StarshipPosition : MonoBehaviour
             cachedTargetObject = null;
             // signal that we are no longer hovering over a planet
             targetPlanetIndex = -1;
-
-            // also disabling the relevant UI object since we know we no longer hover over anything
-            // that we need a special panel for
-            planetInfoPanel.gameObject.SetActive(false);
-            planetMenuPanel.closeWindow();
         }
         // not hovering over a planet, so just exit the star system view as usual
         else

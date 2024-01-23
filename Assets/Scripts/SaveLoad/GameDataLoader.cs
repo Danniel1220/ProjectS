@@ -16,12 +16,6 @@ public class GameDataLoader : MonoBehaviour
         starFactory = GameManagers.starFactory;
         planetFactory = GameManagers.planetFactory;
         starshipPosition = GameManagers.starshipPosition;
-
-        // if the main menu tells us the game started via pressing load game then load the save file
-        if (MainMenu.gameStartState == MainMenu.GameStartState.LoadGame)
-        {
-            loadGameData();
-        }
     }
 
     public void loadGameData()
