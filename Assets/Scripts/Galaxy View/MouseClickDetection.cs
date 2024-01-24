@@ -16,12 +16,12 @@ public class MouseClickDetection : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Debug.Log("mouse is over gameobject " + this.gameObject.name);
+        // Debug.Log("mouse is over gameobject " + this.gameObject.name);
     }
 
     void OnMouseExit()
     {
-        Debug.Log("mouse is no longer over gameobject " + this.gameObject.name);
+        // Debug.Log("mouse is no longer over gameobject " + this.gameObject.name);
     }
 
     void OnMouseDown()

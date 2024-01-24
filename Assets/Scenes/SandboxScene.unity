@@ -1859,13 +1859,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec79ddc855ea54d8bb0e3174285bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 500
+  primaryNumberOfPoints: 36000
   primaryTurnFraction: 0
   primaryDistanceFactor: 100
   primaryLocationNoiseXZ: 0
   primaryMinLocationNoiseXZ: 0
   primaryLocationNoiseY: 0
-  secondaryNumberOfPoints: 500
+  secondaryNumberOfPoints: 12000
   secondaryTurnFraction: 1.618034
   secondaryDistanceFactor: 100
   secondaryLocationNoiseXZ: 0

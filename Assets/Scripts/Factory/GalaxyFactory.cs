@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -35,6 +36,10 @@ public class GalaxyFactory : MonoBehaviour
     public PointsOnDiskSettings primaryDiskSettings;
     public PointsOnDiskSettings secondaryDiskSettings;
 
+    public int numberOfStars;
+    public IEnumerator firstDisk;
+    public IEnumerator secondDisk;
+
     public struct PointsOnDiskSettings
     {
         public int numberOfPoints;
@@ -61,10 +66,10 @@ public class GalaxyFactory : MonoBehaviour
         }
     }
 
-    public Text UIText;
-
     void Start()
     {
+        numberOfStars = 0;
+
         galaxyChunkSystem = GameManagers.chunkSystem;
         starFactory = GameManagers.starFactory;
         homeworldDesignator = GameManagers.homeworldDesignator;
@@ -94,15 +99,73 @@ public class GalaxyFactory : MonoBehaviour
     public void generateGalaxy()
     {
         // primary formation
-        createPointsOnDisk(primaryDiskSettings);
+        //createPointsOnDiskEnumerator(primaryDiskSettings);
         // secondary formation
-        createPointsOnDisk(secondaryDiskSettings);
+        //createPointsOnDiskEnumerator(secondaryDiskSettings);
+
+        firstDisk = createPointsOnDiskEnumerator(primaryDiskSettings);
+        secondDisk = createPointsOnDiskEnumerator(secondaryDiskSettings);
+
+        StartCoroutine(firstDisk);
+        StartCoroutine(secondDisk);
 
         // remove overlapped points caused by location noise rng
         removeOverlappedStarSystems(minDistanceBetweenPoints);
 
         // designate the homeworld
         homeworldDesignator.designateHomeworld();
+    }
+
+    public IEnumerator createPointsOnDiskEnumerator(PointsOnDiskSettings diskSettings)
+    {
+        Debug.Log("attempting to generate galaxy...");
+
+        for (int i = 0; i < diskSettings.numberOfPoints; i++)
+        {
+            // computing points on a circle with a specific turn fraction that forms a galaxy shape
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
+
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+
+            float noiseX;
+            float noiseY;
+            float noiseZ;
+
+            // mapping the distance to center to the inverse of maximum location noise,
+            // this way the further away from the center a point is,
+            // we can decrease the location noise on any of the 3 axis, if required
+            float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+            float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+            float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+            float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+
+            // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
+            if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
+
+            // this decreases the location noise by distance, if required
+            if (diskSettings.decreaseXNoiseByDistance) noiseX = Random.Range(-mapOutputXZ, mapOutputXZ);
+            else noiseX = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
+
+            if (diskSettings.decreaseYNoiseByDistance) noiseY = Random.Range(-mapOutputY, mapOutputY);
+            else noiseY = Random.Range(-diskSettings.locationNoiseY, diskSettings.locationNoiseY);
+
+            if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
+            else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
+
+            float pointXAfterNoise = pointX + noiseX;
+            float pointYAfterNoise = pointY + noiseY;
+            float pointZAfterNoise = pointZ + noiseZ;
+
+            starFactory.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
+
+            Debug.Log("Star System " + numberOfStars + " created at (" + pointXAfterNoise + "," + pointYAfterNoise + "," + pointZAfterNoise + ")");
+            numberOfStars++;
+
+            yield return null;
+        }
     }
 
     public void createPointsOnDisk(PointsOnDiskSettings diskSettings)
