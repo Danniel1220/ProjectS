@@ -13,11 +13,21 @@ public class ChunkSystem : MonoBehaviour
 
     public List<Chunk> chunkList = new List<Chunk>();
 
-    public Text UIText;
+    private Text UIText;
 
+
+    void Start()
+    {
+        UIText = GameObject.Find("Canvas").transform.Find("FieldValue").gameObject.GetComponent<Text>();
+    }
 
     // Update is called once per frame
     void Update()
+    {
+        UIText.text = getTotalNumberOfGameObjectsInChunks().ToString();
+    }
+
+    public void updateDebugStarNumber()
     {
         UIText.text = getTotalNumberOfGameObjectsInChunks().ToString();
     }

@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class GalaxyFactory : MonoBehaviour
 {
-    private ChunkSystem galaxyChunkSystem;
+    private ChunkSystem chunkSystem;
     private StarFactory starFactory;
     private HomeworldDesignator homeworldDesignator;
 
@@ -36,9 +36,15 @@ public class GalaxyFactory : MonoBehaviour
     public PointsOnDiskSettings primaryDiskSettings;
     public PointsOnDiskSettings secondaryDiskSettings;
 
-    public int numberOfStars;
-    public IEnumerator firstDisk;
-    public IEnumerator secondDisk;
+    public int numberOfStarsGenerated;
+    public IEnumerator primaryDiskCoroutine;
+    public IEnumerator secondaryDiskCoroutine;
+    public IEnumerator removeOverlappedStarSystemsCoroutine;
+
+    private bool primaryDiskGeneratedFlag;
+    private bool secondaryDiskGeneratedFlag;
+
+    public enum DiskType { primary, secondary };
 
     public struct PointsOnDiskSettings
     {
@@ -51,8 +57,9 @@ public class GalaxyFactory : MonoBehaviour
         public bool decreaseXNoiseByDistance;
         public bool decreaseYNoiseByDistance;
         public bool decreaseZNoiseByDistance;
+        public DiskType diskType;
 
-        public PointsOnDiskSettings(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ, bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance)
+        public PointsOnDiskSettings(int numberOfPoints, float turnFraction, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ, bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance, DiskType diskType)
         {
             this.numberOfPoints = numberOfPoints;
             this.turnFraction = turnFraction;
@@ -63,14 +70,13 @@ public class GalaxyFactory : MonoBehaviour
             this.decreaseXNoiseByDistance = decreaseXNoiseByDistance;
             this.decreaseYNoiseByDistance = decreaseYNoiseByDistance;
             this.decreaseZNoiseByDistance = decreaseZNoiseByDistance;
+            this.diskType = diskType;
         }
     }
 
     void Start()
     {
-        numberOfStars = 0;
-
-        galaxyChunkSystem = GameManagers.chunkSystem;
+        chunkSystem = GameManagers.chunkSystem;
         starFactory = GameManagers.starFactory;
         homeworldDesignator = GameManagers.homeworldDesignator;
 
@@ -84,7 +90,8 @@ public class GalaxyFactory : MonoBehaviour
             primaryLocationNoiseXZ,
             primaryLocationNoiseY,
             primaryMinLocationNoiseXZ,
-            true, true, true);
+            true, true, true,
+            DiskType.primary);
 
         secondaryDiskSettings = new PointsOnDiskSettings(
             secondaryNumberOfPoints,
@@ -93,33 +100,42 @@ public class GalaxyFactory : MonoBehaviour
             secondaryLocationNoiseXZ,
             secondaryLocationNoiseY,
             secondaryMinLocationNoiseXZ,
-            false, true, false);
+            false, true, false,
+            DiskType.secondary);
+
+        numberOfStarsGenerated = 0;
+
+        primaryDiskGeneratedFlag = false;
+        secondaryDiskGeneratedFlag = false;
     }
 
     public void generateGalaxy()
     {
-        // primary formation
-        //createPointsOnDiskEnumerator(primaryDiskSettings);
-        // secondary formation
-        //createPointsOnDiskEnumerator(secondaryDiskSettings);
+        primaryDiskCoroutine = createPointsOnDiskEnumerator(primaryDiskSettings);
+        secondaryDiskCoroutine = createPointsOnDiskEnumerator(secondaryDiskSettings);
+        removeOverlappedStarSystemsCoroutine = removeOverlappedStarSystemsEnumerator(minDistanceBetweenPoints);
 
-        firstDisk = createPointsOnDiskEnumerator(primaryDiskSettings);
-        secondDisk = createPointsOnDiskEnumerator(secondaryDiskSettings);
+        StartCoroutine(primaryDiskCoroutine);
+        StartCoroutine(secondaryDiskCoroutine);
+        StartCoroutine(removeOverlappedStarSystemsCoroutine);
 
-        StartCoroutine(firstDisk);
-        StartCoroutine(secondDisk);
 
-        // remove overlapped points caused by location noise rng
-        removeOverlappedStarSystems(minDistanceBetweenPoints);
+        //// primary formation
+        //createPointsOnDisk(primaryDiskSettings);
+        //// secondary formation
+        //createPointsOnDisk(secondaryDiskSettings);
+
+
+
+        //// remove overlapped points caused by location noise rng
+        //removeOverlappedStarSystems(minDistanceBetweenPoints);
 
         // designate the homeworld
-        homeworldDesignator.designateHomeworld();
+        //homeworldDesignator.designateHomeworld();
     }
 
     public IEnumerator createPointsOnDiskEnumerator(PointsOnDiskSettings diskSettings)
     {
-        Debug.Log("attempting to generate galaxy...");
-
         for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
             // computing points on a circle with a specific turn fraction that forms a galaxy shape
@@ -161,11 +177,72 @@ public class GalaxyFactory : MonoBehaviour
 
             starFactory.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
 
-            Debug.Log("Star System " + numberOfStars + " created at (" + pointXAfterNoise + "," + pointYAfterNoise + "," + pointZAfterNoise + ")");
-            numberOfStars++;
+            Debug.Log("Star System " + numberOfStarsGenerated + " created at (" + pointXAfterNoise + "," + pointYAfterNoise + "," + pointZAfterNoise + ")");
+            numberOfStarsGenerated++;
 
+            // yield only every 100 stars
+            if (i % 100 == 0) yield return null;
+        }
+
+        // settings flags to let the factory script know when the disks are done generating
+        if (diskSettings.diskType == DiskType.primary) { Debug.Log("[debug] set primary flag to true"); primaryDiskGeneratedFlag = true; }
+        if (diskSettings.diskType == DiskType.secondary) { Debug.Log("[debug] set secondary flag to true"); secondaryDiskGeneratedFlag = true; }
+    }
+
+    public IEnumerator removeOverlappedStarSystemsEnumerator(float minDistance)
+    {
+        // skip removing star systems while both flags are false, meaning the galaxy is not done generating yet
+        while (primaryDiskGeneratedFlag == false || secondaryDiskGeneratedFlag == false)
+        {
+            Debug.Log("[debug] not yet..." + primaryDiskGeneratedFlag + " " + secondaryDiskGeneratedFlag);
             yield return null;
         }
+        Debug.Log("[debug] nvm gotem " + primaryDiskGeneratedFlag + " " + secondaryDiskGeneratedFlag);
+
+        int checksMade = 0;
+        // for each chunk
+        foreach (Chunk chunk in chunkSystem.chunkList)
+        {
+            // iterate through every object in a given chunk
+            for (int i = 0; i < chunk.chunkGameObjectList.Count;)
+            {
+                // assume that we dont have to delete the object
+                bool shouldDelete = false;
+
+                // iterate again through every object in the given chunk
+                for (int j = 0; j < chunk.chunkGameObjectList.Count; j++)
+                {
+                    checksMade++;
+                    // if the objects are not one and the same and the distance between them is smaller than the minDistance
+                    // and if both objects have Star tags
+                    if (chunk.chunkGameObjectList[i] != chunk.chunkGameObjectList[j] &&
+                        Vector3.Distance(chunk.chunkGameObjectList[i].transform.position, chunk.chunkGameObjectList[j].transform.position) < minDistance &&
+                        chunk.chunkGameObjectList[i].tag == "Star System" && chunk.chunkGameObjectList[j].tag == "Star System")
+                    {
+                        // flag the object that it should be deleted
+                        shouldDelete = true;
+                        // break out of the loop since we already know the object should be deleted
+                        break;
+                    }
+                }
+                // if the object has been flagged for deletion
+                if (shouldDelete)
+                {
+                    // delete the object
+                    chunkSystem.deleteGameObjectFromChunk(chunk.chunkGameObjectList[i], chunk);
+                    // continue the loop without incrementing because an item has been removed from current index
+                    // so for the next loop we keep the index the same, but in reality the new object that is checked is the next one
+                    continue;
+                }
+                // we can only reach this statement if no object has been deleted, to continue with the iteration
+                i++;
+            }
+
+            // yield every chunk
+            yield return null;
+        }
+
+        Debug.Log("Checks made: " + checksMade);
     }
 
     public void createPointsOnDisk(PointsOnDiskSettings diskSettings)
@@ -210,6 +287,8 @@ public class GalaxyFactory : MonoBehaviour
             float pointZAfterNoise = pointZ + noiseZ;
 
             starFactory.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
+
+            chunkSystem.updateDebugStarNumber();
         }
     }
 
@@ -217,7 +296,7 @@ public class GalaxyFactory : MonoBehaviour
     {
         int checksMade = 0;
         // for each chunk
-        foreach (Chunk chunk in galaxyChunkSystem.chunkList)
+        foreach (Chunk chunk in chunkSystem.chunkList)
         {
             // iterate through every object in a given chunk
             for (int i = 0; i < chunk.chunkGameObjectList.Count;)
@@ -245,7 +324,7 @@ public class GalaxyFactory : MonoBehaviour
                 if (shouldDelete)
                 {
                     // delete the object
-                    galaxyChunkSystem.deleteGameObjectFromChunk(chunk.chunkGameObjectList[i], chunk);
+                    chunkSystem.deleteGameObjectFromChunk(chunk.chunkGameObjectList[i], chunk);
                     // continue the loop without incrementing because an item has been removed from current index
                     // so for the next loop we keep the index the same, but in reality the new object that is checked is the next one
                     continue;
@@ -407,7 +486,8 @@ public class GalaxyFactory : MonoBehaviour
             primaryLocationNoiseXZ,
             primaryLocationNoiseY,
             primaryMinLocationNoiseXZ,
-            true, true, true);
+            true, true, true,
+            DiskType.primary);
 
         secondaryDiskSettings = new PointsOnDiskSettings(
             secondaryNumberOfPoints,
@@ -416,6 +496,7 @@ public class GalaxyFactory : MonoBehaviour
             secondaryLocationNoiseXZ,
             secondaryLocationNoiseY,
             secondaryMinLocationNoiseXZ,
-            false, true, false);
+            false, true, false,
+            DiskType.secondary);
     }
 }
