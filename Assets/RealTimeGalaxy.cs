@@ -24,6 +24,7 @@ public class RealTimeGalaxy : MonoBehaviour
     {
         if (generate)
         {
+            clearChildren();
             galaxyFactory.setDiskSettings();
             galaxyFactory.createTestCubesOnDisk(galaxyFactory.primaryDiskSettings, true);
             generate = false;

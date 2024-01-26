@@ -38,7 +38,7 @@ public class ChunkSystem : MonoBehaviour
 
         if (chunkDictionary.ContainsKey(chunkPosition) == false)
         {
-            Debug.Log("Creating new chunk: " + chunkPosition.x + " " + chunkPosition.y);
+            //Debug.Log("Creating new chunk: " + chunkPosition.x + " " + chunkPosition.y);
             Chunk newChunk = new Chunk(chunkPosition);
             chunkDictionary.Add(chunkPosition, newChunk);
             chunkList.Add(newChunk);

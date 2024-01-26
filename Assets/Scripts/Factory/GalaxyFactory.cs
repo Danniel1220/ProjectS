@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,6 +46,10 @@ public class GalaxyFactory : MonoBehaviour
 
     public enum DiskType { primary, secondary };
 
+    private DateTime galaxyGenerationTimeStart;
+    private DateTime galaxyGenerationTimeEnd;
+    private TimeSpan galaxyGenerationTimeElapsed;
+
     public struct PointsOnDiskSettings
     {
         public int numberOfPoints;
@@ -77,6 +82,8 @@ public class GalaxyFactory : MonoBehaviour
     {
         chunkSystem = GameManagers.chunkSystem;
         starFactory = GameManagers.starFactory;
+
+        galaxyGenerationTimeStart = DateTime.Now;
 
         // i create these structs that hold the settings i need to pass to the disc creating functions
         // because sending in a million parameters is just horrible
@@ -230,6 +237,11 @@ public class GalaxyFactory : MonoBehaviour
         }
 
         Debug.Log("Checks made: " + checksMade);
+
+        galaxyGenerationTimeEnd = DateTime.Now;
+        galaxyGenerationTimeElapsed = galaxyGenerationTimeEnd - galaxyGenerationTimeStart;
+
+        Debug.Log("Galaxy Generation Time Elapsed: " + galaxyGenerationTimeElapsed);
     }
 
     public void createPointsOnDisk(PointsOnDiskSettings diskSettings)
