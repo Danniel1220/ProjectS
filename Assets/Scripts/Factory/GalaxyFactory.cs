@@ -11,7 +11,6 @@ public class GalaxyFactory : MonoBehaviour
 {
     private ChunkSystem chunkSystem;
     private StarFactory starFactory;
-    private HomeworldDesignator homeworldDesignator;
 
     [SerializeField] private int primaryNumberOfPoints;
     [SerializeField] public float primaryTurnFraction;
@@ -37,9 +36,9 @@ public class GalaxyFactory : MonoBehaviour
     public PointsOnDiskSettings secondaryDiskSettings;
 
     public int numberOfStarsGenerated;
-    public IEnumerator primaryDiskCoroutine;
-    public IEnumerator secondaryDiskCoroutine;
-    public IEnumerator removeOverlappedStarSystemsCoroutine;
+    private IEnumerator primaryDiskCoroutine;
+    private IEnumerator secondaryDiskCoroutine;
+    private IEnumerator removeOverlappedStarSystemsCoroutine;
 
     private bool primaryDiskGeneratedFlag;
     private bool secondaryDiskGeneratedFlag;
@@ -78,8 +77,6 @@ public class GalaxyFactory : MonoBehaviour
     {
         chunkSystem = GameManagers.chunkSystem;
         starFactory = GameManagers.starFactory;
-        homeworldDesignator = GameManagers.homeworldDesignator;
-
 
         // i create these structs that hold the settings i need to pass to the disc creating functions
         // because sending in a million parameters is just horrible
@@ -102,8 +99,6 @@ public class GalaxyFactory : MonoBehaviour
             secondaryMinLocationNoiseXZ,
             false, true, false,
             DiskType.secondary);
-
-        numberOfStarsGenerated = 0;
 
         primaryDiskGeneratedFlag = false;
         secondaryDiskGeneratedFlag = false;
@@ -177,9 +172,6 @@ public class GalaxyFactory : MonoBehaviour
 
             starFactory.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
 
-            Debug.Log("Star System " + numberOfStarsGenerated + " created at (" + pointXAfterNoise + "," + pointYAfterNoise + "," + pointZAfterNoise + ")");
-            numberOfStarsGenerated++;
-
             // yield only every 100 stars
             if (i % 100 == 0) yield return null;
         }
@@ -192,12 +184,7 @@ public class GalaxyFactory : MonoBehaviour
     public IEnumerator removeOverlappedStarSystemsEnumerator(float minDistance)
     {
         // skip removing star systems while both flags are false, meaning the galaxy is not done generating yet
-        while (primaryDiskGeneratedFlag == false || secondaryDiskGeneratedFlag == false)
-        {
-            Debug.Log("[debug] not yet..." + primaryDiskGeneratedFlag + " " + secondaryDiskGeneratedFlag);
-            yield return null;
-        }
-        Debug.Log("[debug] nvm gotem " + primaryDiskGeneratedFlag + " " + secondaryDiskGeneratedFlag);
+        while (primaryDiskGeneratedFlag == false || secondaryDiskGeneratedFlag == false) yield return null;
 
         int checksMade = 0;
         // for each chunk
