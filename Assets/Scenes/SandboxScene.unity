@@ -1068,7 +1068,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &730009638
 PrefabInstance:
@@ -1419,7 +1419,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1351296682 stripped
 Transform:
@@ -1859,23 +1859,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec79ddc855ea54d8bb0e3174285bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 36000
-  primaryTurnFraction: 0
-  primaryDistanceFactor: 100
-  primaryLocationNoiseXZ: 0
-  primaryMinLocationNoiseXZ: 0
-  primaryLocationNoiseY: 0
-  secondaryNumberOfPoints: 12000
+  primaryNumberOfPoints: 75000
+  primaryTurnFraction: 0.75001
+  primaryDistanceFactor: 100000
+  primaryLocationNoiseXZ: 20000
+  primaryMinLocationNoiseXZ: 5000
+  primaryLocationNoiseY: 5000
+  secondaryNumberOfPoints: 25000
   secondaryTurnFraction: 1.618034
-  secondaryDistanceFactor: 100
-  secondaryLocationNoiseXZ: 0
+  secondaryDistanceFactor: 100000
+  secondaryLocationNoiseXZ: 10000
   secondaryMinLocationNoiseXZ: 0
-  secondaryLocationNoiseY: 0
+  secondaryLocationNoiseY: 5000
   minDistanceBetweenPoints: 100
   testCubePrefabBlue: {fileID: 6859995120686295600, guid: 92cd971fa96401a498363df1b3c0877c, type: 3}
   testCubePrefabRed: {fileID: 7639165620773984066, guid: 6e0d5c3dc17077745ad504fd994c47d7, type: 3}
   testCubePrefabGreen: {fileID: 1572639170334780810, guid: 412f574913cfe0d449e107202656ed25, type: 3}
-  UIText: {fileID: 0}
+  testCubePrefabBlueMaterial: {fileID: 2100000, guid: d14c95ad71d7cc54d9e09a90618fc2cd, type: 2}
+  testCubePrefabRedMaterial: {fileID: 2100000, guid: 01de44035857af14db219cf1c53807d0, type: 2}
+  testCubePrefabGreenMaterial: {fileID: 2100000, guid: 15cfe33bb1a390b409b91cc9380479c5, type: 2}
+  testCubePrefabBlueMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  testCubePrefabRedMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  testCubePrefabGreenMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  numberOfStarsGenerated: 0
+  testCubeLocalScale: 100
 --- !u!114 &1986587661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,7 +2109,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1788088912534391442, guid: 8f509920698552243aea0fdd9531489d, type: 3}
       propertyPath: zoomMaxDistance
-      value: 10000
+      value: 200000
       objectReference: {fileID: 0}
     - target: {fileID: 1788088912534391452, guid: 8f509920698552243aea0fdd9531489d, type: 3}
       propertyPath: m_Follow
@@ -2114,7 +2121,7 @@ PrefabInstance:
       objectReference: {fileID: 517199705}
     - target: {fileID: 1788088912534391453, guid: 8f509920698552243aea0fdd9531489d, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1788088912534391453, guid: 8f509920698552243aea0fdd9531489d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2236,7 +2243,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4611607844212138040, guid: 14e215519d469ad4bb7460ef7da14f54, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4611607844212138040, guid: 14e215519d469ad4bb7460ef7da14f54, type: 3}
       propertyPath: m_LocalPosition.x

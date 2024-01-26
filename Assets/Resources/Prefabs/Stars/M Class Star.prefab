@@ -19429,7 +19429,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583537940577887413}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 500, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 583537940488101641}
@@ -19451,7 +19451,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diameter: 100
-  starSphereColor: {r: 1, g: 0.15686275, b: 0, a: 0}
   surfaceColor: {r: 1, g: 0.6, b: 0.19215687, a: 0}
   coronaColor: {r: 0.39607844, g: 0, b: 0, a: 0}
   coronalMassEjectionColor: {r: 1, g: 0.7058532, b: 0, a: 0}
