@@ -905,7 +905,7 @@ MonoBehaviour:
   cameraAnchorLookPointYPos: 0
   cameraMaxYClamp: 200
   cameraMinYClamp: -200
-  zoomMinDistance: 50
+  zoomMinDistance: 5
   zoomMaxDistance: 20000
   zoomMinMultiplier: 100
   zoomMaxMultiplier: 20000
@@ -1153,6 +1153,18 @@ PrefabInstance:
     - target: {fileID: 4512592108504982333, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512592108965773961, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512592108965773961, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512592108965773961, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4512592108965773963, guid: aa61fefd75f20214d821f84034dc104d, type: 3}
       propertyPath: m_Enabled
@@ -1496,18 +1508,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec79ddc855ea54d8bb0e3174285bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryNumberOfPoints: 20000
-  primaryTurnFraction: 0.20003
-  primaryDistanceFactor: 200000
-  primaryLocationNoiseXZ: 20000
-  primaryMinLocationNoiseXZ: 4000
-  primaryLocationNoiseY: 5000
-  secondaryNumberOfPoints: 5000
+  primaryNumberOfPoints: 30000
+  primaryTurnFraction: 0.200015
+  primaryDistanceFactor: 400000
+  primaryLocationNoiseXZ: 80000
+  primaryMinLocationNoiseXZ: 2000
+  primaryLocationNoiseY: 1000
+  secondaryNumberOfPoints: 10000
   secondaryTurnFraction: 1.618034
-  secondaryDistanceFactor: 200000
-  secondaryLocationNoiseXZ: 10000
+  secondaryDistanceFactor: 320000
+  secondaryLocationNoiseXZ: 20000
   secondaryMinLocationNoiseXZ: 0
-  secondaryLocationNoiseY: 5000
+  secondaryLocationNoiseY: 1000
   minDistanceBetweenPoints: 100
   testCubePrefabBlue: {fileID: 6859995120686295600, guid: 92cd971fa96401a498363df1b3c0877c, type: 3}
   testCubePrefabRed: {fileID: 7639165620773984066, guid: 6e0d5c3dc17077745ad504fd994c47d7, type: 3}
