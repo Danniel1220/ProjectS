@@ -16,21 +16,21 @@ public class GalaxyFactory : MonoBehaviour
 
     [SerializeField] private int primaryNumberOfPoints;
     [SerializeField] public double primaryTurnFraction;
-    [SerializeField] private double primaryTurnOffset;
-    [SerializeField] private double primaryDistanceFactor;
-    [SerializeField] private double primaryLocationNoiseXZ;
-    [SerializeField] private double primaryMinLocationNoiseXZ;
-    [SerializeField] private double primaryLocationNoiseY;
+    [SerializeField] private float primaryTurnOffset;
+    [SerializeField] private float primaryDistanceFactor;
+    [SerializeField] private float primaryLocationNoiseXZ;
+    [SerializeField] private float primaryMinLocationNoiseXZ;
+    [SerializeField] private float primaryLocationNoiseY;
 
     [SerializeField] private int secondaryNumberOfPoints;
     [SerializeField] public double secondaryTurnFraction;
-    [SerializeField] private double secondaryTurnOffset;
-    [SerializeField] private double secondaryDistanceFactor;
-    [SerializeField] private double secondaryLocationNoiseXZ;
-    [SerializeField] private double secondaryMinLocationNoiseXZ;
-    [SerializeField] private double secondaryLocationNoiseY;
+    [SerializeField] private float secondaryTurnOffset;
+    [SerializeField] private float secondaryDistanceFactor;
+    [SerializeField] private float secondaryLocationNoiseXZ;
+    [SerializeField] private float secondaryMinLocationNoiseXZ;
+    [SerializeField] private float secondaryLocationNoiseY;
 
-    [SerializeField] private double minDistanceBetweenPoints;
+    [SerializeField] private float minDistanceBetweenPoints;
 
     [SerializeField] private GameObject testCubePrefabBlue;
     [SerializeField] private GameObject testCubePrefabRed;
@@ -61,23 +61,23 @@ public class GalaxyFactory : MonoBehaviour
     private DateTime galaxyGenerationTimeEnd;
     private TimeSpan galaxyGenerationTimeElapsed;
 
-    public double testCubeLocalScale;
+    public float testCubeLocalScale;
 
     public struct PointsOnDiskSettings
     {
         public int numberOfPoints;
         public double turnFraction;
-        public double turnOffset;
-        public double distanceFactor;
-        public double locationNoiseXZ;
-        public double locationNoiseY;
-        public double minLocationNoiseXZ;
+        public float turnOffset;
+        public float distanceFactor;
+        public float locationNoiseXZ;
+        public float locationNoiseY;
+        public float minLocationNoiseXZ;
         public bool decreaseXNoiseByDistance;
         public bool decreaseYNoiseByDistance;
         public bool decreaseZNoiseByDistance;
         public DiskType diskType;
 
-        public PointsOnDiskSettings(int numberOfPoints, double turnFraction, double turnOffset, double distanceFactor, double locationNoiseXZ, double locationNoiseY, double minLocationNoiseXZ, bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance, DiskType diskType)
+        public PointsOnDiskSettings(int numberOfPoints, double turnFraction, float turnOffset, float distanceFactor, float locationNoiseXZ, float locationNoiseY, float minLocationNoiseXZ, bool decreaseXNoiseByDistance, bool decreaseYNoiseByDistance, bool decreaseZNoiseByDistance, DiskType diskType)
         {
             this.numberOfPoints = numberOfPoints;
             this.turnFraction = turnFraction;
@@ -158,24 +158,24 @@ public class GalaxyFactory : MonoBehaviour
         for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
             // computing points on a circle with a specific turn fraction that forms a galaxy shape
-            double distance = i / (diskSettings.numberOfPoints - 1f);
-            double angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = (float)(2 * Mathf.PI * diskSettings.turnFraction * i);
 
-            double pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
-            double pointY = 0;
-            double pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
 
-            double noiseX;
-            double noiseY;
-            double noiseZ;
+            float noiseX;
+            float noiseY;
+            float noiseZ;
 
             // mapping the distance to center to the inverse of maximum location noise,
             // this way the further away from the center a point is,
             // we can decrease the location noise on any of the 3 axis, if required
-            double distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
-            double mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
-            double mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
-            double mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+            float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+            float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+            float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+            float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
 
             // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
             if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
@@ -190,9 +190,9 @@ public class GalaxyFactory : MonoBehaviour
             if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
             else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
 
-            double pointXAfterNoise = pointX + noiseX;
-            double pointYAfterNoise = pointY + noiseY;
-            double pointZAfterNoise = pointZ + noiseZ;
+            float pointXAfterNoise = pointX + noiseX;
+            float pointYAfterNoise = pointY + noiseY;
+            float pointZAfterNoise = pointZ + noiseZ;
 
             starFactory.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
 
@@ -205,7 +205,7 @@ public class GalaxyFactory : MonoBehaviour
         if (diskSettings.diskType == DiskType.secondary) { Debug.Log("[debug] set secondary flag to true"); secondaryDiskGeneratedFlag = true; }
     }
 
-    public IEnumerator removeOverlappedStarSystemsEnumerator(double minDistance)
+    public IEnumerator removeOverlappedStarSystemsEnumerator(float minDistance)
     {
         // skip removing star systems while both flags are false, meaning the galaxy is not done generating yet
         while (primaryDiskGeneratedFlag == false || secondaryDiskGeneratedFlag == false) yield return null;
@@ -266,25 +266,25 @@ public class GalaxyFactory : MonoBehaviour
         for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
             // computing points on a circle with a specific turn fraction that forms a galaxy shape
-            double distance = i / (diskSettings.numberOfPoints - 1f);
-            double angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = (float)(2 * Mathf.PI * diskSettings.turnFraction * i);
 
-            double pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
-            double pointY = 0;
-            double pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
 
-            double noiseX;
-            double noiseY;
-            double noiseZ;
+            float noiseX;
+            float noiseY;
+            float noiseZ;
 
             // mapping the distance to center to the inverse of maximum location noise,
             // this way the further away from the center a point is,
             // we can potentially decrease the location noise if required,
             // on any of the 3 axis
-            double distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
-            double mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
-            double mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
-            double mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+            float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+            float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+            float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+            float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
 
             // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
             if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
@@ -298,9 +298,9 @@ public class GalaxyFactory : MonoBehaviour
             if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
             else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
 
-            double pointXAfterNoise = pointX + noiseX;
-            double pointYAfterNoise = pointY + noiseY;
-            double pointZAfterNoise = pointZ + noiseZ;
+            float pointXAfterNoise = pointX + noiseX;
+            float pointYAfterNoise = pointY + noiseY;
+            float pointZAfterNoise = pointZ + noiseZ;
 
             starFactory.createStarSystem(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
 
@@ -308,7 +308,7 @@ public class GalaxyFactory : MonoBehaviour
         }
     }
 
-    public void removeOverlappedStarSystems(double minDistance)
+    public void removeOverlappedStarSystems(float minDistance)
     {
         int checksMade = 0;
         // for each chunk
@@ -412,27 +412,27 @@ public class GalaxyFactory : MonoBehaviour
         for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
             // computing points on a circle with a specific turn fraction that forms a galaxy shape
-            double distance = i / (diskSettings.numberOfPoints - 1f);
-            double angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = (float)(2 * Mathf.PI * diskSettings.turnFraction * i);
 
-            double pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
-            double pointY = 0;
-            double pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
 
             if (noise)
             {
-                double noiseX;
-                double noiseY;
-                double noiseZ;
+                float noiseX;
+                float noiseY;
+                float noiseZ;
 
                 // mapping the distance to center to the inverse of maximum location noise,
                 // this way the further away from the center a point is,
                 // we can potentially decrease the location noise if required,
                 // on any of the 3 axis
-                double distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
-                double mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
-                double mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
-                double mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+                float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+                float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+                float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+                float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
 
                 // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
                 if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
@@ -446,9 +446,9 @@ public class GalaxyFactory : MonoBehaviour
                 if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
                 else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
 
-                double pointXAfterNoise = pointX + noiseX;
-                double pointYAfterNoise = pointY + noiseY;
-                double pointZAfterNoise = pointZ + noiseZ;
+                float pointXAfterNoise = pointX + noiseX;
+                float pointYAfterNoise = pointY + noiseY;
+                float pointZAfterNoise = pointZ + noiseZ;
 
                 if (i % 2 == 0)
                 {
@@ -492,28 +492,28 @@ public class GalaxyFactory : MonoBehaviour
         for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
             // computing points on a circle with a specific turn fraction that forms a galaxy shape
-            double distance = (i / (diskSettings.numberOfPoints - 1f));
-            double angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
+            float distance = (i / (diskSettings.numberOfPoints - 1f));
+            float angle = (float)(2 * Mathf.PI * diskSettings.turnFraction * i);
             angle += diskSettings.turnOffset;
 
-            double pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
-            double pointY = 0;
-            double pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
 
             if (noise)
             {
-                double noiseX;
-                double noiseY;
-                double noiseZ;
+                float noiseX;
+                float noiseY;
+                float noiseZ;
 
                 // mapping the distance to center to the inverse of maximum location noise,
                 // this way the further away from the center a point is,
                 // we can potentially decrease the location noise if required,
                 // on any of the 3 axis
-                double distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
-                double mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
-                double mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
-                double mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+                float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+                float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+                float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+                float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
 
                 // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
                 if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
@@ -527,9 +527,9 @@ public class GalaxyFactory : MonoBehaviour
                 if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
                 else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
 
-                double pointXAfterNoise = pointX + noiseX;
-                double pointYAfterNoise = pointY + noiseY;
-                double pointZAfterNoise = pointZ + noiseZ;
+                float pointXAfterNoise = pointX + noiseX;
+                float pointYAfterNoise = pointY + noiseY;
+                float pointZAfterNoise = pointZ + noiseZ;
 
                 if (diskSettings.diskType == DiskType.primary)
                 {
@@ -577,26 +577,26 @@ public class GalaxyFactory : MonoBehaviour
         for (int i = 0; i < diskSettings.numberOfPoints; i++)
         {
             // computing points on a circle with a specific turn fraction that forms a galaxy shape
-            double distance = i / (diskSettings.numberOfPoints - 1f);
-            double angle = 2 * Mathf.PI * diskSettings.turnFraction * i;
-            double pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
-            double pointY = 0;
-            double pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
+            float distance = i / (diskSettings.numberOfPoints - 1f);
+            float angle = (float)(2 * Mathf.PI * diskSettings.turnFraction * i);
+            float pointX = distance * Mathf.Cos(angle) * diskSettings.distanceFactor;
+            float pointY = 0;
+            float pointZ = distance * Mathf.Sin(angle) * diskSettings.distanceFactor;
 
             if (noise)
             {
-                double noiseX;
-                double noiseY;
-                double noiseZ;
+                float noiseX;
+                float noiseY;
+                float noiseZ;
 
                 // mapping the distance to center to the inverse of maximum location noise,
                 // this way the further away from the center a point is,
                 // we can potentially decrease the location noise if required,
                 // on any of the 3 axis
-                double distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
-                double mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
-                double mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
-                double mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
+                float distanceToCenter = Vector3.Distance(new Vector3(pointX, 0, pointZ), Vector3.zero);
+                float mapInput = Mathf.InverseLerp(diskSettings.distanceFactor, 0, distanceToCenter);
+                float mapOutputXZ = Mathf.Lerp(0, diskSettings.locationNoiseXZ, mapInput);
+                float mapOutputY = Mathf.Lerp(0, diskSettings.locationNoiseY, mapInput);
 
                 // making sure the location noise doesnt reach 0, and is atleast at a minimum threshhold value (0 noise creates bad looking straight line point formations)
                 if (mapOutputXZ < diskSettings.minLocationNoiseXZ) mapOutputXZ = diskSettings.minLocationNoiseXZ;
@@ -610,9 +610,9 @@ public class GalaxyFactory : MonoBehaviour
                 if (diskSettings.decreaseZNoiseByDistance) noiseZ = Random.Range(-mapOutputXZ, mapOutputXZ);
                 else noiseZ = Random.Range(-diskSettings.locationNoiseXZ, diskSettings.locationNoiseXZ);
 
-                double pointXAfterNoise = pointX + noiseX;
-                double pointYAfterNoise = pointY + noiseY;
-                double pointZAfterNoise = pointZ + noiseZ;
+                float pointXAfterNoise = pointX + noiseX;
+                float pointYAfterNoise = pointY + noiseY;
+                float pointZAfterNoise = pointZ + noiseZ;
 
                 drawTestCubeGPUInstanced("green", new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
                 //cubesMatrixGreen[i] = Matrix4x4.Translate(new Vector3(pointXAfterNoise, pointYAfterNoise, pointZAfterNoise));
