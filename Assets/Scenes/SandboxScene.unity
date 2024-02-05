@@ -1248,8 +1248,8 @@ MonoBehaviour:
     decreaseYNoiseByDistance: 1
     cubeColor: 0
   - numberOfPoints: 10000
-    turnFraction: 0.500095
-    turnOffset: 1
+    turnFraction: 0.0001
+    turnOffset: -1
     distanceFactor: 200000
     locationNoiseXZ: 12000
     locationNoiseY: 400
