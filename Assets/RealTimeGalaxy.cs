@@ -6,7 +6,7 @@ using UnityEngine;
 public class RealTimeGalaxy : MonoBehaviour
 {
     public GalaxyFactory galaxyFactory;
-    [Header("One Time Buttons")]
+    [Header("Generation")]
     public bool generate = false;
     public bool clear = false;
 
@@ -20,22 +20,39 @@ public class RealTimeGalaxy : MonoBehaviour
     public bool incrementSecondaryTurnFraction = false;
     public float turnSpeed = 0.0001f;
 
-    // Update is called once per frame
+    private bool frameSkipAux;
+
+    void Start()
+    {
+        frameSkipAux = false;
+    }
+
     void Update()
     {
         if (generate)
         {
-            DateTime time = DateTime.Now;
+            
 
-            clearChildren();
-            galaxyFactory.generateCubesGalaxy(galaxyFactory.getDiskSettings());
-
-            generate = false;
-
-            TimeSpan time2 = DateTime.Now - time;
-            Debug.Log("generate time: " + time2);
+            if (frameSkipAux == false)
+            {
+                DateTime time = DateTime.Now;
+                clearChildren();
+                frameSkipAux = true;
+                TimeSpan time2 = DateTime.Now - time;
+                Debug.Log("clear time: " + time2);
+            }
+            else
+            {
+                DateTime time = DateTime.Now;
+                galaxyFactory.generateCubesGalaxy(galaxyFactory.getDiskSettings());
+                generate = false;
+                frameSkipAux = false;
+                TimeSpan time2 = DateTime.Now - time;
+                Debug.Log("generate time: " + time2);
+            }
         }
-        else if (clear)
+
+        if (clear)
         {
             DateTime time = DateTime.Now;
 

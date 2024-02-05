@@ -1237,23 +1237,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diskSettings:
   - numberOfPoints: 10000
-    turnFraction: 0.5001
+    turnFraction: 0.500095
     turnOffset: 0
-    distanceFactor: 12000
-    locationNoiseXZ: 16000
+    distanceFactor: 200000
+    locationNoiseXZ: 12000
     locationNoiseY: 400
-    minLocationNoiseXZ: 2000
+    minLocationNoiseXZ: 4000
     minLocationNoiseY: 0
-    decreaseXZNoiseByDistance: 0
-    decreaseYNoiseByDistance: 0
+    decreaseXZNoiseByDistance: 1
+    decreaseYNoiseByDistance: 1
     cubeColor: 0
+  - numberOfPoints: 10000
+    turnFraction: 0.500095
+    turnOffset: 1
+    distanceFactor: 200000
+    locationNoiseXZ: 12000
+    locationNoiseY: 400
+    minLocationNoiseXZ: 4000
+    minLocationNoiseY: 0
+    decreaseXZNoiseByDistance: 1
+    decreaseYNoiseByDistance: 1
+    cubeColor: 4
   minDistanceBetweenPoints: 100
   testCubePrefab: {fileID: 5484625322224847510, guid: beea90eebafc0d84080b3712fe45858d, type: 3}
   testCubeMaterialRed: {fileID: 2100000, guid: 01de44035857af14db219cf1c53807d0, type: 2}
   testCubeMaterialOrange: {fileID: 2100000, guid: b374e33c5675af24cb2bd29d2e4571cd, type: 2}
   testCubeMaterialYellow: {fileID: 2100000, guid: 18c120c73abec0d4cbaff143e306f527, type: 2}
   testCubeMaterialGreen: {fileID: 2100000, guid: 15cfe33bb1a390b409b91cc9380479c5, type: 2}
-  testCubeMaterialBlue: {fileID: 2100000, guid: 632fb3e2635e1cf4d83e820b94b0d56c, type: 2}
+  testCubeMaterialBlue: {fileID: 2100000, guid: d14c95ad71d7cc54d9e09a90618fc2cd, type: 2}
   testCubeMaterialPurple: {fileID: 2100000, guid: 632fb3e2635e1cf4d83e820b94b0d56c, type: 2}
   testCubeMaterialWhite: {fileID: 2100000, guid: 4f7fbd9ba04d6eb429c2c825b7db689d, type: 2}
   testCubeLocalScale: 40
