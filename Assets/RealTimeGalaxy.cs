@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,39 +25,25 @@ public class RealTimeGalaxy : MonoBehaviour
     {
         if (generate)
         {
+            DateTime time = DateTime.Now;
+
             clearChildren();
-            galaxyFactory.setDiskSettings();
-            galaxyFactory.createTestCubesOnDiskPermanent(galaxyFactory.primaryDiskSettings, true);
-            galaxyFactory.createTestCubesOnDiskPermanent(galaxyFactory.secondaryDiskSettings, true);
+            galaxyFactory.generateCubesGalaxy(galaxyFactory.getDiskSettings());
+
             generate = false;
+
+            TimeSpan time2 = DateTime.Now - time;
+            Debug.Log("generate time: " + time2);
         }
-        if (clear)
+        else if (clear)
         {
+            DateTime time = DateTime.Now;
+
             clearChildren();
             clear = false;
-        }
-        if (running)
-        {
-            clearChildren();
-            galaxyFactory.setDiskSettings();
 
-            if (runningPrimary)
-            {
-                galaxyFactory.createTestCubesOnDisk(galaxyFactory.primaryDiskSettings, true);
-            }
-            if (runningSecondary)
-            {
-                galaxyFactory.createTestCubesOnDiskGreen(galaxyFactory.secondaryDiskSettings, true);
-            }
-
-            if (incrementPrimaryTurnFraction)
-            {
-                galaxyFactory.primaryTurnFraction += turnSpeed * Time.deltaTime;
-            }
-            if (incrementSecondaryTurnFraction)
-            {
-                galaxyFactory.secondaryTurnFraction += turnSpeed * Time.deltaTime;
-            }
+            TimeSpan time2 = DateTime.Now - time;
+            Debug.Log("clear time: " + time2);
         }
     }
 
