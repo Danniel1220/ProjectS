@@ -1240,10 +1240,12 @@ MonoBehaviour:
     turnFraction: 0.500095
     turnOffset: 0
     distanceFactor: 200000
-    locationNoiseXZ: 12000
+    locationNoiseX: 20000
     locationNoiseY: 400
-    minLocationNoiseXZ: 4000
+    locationNoiseZ: 20000
+    minLocationNoiseX: 4000
     minLocationNoiseY: 0
+    minLocationNoiseZ: 4000
     decreaseXZNoiseByDistance: 1
     decreaseYNoiseByDistance: 1
     cubeColor: 0
@@ -1251,13 +1253,67 @@ MonoBehaviour:
     turnFraction: 0.0001
     turnOffset: -1
     distanceFactor: 200000
-    locationNoiseXZ: 12000
+    locationNoiseX: 20000
     locationNoiseY: 400
-    minLocationNoiseXZ: 4000
+    locationNoiseZ: 20000
+    minLocationNoiseX: 4000
     minLocationNoiseY: 0
+    minLocationNoiseZ: 4000
     decreaseXZNoiseByDistance: 1
     decreaseYNoiseByDistance: 1
     cubeColor: 4
+  - numberOfPoints: 10000
+    turnFraction: 0.0001
+    turnOffset: 1
+    distanceFactor: 200000
+    locationNoiseX: 20000
+    locationNoiseY: 400
+    locationNoiseZ: 20000
+    minLocationNoiseX: 4000
+    minLocationNoiseY: 0
+    minLocationNoiseZ: 4000
+    decreaseXZNoiseByDistance: 1
+    decreaseYNoiseByDistance: 1
+    cubeColor: 4
+  - numberOfPoints: 2500
+    turnFraction: 0.0002
+    turnOffset: 4
+    distanceFactor: 100000
+    locationNoiseX: 20000
+    locationNoiseY: 400
+    locationNoiseZ: 20000
+    minLocationNoiseX: 4000
+    minLocationNoiseY: 0
+    minLocationNoiseZ: 4000
+    decreaseXZNoiseByDistance: 1
+    decreaseYNoiseByDistance: 1
+    cubeColor: 3
+  - numberOfPoints: 12000
+    turnFraction: 1.618034
+    turnOffset: 0
+    distanceFactor: 180000
+    locationNoiseX: 12000
+    locationNoiseY: 400
+    locationNoiseZ: 12000
+    minLocationNoiseX: 4000
+    minLocationNoiseY: 0
+    minLocationNoiseZ: 4000
+    decreaseXZNoiseByDistance: 0
+    decreaseYNoiseByDistance: 1
+    cubeColor: 5
+  - numberOfPoints: 0
+    turnFraction: 1.618034
+    turnOffset: 0
+    distanceFactor: 50000
+    locationNoiseX: 40000
+    locationNoiseY: 0
+    locationNoiseZ: 1000
+    minLocationNoiseX: 0
+    minLocationNoiseY: 0
+    minLocationNoiseZ: 0
+    decreaseXZNoiseByDistance: 0
+    decreaseYNoiseByDistance: 0
+    cubeColor: 6
   minDistanceBetweenPoints: 100
   testCubePrefab: {fileID: 5484625322224847510, guid: beea90eebafc0d84080b3712fe45858d, type: 3}
   testCubeMaterialRed: {fileID: 2100000, guid: 01de44035857af14db219cf1c53807d0, type: 2}
@@ -1267,7 +1323,7 @@ MonoBehaviour:
   testCubeMaterialBlue: {fileID: 2100000, guid: d14c95ad71d7cc54d9e09a90618fc2cd, type: 2}
   testCubeMaterialPurple: {fileID: 2100000, guid: 632fb3e2635e1cf4d83e820b94b0d56c, type: 2}
   testCubeMaterialWhite: {fileID: 2100000, guid: 4f7fbd9ba04d6eb429c2c825b7db689d, type: 2}
-  testCubeLocalScale: 40
+  testCubeLocalScale: 100
 --- !u!114 &1986587661
 MonoBehaviour:
   m_ObjectHideFlags: 0
