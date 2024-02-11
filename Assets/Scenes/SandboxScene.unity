@@ -1235,7 +1235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ec79ddc855ea54d8bb0e3174285bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diskSettings:
+  diskSettingsList:
   - numberOfPoints: 10000
     turnFraction: 0.500095
     turnOffset: 0
@@ -1301,19 +1301,6 @@ MonoBehaviour:
     decreaseXZNoiseByDistance: 0
     decreaseYNoiseByDistance: 1
     cubeColor: 5
-  - numberOfPoints: 0
-    turnFraction: 1.618034
-    turnOffset: 0
-    distanceFactor: 50000
-    locationNoiseX: 40000
-    locationNoiseY: 0
-    locationNoiseZ: 1000
-    minLocationNoiseX: 0
-    minLocationNoiseY: 0
-    minLocationNoiseZ: 0
-    decreaseXZNoiseByDistance: 0
-    decreaseYNoiseByDistance: 0
-    cubeColor: 6
   minDistanceBetweenPoints: 100
   testCubePrefab: {fileID: 5484625322224847510, guid: beea90eebafc0d84080b3712fe45858d, type: 3}
   testCubeMaterialRed: {fileID: 2100000, guid: 01de44035857af14db219cf1c53807d0, type: 2}
@@ -1345,6 +1332,8 @@ MonoBehaviour:
   incrementPrimaryTurnFraction: 0
   incrementSecondaryTurnFraction: 0
   turnSpeed: 0.001
+  applyPercentage: 0
+  percentage: 0
 --- !u!4 &1986587662
 Transform:
   m_ObjectHideFlags: 0

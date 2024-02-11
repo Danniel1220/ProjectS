@@ -20,6 +20,11 @@ public class RealTimeGalaxy : MonoBehaviour
     public bool incrementSecondaryTurnFraction = false;
     public float turnSpeed = 0.0001f;
 
+
+    [Header("Increase/Decrease Galaxy Size")]
+    public bool applyPercentage;
+    public float percentage;
+
     private bool frameSkipAux;
 
     void Start()
@@ -61,6 +66,12 @@ public class RealTimeGalaxy : MonoBehaviour
 
             TimeSpan time2 = DateTime.Now - time;
             Debug.Log("clear time: " + time2);
+        }
+
+        if (applyPercentage)
+        {
+            galaxyFactory.changeGalaxySizeParams(percentage);
+            applyPercentage = false;
         }
     }
 

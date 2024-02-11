@@ -16,7 +16,7 @@ public class GalaxyFactory : MonoBehaviour
     private ChunkSystem chunkSystem;
     private StarFactory starFactory;
 
-    [SerializeField] private List<DiskSettings> diskSettings;
+    [SerializeField] private List<DiskSettings> diskSettingsList;
     [SerializeField] private float minDistanceBetweenPoints;
 
     [SerializeField] private GameObject testCubePrefab;
@@ -259,6 +259,22 @@ public class GalaxyFactory : MonoBehaviour
 
     public List<DiskSettings> getDiskSettings()
     {
-        return diskSettings;
+        return diskSettingsList;
+    }
+
+    public void changeGalaxySizeParams(float percentage)
+    {
+        List<DiskSettings> diskSettingsCopy = diskSettingsList;
+
+        for (int i = 0; i < diskSettingsList.Count; i++)
+        {
+            DiskSettings auxSettings = diskSettingsList[i];
+            auxSettings.distanceFactor = auxSettings.distanceFactor * percentage;
+            auxSettings.locationNoiseX = auxSettings.locationNoiseX * percentage;
+            auxSettings.locationNoiseZ = auxSettings.locationNoiseZ * percentage;
+            auxSettings.minLocationNoiseX = auxSettings.minLocationNoiseX * percentage;
+            auxSettings.minLocationNoiseZ = auxSettings.minLocationNoiseZ * percentage;
+            diskSettingsList[i] = auxSettings;
+        }
     }
 }
